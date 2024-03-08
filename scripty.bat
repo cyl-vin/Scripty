@@ -10,7 +10,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.3
+echo                 /_/        /____/ v0.4
 echo ----------------------------------------------------------------
 echo Type the number of the option you want to choose and press ENTER
 echo ----------------------------------------------------------------
@@ -22,7 +22,7 @@ echo ----------------------------------------------------------------
 echo Type Exit to close this program from anywhere
 echo Type Leave anywhere to come back to this menu
 echo ----------------------------------------------------------------
-set /p input=Main Menu:-$
+set /p "input=Main Menu:-$ "
 
 if "%input%"=="0" exit
 if "%input%"=="1" goto pingcheck
@@ -40,7 +40,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.3
+echo                 /_/        /____/ v0.4
 echo ----------------------------------------------------------------
 echo Type a website URL or IP Address
 echo below to check if you are connected to
@@ -66,14 +66,20 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.3
+echo                 /_/        /____/ v0.4
 echo ----------------------------------------------------------------
 echo How would You like to Organize the files in this directory?
 echo ----------------------------------------------------------------
-echo Type X to organize all files by extension into sperate folders
+echo Type x to organize all files by extension into sperate folders
+echo Type m to organize most files by general type into seperate folders
+echo (combines video, audio, image, text, present, exe, disc, zip into one command)
 echo Type video to organize video files into a folder called "Videos"
+echo Type audio to organize audio files into a folder called "Audio"
 echo Type image to organize image files into a folder called "Images"
 echo Type text to organize text-based files into a folder called "Documents"
+echo Type present to organize presentation files into a folder called "Presentation"
+echo Type exe to organize executable files into a folder called "Executables"
+echo Type disc to organize Disc/Media files into a folder called "Disc_Images"
 echo Type zip to organize compressed file types into a folder called "Compressed_Files"
 echo Type Leave and hit ENTER to go to the Main Menu
 echo Type Exit and hit ENTER to exit this program
@@ -81,9 +87,14 @@ echo ----------------------------------------------------------------
 set /p "input=Batch:-$ "
 
 if "%input%"=="x" goto extension
+if "%input%"=="m" goto organize_most
 if "%input%"=="video" goto video
+if "%input%"=="audio" goto audio
 if "%input%"=="image" goto image
 if "%input%"=="text" goto text
+if "%input%"=="present" goto pres
+if "%input%"=="exe" goto executables
+if "%input%"=="disc" goto disc_images
 if "%input%"=="zip" goto compress
 if "%input%"=="exit" exit
 if "%input%"=="leave" goto main
@@ -100,11 +111,30 @@ if not exist "!rootdir!\Videos" (
 )
 
 :: Move video files (might add more extensions)
-for %%F in ("%rootdir%\*.mp4" "%rootdir%\*.mkv" "%rootdir%\*.avi" "%rootdir%\*.mov" "%rootdir%\*.webm") do (
+for %%F in ("%rootdir%\*.3g2" "%rootdir%\*.3gp" "%rootdir%\*.avi" "%rootdir%\*.flv" "%rootdir%\*.h264" "%rootdir%\*.m4v" "%rootdir%\*.mkv" "%rootdir%\*.mov" "%rootdir%\*.mp4" "%rootdir%\*.mpg" "%rootdir%\*.mpeg" "%rootdir%\*.rm" "%rootdir%\*.swf" "%rootdir%\*.vob" "%rootdir%\*.webm" "%rootdir%\*.wmv") do (
     move "%%F" "!rootdir!\Videos"
 )
 
 echo Video files have been moved to the 'Videos' folder.
+pause
+goto organize
+
+:audio
+cls
+:: Get the current directory where the batch script is located
+set "rootdir=%~dp0"
+
+:: Create "Videos" folder if it doesn't exist
+if not exist "!rootdir!\Audio" (
+    mkdir "!rootdir!\Audio"
+)
+
+:: Move audio files (might add more extensions)
+for %%F in ("%rootdir%\*.aif" "%rootdir%\*.cda" "%rootdir%\*.mid" "%rootdir%\*.midi" "%rootdir%\*.mp3" "%rootdir%\*.mpa" "%rootdir%\*.ogg" "%rootdir%\*.wav" "%rootdir%\*.wma" "%rootdir%\*.wpl") do (
+    move "%%F" "!rootdir!\Audio"
+)
+
+echo Audio files have been moved to the 'Audio' folder.
 pause
 goto organize
 
@@ -119,7 +149,7 @@ if not exist "!rootdir!\Images" (
 )
 
 :: Move picture files (might add more extensions)
-for %%F in ("%rootdir%\*.jpg" "%rootdir%\*.png" "%rootdir%\*.bmp" "%rootdir%\*.gif" "%rootdir%\*.ico" "%rootdir%\*.jpeg" "%rootdir%\*.tif" "%rootdir%\*.tiff" "%rootdir%\*.psd" "%rootdir%\*.svg" ) do (
+for %%F in ( "%rootdir%\*.ai" "%rootdir%\*.jpg" "%rootdir%\*.png" "%rootdir%\*.bmp" "%rootdir%\*.gif" "%rootdir%\*.ico" "%rootdir%\*.jpeg" "%rootdir%\*.tif" "%rootdir%\*.tiff" "%rootdir%\*.ps" "%rootdir%\*.psd" "%rootdir%\*.svg" "%rootdir%\*.webp") do (
     move "%%F" "!rootdir!\Images"
 )
 
@@ -138,11 +168,68 @@ if not exist "!rootdir!\Documents" (
 )
 
 :: Move text files (might add more extensions)
-for %%F in ("%rootdir%\*.txt" "%rootdir%\*.ppt" "%rootdir%\*.pptx" "%rootdir%\*.pps" "%rootdir%\*.doc" "%rootdir%\*.docx" "%rootdir%\*.pdf" "%rootdir%\*.odt" "%rootdir%\*.aspx" "%rootdir%\*.cer" "%rootdir%\*.cfm" "%rootdir%\*.csr" "%rootdir%\*.html" "%rootdir%\*.htm" "%rootdir%\*.xls" "%rootdir%\*.xlsx") do (
+for %%F in ("%rootdir%\*.txt" "%rootdir%\*.rtf" "%rootdir%\*.tex" "%rootdir%\*.doc" "%rootdir%\*.docx" "%rootdir%\*.pdf" "%rootdir%\*.odt" "%rootdir%\*.aspx" "%rootdir%\*.cer" "%rootdir%\*.cfm" "%rootdir%\*.csr" "%rootdir%\*.html" "%rootdir%\*.htm" "%rootdir%\*.xls" "%rootdir%\*.xlsx" "%rootdir%\*.wpd") do (
     move "%%F" "!rootdir!\Documents"
 )
 
 echo Text-based files have been moved to the 'Documents' folder.
+pause
+goto organize
+
+:pres
+cls
+:: Get the current directory where the batch script is located
+set "rootdir=%~dp0"
+
+:: Create "Presentation" folder if it doesn't exist
+if not exist "!rootdir!\Presentation" (
+    mkdir "!rootdir!\Presentation"
+)
+
+:: Move Presentation files (might add more extensions)
+for %%F in ("%rootdir%\*.ppt" "%rootdir%\*.pptx" "%rootdir%\*.pps" "%rootdir%\*.odp" "%rootdir%\*.key") do (
+    move "%%F" "!rootdir!\Presentation"
+)
+
+echo Presentation files have been moved to the 'Presentation' folder.
+pause
+goto organize
+
+:executables
+cls
+:: Get the current directory where the batch script is located
+set "rootdir=%~dp0"
+
+:: Create "Executables" folder if it doesn't exist
+if not exist "!rootdir!\Executables" (
+    mkdir "!rootdir!\Executables"
+)
+
+:: Move Executable files (might add more extensions)
+for %%F in ("%rootdir%\*.apk" "%rootdir%\*.cgi" "%rootdir%\*.pl" "%rootdir%\*.com" "%rootdir%\*.exe" "%rootdir%\*.gadget" "%rootdir%\*.jar" "%rootdir%\*.msi" "%rootdir%\*.py" "%rootdir%\*.wsf") do (
+    move "%%F" "!rootdir!\Executables"
+)
+
+echo Executable files have been moved to the 'Executables' folder.
+pause
+goto organize
+
+:disc_images
+cls
+:: Get the current directory where the batch script is located
+set "rootdir=%~dp0"
+
+:: Create "Disc_Images" folder if it doesn't exist
+if not exist "!rootdir!\Disc_Images" (
+    mkdir "!rootdir!\Disc_Images"
+)
+
+:: Move Disc/Media files (might add more extensions)
+for %%F in ("%rootdir%\*.bin" "%rootdir%\*.dmg" "%rootdir%\*.iso" "%rootdir%\*.toast" "%rootdir%\*.vcd") do (
+    move "%%F" "!rootdir!\Disc_Images"
+)
+
+echo Disc/Media files have been moved to the 'Disc_Images' folder.
 pause
 goto organize
 
@@ -157,11 +244,72 @@ if not exist "!rootdir!\Compressed_Files" (
 )
 
 :: Move compressed files (might add more extensions)
-for %%F in ("%rootdir%\*.zip" "%rootdir%\*.rar" "%rootdir%\*.7z" "%rootdir%\*.gz" "%rootdir%\*.jar") do (
+for %%F in ("%rootdir%\*.7z" "%rootdir%\*.arj" "%rootdir%\*.deb" "%rootdir%\*.pkg" "%rootdir%\*.rar" "%rootdir%\*.rpm" "%rootdir%\*.tar.gz" "%rootdir%\*.z" "%rootdir%\*.zip") do (
     move "%%F" "!rootdir!\Compressed_Files"
 )
 
 echo Compressed file types have been moved to the 'Compressed_Files' folder.
+pause
+goto organize
+
+:organize_most
+cls
+:: Get the current directory where the batch script is located
+set "rootdir=%~dp0"
+
+:: Create necessary folders for sorting if they don't exist
+if not exist "!rootdir!\Videos" (
+    mkdir "!rootdir!\Videos"
+)
+if not exist "!rootdir!\Audio" (
+    mkdir "!rootdir!\Audio"
+)
+if not exist "!rootdir!\Images" (
+    mkdir "!rootdir!\Images"
+)
+if not exist "!rootdir!\Documents" (
+    mkdir "!rootdir!\Documents"
+)
+if not exist "!rootdir!\Presenation" (
+    mkdir "!rootdir!\Presentation"
+)
+if not exist "!rootdir!\Executables" (
+    mkdir "!rootdir!\Executables"
+)
+if not exist "!rootdir!\Disc_Images" (
+    mkdir "!rootdir!\Disc_Images"
+)
+if not exist "!rootdir!\Compressed_files" (
+    mkdir "!rootdir!\Compressed_Files"
+)
+
+:: Move all of the files
+for %%F in ("%rootdir%\*.3g2" "%rootdir%\*.3gp" "%rootdir%\*.avi" "%rootdir%\*.flv" "%rootdir%\*.h264" "%rootdir%\*.m4v" "%rootdir%\*.mkv" "%rootdir%\*.mov" "%rootdir%\*.mp4" "%rootdir%\*.mpg" "%rootdir%\*.mpeg" "%rootdir%\*.rm" "%rootdir%\*.swf" "%rootdir%\*.vob" "%rootdir%\*.webm" "%rootdir%\*.wmv") do (
+    move "%%F" "!rootdir!\Videos"
+)
+for %%F in ("%rootdir%\*.aif" "%rootdir%\*.cda" "%rootdir%\*.mid" "%rootdir%\*.midi" "%rootdir%\*.mp3" "%rootdir%\*.mpa" "%rootdir%\*.ogg" "%rootdir%\*.wav" "%rootdir%\*.wma" "%rootdir%\*.wpl") do (
+    move "%%F" "!rootdir!\Audio"
+)
+for %%F in ( "%rootdir%\*.ai" "%rootdir%\*.jpg" "%rootdir%\*.png" "%rootdir%\*.bmp" "%rootdir%\*.gif" "%rootdir%\*.ico" "%rootdir%\*.jpeg" "%rootdir%\*.tif" "%rootdir%\*.tiff" "%rootdir%\*.ps" "%rootdir%\*.psd" "%rootdir%\*.svg" "%rootdir%\*.webp") do (
+    move "%%F" "!rootdir!\Images"
+)
+for %%F in ("%rootdir%\*.txt" "%rootdir%\*.rtf" "%rootdir%\*.tex" "%rootdir%\*.doc" "%rootdir%\*.docx" "%rootdir%\*.pdf" "%rootdir%\*.odt" "%rootdir%\*.aspx" "%rootdir%\*.cer" "%rootdir%\*.cfm" "%rootdir%\*.csr" "%rootdir%\*.html" "%rootdir%\*.htm" "%rootdir%\*.xls" "%rootdir%\*.xlsx" "%rootdir%\*.wpd") do (
+    move "%%F" "!rootdir!\Documents"
+)
+for %%F in ("%rootdir%\*.ppt" "%rootdir%\*.pptx" "%rootdir%\*.pps" "%rootdir%\*.odp" "%rootdir%\*.key") do (
+    move "%%F" "!rootdir!\Presentation"
+)
+for %%F in ("%rootdir%\*.apk" "%rootdir%\*.cgi" "%rootdir%\*.pl" "%rootdir%\*.com" "%rootdir%\*.exe" "%rootdir%\*.gadget" "%rootdir%\*.jar" "%rootdir%\*.msi" "%rootdir%\*.py" "%rootdir%\*.wsf") do (
+    move "%%F" "!rootdir!\Executables"
+)
+for %%F in ("%rootdir%\*.bin" "%rootdir%\*.dmg" "%rootdir%\*.iso" "%rootdir%\*.toast" "%rootdir%\*.vcd") do (
+    move "%%F" "!rootdir!\Disc_Images"
+)
+for %%F in ("%rootdir%\*.7z" "%rootdir%\*.arj" "%rootdir%\*.deb" "%rootdir%\*.pkg" "%rootdir%\*.rar" "%rootdir%\*.rpm" "%rootdir%\*.tar.gz" "%rootdir%\*.z" "%rootdir%\*.zip") do (
+    move "%%F" "!rootdir!\Compressed_Files"
+)
+
+echo All files have been moved to their respective folders.
 pause
 goto organize
 
@@ -196,7 +344,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.3
+echo                 /_/        /____/ v0.4
 echo ----------------------------------------------------------------
 echo Rename file extensions (Unfinished)
 echo ----------------------------------------------------------------
@@ -204,7 +352,7 @@ echo Type change to CHANGE File extensions
 echo Type restore to REVERT to original File extensions
 echo Type leave to LEAVE this program
 echo ----------------------------------------------------------------
-set /p input=COMMAND?
+set /p "input=Command:-$ "
 
 if "%input%"=="change" goto safe
 if "%input%"=="restore" goto unsafe
@@ -520,7 +668,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.3
+echo                 /_/        /____/ v0.4
 echo ----------------------------------------------------------------
 echo Are you sure you want to LEAVE?
 echo ----------------------------------------------------------------
