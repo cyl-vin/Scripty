@@ -8,6 +8,7 @@ A collection of useful batch scripts written by myself in a single program. Alwa
 There are 2 versions of Scripty. The first is the regular scripty version which will usually be updated first and include new all of the new features.
 
 The second is Scripty-Color which just colors the scripty terminal and makes it really nice to look at.
+
 ![Scripty_Scripty-Color](https://github.com/cyl-vin/Scripty/assets/152368998/d99efc62-1747-4041-9527-f73b56d91369)
 
 
@@ -16,10 +17,12 @@ The second is Scripty-Color which just colors the scripty terminal and makes it 
 Currently, (as of March 7, 2024) Scripty includes:
 
 1. **Check Internet Status** - Allows you to type in any website or IP and sends a ping allows you to see if you are able to connect to it
+   
    ![Website/IP](https://github.com/cyl-vin/Scripty/assets/152368998/b003db3f-2da0-4f70-aed5-9bdd355bd56e)
 
 2. **The organization feature** - Placing Scripty in a folder with lots of unorganized files and running the organize features allows the files to be sorted by type or by file extension.
    _(I can add more file types if they are requested)_
+   
    ![Organizer](https://github.com/cyl-vin/Scripty/assets/152368998/6439d1cf-5bf9-4f9a-9685-83656442eaf1)
 
 
@@ -27,6 +30,7 @@ Currently, (as of March 7, 2024) Scripty includes:
 This is perfect if you have a "long-term" storage drive or folder with unused files that are important to you. This feature is finished now. _(I can add more file types if they are requested)_
 
    _**IMPORTANT NOTE: SCRIPTY WILL CHANGE THE FILE EXTENSIONS OF ALL FILES IN THE FOLDER INCLUDING SUBDRIRECTORIES**_
+   
    ![Extension_Changer](https://github.com/cyl-vin/Scripty/assets/152368998/7c56561c-d094-4ea5-a9a2-148006eb5a59)
 
 
