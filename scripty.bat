@@ -2,8 +2,15 @@
 setlocal enabledelayedexpansion
 
 :main
-title Cylvin's Collection Of Batch Programs
+title Scripty coded by cylvin
 cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.3
 echo ----------------------------------------------------------------
 echo Type the number of the option you want to choose and press ENTER
 echo ----------------------------------------------------------------
@@ -28,6 +35,13 @@ goto main
 title Checking Connectivity
 cls
 echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.3
+echo ----------------------------------------------------------------
 echo Type a website URL or IP Address
 echo below to check if you are connected to
 echo the internet or that device IP
@@ -46,6 +60,13 @@ goto pingcheck
 :organize
 cls
 
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.3
 echo ----------------------------------------------------------------
 echo How would You like to Organize the files in this directory?
 echo ----------------------------------------------------------------
@@ -169,6 +190,13 @@ goto organize
 
 :choice
 cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.3
 echo ----------------------------------------------------------------
 echo Rename file extensions (Unfinished)
 echo ----------------------------------------------------------------
@@ -486,6 +514,13 @@ goto choice
 
 :exit
 cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.3
 echo ----------------------------------------------------------------
 echo Are you sure you want to LEAVE?
 echo ----------------------------------------------------------------
