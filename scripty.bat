@@ -10,25 +10,29 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.4
+echo                 /_/        /____/ v0.5
 echo ----------------------------------------------------------------
 echo Type the number of the option you want to choose and press ENTER
 echo ----------------------------------------------------------------
 echo 1.) Check internet status
 echo 2.) Organize some files in this directory
 echo 3.) Change file extensions in this directory
-echo 0.) EXIT
+echo 4.) Generate a password of any length (includes special chars.)
+echo 0.) EXIT AND CLOSE SCRIPTY
 echo ----------------------------------------------------------------
-echo Type Exit to close this program from anywhere
+echo Type Exit to close Scripty from anywhere
 echo Type Leave anywhere to come back to this menu
 echo ----------------------------------------------------------------
-set /p "input=Main Menu:-$ "
+set /p "maininput=Main Menu:-$ "
 
-if "%input%"=="0" exit
-if "%input%"=="1" goto pingcheck
-if "%input%"=="2" goto organize
-if "%input%"=="3" goto choice
-if "%input%"=="exit" exit
+if "%maininput%"=="0" exit
+if "%maininput%"=="1" goto pingcheck
+if "%maininput%"=="2" goto organize
+if "%maininput%"=="3" goto choice
+if "%maininput%"=="4" goto passgen
+if "%maininput%"=="exit" goto exiter
+if "%maininput%"=="EXIT" goto exiter
+if "%maininput%"=="Exit" goto exiter
 goto main
 
 :pingcheck
@@ -40,7 +44,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.4
+echo                 /_/        /____/ v0.5
 echo ----------------------------------------------------------------
 echo Type a website URL or IP Address
 echo below to check if you are connected to
@@ -48,12 +52,16 @@ echo the internet or that device IP
 echo ----------------------------------------------------------------
 echo Type leave to go to the main menu
 echo ----------------------------------------------------------------
-set /p "data=Website:-$ "
+set /p "webip=Website:-$ "
 
-if "%data%"=="exit" exit
-if "%data%"=="leave" goto main
+if "%webip%"=="exit" goto exiter
+if "%webip%"=="EXIT" goto exiter
+if "%webip%"=="Exit" goto exiter
+if "%webip%"=="leave" goto main
+if "%webip%"=="Leave" goto main
+if "%webip%"=="LEAVE" goto main
 
-ping !data!
+ping !webip!
 pause
 goto pingcheck
 
@@ -66,38 +74,61 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.4
+echo                 /_/        /____/ v0.5
 echo ----------------------------------------------------------------
 echo How would You like to Organize the files in this directory?
 echo ----------------------------------------------------------------
-echo Type x to organize all files by extension into sperate folders
-echo Type m to organize most files by general type into seperate folders
-echo (combines video, audio, image, text, present, exe, disc, zip into one command)
-echo Type video to organize video files into a folder called "Videos"
-echo Type audio to organize audio files into a folder called "Audio"
-echo Type image to organize image files into a folder called "Images"
-echo Type text to organize text-based files into a folder called "Documents"
-echo Type present to organize presentation files into a folder called "Presentation"
-echo Type exe to organize executable files into a folder called "Executables"
-echo Type disc to organize Disc/Media files into a folder called "Disc_Images"
-echo Type zip to organize compressed file types into a folder called "Compressed_Files"
-echo Type Leave and hit ENTER to go to the Main Menu
-echo Type Exit and hit ENTER to exit this program
+echo Type x to sort all files by extension into sperate folders
+echo Type m to sort most files by type into seperate folders
+echo (typing 'm' combines below options into one command)
 echo ----------------------------------------------------------------
-set /p "input=Batch:-$ "
+echo Type video to move video files into "Videos"
+echo Type audio to move audio files into "Audio"
+echo Type image to move image files into "Images"
+echo Type text to move text-based files into "Documents"
+echo Type present to move presentation files into "Presentation"
+echo Type exe to move executable files into "Executables"
+echo Type disc to move Disc/Media files into "Disc_Images"
+echo Type zip to move compressed file types into "Compressed_Files"
+echo Type Leave and hit ENTER to go to the Main Menu
+echo Type Exit and hit ENTER to leave Scripty
+echo ----------------------------------------------------------------
+set /p "organizer=Batch:-$ "
 
-if "%input%"=="x" goto extension
-if "%input%"=="m" goto organize_most
-if "%input%"=="video" goto video
-if "%input%"=="audio" goto audio
-if "%input%"=="image" goto image
-if "%input%"=="text" goto text
-if "%input%"=="present" goto pres
-if "%input%"=="exe" goto executables
-if "%input%"=="disc" goto disc_images
-if "%input%"=="zip" goto compress
-if "%input%"=="exit" exit
-if "%input%"=="leave" goto main
+if "%organizer%"=="x" goto extension
+if "%organizer%"=="m" goto organize_most
+if "%organizer%"=="X" goto extension
+if "%organizer%"=="M" goto organize_most
+if "%organizer%"=="video" goto video
+if "%organizer%"=="audio" goto audio
+if "%organizer%"=="image" goto image
+if "%organizer%"=="text" goto text
+if "%organizer%"=="present" goto pres
+if "%organizer%"=="exe" goto executables
+if "%organizer%"=="disc" goto disc_images
+if "%organizer%"=="zip" goto compress
+if "%organizer%"=="Video" goto video
+if "%organizer%"=="Audio" goto audio
+if "%organizer%"=="Image" goto image
+if "%organizer%"=="Text" goto text
+if "%organizer%"=="Present" goto pres
+if "%organizer%"=="Exe" goto executables
+if "%organizer%"=="Disc" goto disc_images
+if "%organizer%"=="Zip" goto compress
+if "%organizer%"=="VIDEO" goto video
+if "%organizer%"=="AUDIO" goto audio
+if "%organizer%"=="IMAGE" goto image
+if "%organizer%"=="TEXT" goto text
+if "%organizer%"=="PRESENT" goto pres
+if "%organizer%"=="EXE" goto executables
+if "%organizer%"=="DISC" goto disc_images
+if "%organizer%"=="ZIP" goto compress
+if "%organizer%"=="exit" goto exiter
+if "%organizer%"=="EXIT" goto exiter
+if "%organizer%"=="Exit" goto exiter
+if "%organizer%"=="leave" goto main
+if "%organizer%"=="Leave" goto main
+if "%organizer%"=="LEAVE" goto main
 goto organize
 
 :video
@@ -344,20 +375,29 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.4
+echo                 /_/        /____/ v0.5
 echo ----------------------------------------------------------------
 echo Rename file extensions (Unfinished)
 echo ----------------------------------------------------------------
 echo Type change to CHANGE File extensions
 echo Type restore to REVERT to original File extensions
 echo Type leave to LEAVE this program
+echo Type Exit 
 echo ----------------------------------------------------------------
-set /p "input=Command:-$ "
+set /p "rfe=Command:-$ "
 
-if "%input%"=="change" goto safe
-if "%input%"=="restore" goto unsafe
-if "%input%"=="exit" exit
-if "%input%"=="leave" goto main
+if "%rfe%"=="change" goto safe
+if "%rfe%"=="restore" goto unsafe
+if "%rfe%"=="Change" goto safe
+if "%rfe%"=="Restore" goto unsafe
+if "%rfe%"=="CHANGE" goto safe
+if "%rfe%"=="RESTORE" goto unsafe
+if "%rfe%"=="exit" goto exiter
+if "%rfe%"=="EXIT" goto exiter
+if "%rfe%"=="Exit" goto exiter
+if "%rfe%"=="leave" goto main
+if "%rfe%"=="Leave" goto main
+if "%rfe%"=="LEAVE" goto main
 goto choice
 
 :safe
@@ -506,7 +546,7 @@ for /R %%d in (.) do (
 )
 
 :: Optional: Display a message
-echo All files have been renamed to .xx extension.
+echo All files have been renamed to a different extension.
 pause
 goto choice
 
@@ -660,7 +700,8 @@ echo All file extensions have been restored.
 pause
 goto choice
 
-:exit
+:passgen
+title Generate a password with alphanumeric and special characters
 cls
 echo ----------------------------------------------------------------
 echo    _____           _       __       Made By: cylvin
@@ -668,21 +709,107 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.4
+echo                 /_/        /____/ v0.5
+echo ----------------------------------------------------------------
+echo Type length to change the length of the password
+echo Type gen to generate the password
+echo Type leave to go back to the main menu
+echo Current Length: %passlength%
+echo ----------------------------------------------------------------
+echo Generated Password: %passresult%
+echo ----------------------------------------------------------------
+
+set /p "passgenerator=Password:-$ "
+
+if "%passgenerator%"=="length" call :set_length
+if "%passgenerator%"=="gen" call :gen
+if "%passgenerator%"=="Length" call :set_length
+if "%passgenerator%"=="Gen" call :gen
+if "%passgenerator%"=="LENGTH" call :set_length
+if "%passgenerator%"=="GEN" call :gen
+if "%passgenerator%"=="exit" goto exiter
+if "%passgenerator%"=="EXIT" goto exiter
+if "%passgenerator%"=="Exit" goto exiter
+if "%passgenerator%"=="leave" goto main
+if "%passgenerator%"=="Leave" goto main
+if "%passgenerator%"=="LEAVE" goto main
+goto passgen
+
+:set_length
+cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.5
+echo ----------------------------------------------------------------
+echo Type length to change the length of the password
+echo Type gen to generate the password
+echo Type leave to go back to the main menu
+echo Current Length: %passlength%
+echo ----------------------------------------------------------------
+echo Generated Password: %passresult%
+echo ----------------------------------------------------------------
+set /p "passlength=Enter desired password length:-$ "
+if "%passlength%"=="leave" (
+	goto main
+) else if "%passlength%"=="Leave" (
+	goto main
+) else if "%passlength%"=="LEAVE" (
+	goto main
+) else if "%passlength%"=="exit" (
+	goto exiter
+) else if "%passlength%"=="EXIT" (
+	goto exiter
+) else if "%passlength%"=="Exit" (
+	goto exiter
+) else if "%passlength%"==* (
+	goto passgen
+)
+goto passgen
+
+:gen
+cls
+:: Define the characters for the alphanumeric string
+set "characters=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789@@##$$**))((??..,,``~~--++]][[}}{{;;::"
+
+:: Initialize the result string
+set "passresult="
+
+:: Generate the random string
+for /L %%i in (1,1,%passlength%) do (
+    set /a "random_index=!random! %% 110"
+    for %%j in (!random_index!) do set "passresult=!passresult!!characters:~%%j,1!"
+)
+goto passgen
+
+:exiter
+cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.5
 echo ----------------------------------------------------------------
 echo Are you sure you want to LEAVE?
 echo ----------------------------------------------------------------
 echo Type Y and press ENTER for yes
 echo Type N and press ENTER for no
 echo ----------------------------------------------------------------
-set /p input=Exit?
+set /p "exiting=Exit?:-$ "
 
-if "%input%"=="y" goto main
-if "%input%"=="n" goto choice
+if "%exiting%"=="y" exit
+if "%exiting%"=="Y" exit
+if "%exiting%"=="n" goto main
+if "%exiting%"=="N" goto main
 
 echo No option was chosen. Returning.
 pause
-goto choice
+goto exiter
 
 :leave
 exit
