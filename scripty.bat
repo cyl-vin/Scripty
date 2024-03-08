@@ -1,6 +1,82 @@
 @echo off
 setlocal enabledelayedexpansion
 
+::Define color codes
+:: Dark Red foreground
+set "cdr=[31m"
+:: Dark Green foreground
+set "cdg=[32m"
+:: Dark Yellow foreground
+set "cdy=[33m"
+:: Dark Blue foreground
+set "cdb=[34m"
+:: Dark Magenta foreground
+set "cdm=[35m"
+:: Dark Cyan foreground
+set "cdc=[36m"
+:: Dark White foreground
+set "cdw=[37m"
+:: Bright Black foreground
+set "cbb=[90m"
+:: Bright Red foreground
+set "cbr=[91m"
+:: Bright Green foreground
+set "cbg=[92m"
+:: Bright Yellow foreground
+set "cby=[93m"
+:: Bright Blue foreground
+set "fbb=[94m"
+:: Bright Magenta foreground
+set "cbm=[95m"
+:: Bright Cyan foreground
+set "cbc=[96m"
+:: White foreground
+set "cw=[97m"
+:: Background Black
+set "bb=[40m"
+:: Background Dark Red
+set "bdr=[41m"
+:: Background Dark Green
+set "bdg=[42m"
+:: Background Dark Yellow
+set "bdy=[43m"
+:: Background Dark Blue
+set "bdb=[44m"
+:: Background dark Magenta
+set "bdm=[45m"
+:: Background Dark Cyan
+set "bdc=[46m"
+:: Background Dark White
+set "bdw=[47m"
+:: Background Light Black
+set "blb=[100m"
+:: Background Bright Red
+set "bbr=[101m"
+:: Background Bright Green
+set "bbg=[102m"
+:: Background Bright Yellow
+set "bby=[103m"
+:: Background Bright Blue
+set "bbb=[104m"
+:: Background Bright Magenta
+set "bbm=[105m"
+:: Background Bright Cyan
+set "bbc=[106m"
+:: Background Background White
+set "bw=[107m"
+:: Bold
+set "bold=[1m"
+:: Underline
+set "u=[4m"
+:: No Underline
+set "nu=[24m"
+:: Reverse Text
+set "rt=[7m"
+:: Positive Text (Not reversed)
+set "pt=[27m"
+:: Color Reset
+set "cr=[0m"
+
 :main
 title Scripty coded by cylvin
 cls
@@ -10,7 +86,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
 echo Type the number of the option you want to choose and press ENTER
 echo ----------------------------------------------------------------
@@ -18,6 +94,7 @@ echo 1.) Check internet status
 echo 2.) Organize some files in this directory
 echo 3.) Change file extensions in this directory
 echo 4.) Generate a password of any length (includes special chars.)
+echo 5.) Terminal color test
 echo 0.) EXIT AND CLOSE SCRIPTY
 echo ----------------------------------------------------------------
 echo Type Exit to close Scripty from anywhere
@@ -30,6 +107,7 @@ if "%maininput%"=="1" goto pingcheck
 if "%maininput%"=="2" goto organize
 if "%maininput%"=="3" goto choice
 if "%maininput%"=="4" goto passgen
+if "%maininput%"=="5" goto colors
 if "%maininput%"=="exit" goto exiter
 if "%maininput%"=="EXIT" goto exiter
 if "%maininput%"=="Exit" goto exiter
@@ -44,7 +122,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
 echo Type a website URL or IP Address
 echo below to check if you are connected to
@@ -74,7 +152,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
 echo How would You like to Organize the files in this directory?
 echo ----------------------------------------------------------------
@@ -375,14 +453,14 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
-echo Rename file extensions (Unfinished)
+echo Rename file extensions (Finished)
 echo ----------------------------------------------------------------
-echo Type change to CHANGE File extensions
-echo Type restore to REVERT to original File extensions
-echo Type leave to LEAVE this program
-echo Type Exit 
+echo Type Change to CHANGE File extensions
+echo Type Restore to REVERT to original File extensions
+echo Type Leave to LEAVE this program
+echo Type Exit to close Scripty
 echo ----------------------------------------------------------------
 set /p "rfe=Command:-$ "
 
@@ -709,14 +787,16 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
 echo Type length to change the length of the password
 echo Type gen to generate the password
 echo Type leave to go back to the main menu
-echo Current Length: %passlength%
+echo Current Password Length: %passlength%
 echo ----------------------------------------------------------------
 echo Generated Password: %passresult%
+echo ----------------------------------------------------------------
+echo %bold%%u%REMEMBER TO WRITE DOWN THE PASSWORD%cr%
 echo ----------------------------------------------------------------
 
 set /p "passgenerator=Password:-$ "
@@ -743,7 +823,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
 echo Type length to change the length of the password
 echo Type gen to generate the password
@@ -793,7 +873,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.5
+echo                 /_/        /____/ v0.6
 echo ----------------------------------------------------------------
 echo Are you sure you want to LEAVE?
 echo ----------------------------------------------------------------
@@ -810,6 +890,253 @@ if "%exiting%"=="N" goto main
 echo No option was chosen. Returning.
 pause
 goto exiter
+
+
+:colors
+cls
+echo %cdr%%bb%Testing all of the possible color combinations%cr%
+echo %cdg%%bb%Testing all of the possible color combinations%cr%
+echo %cdy%%bb%Testing all of the possible color combinations%cr%
+echo %cdb%%bb%Testing all of the possible color combinations%cr%
+echo %cdm%%bb%Testing all of the possible color combinations%cr%
+echo %cdc%%bb%Testing all of the possible color combinations%cr%
+echo %cdw%%bb%Testing all of the possible color combinations%cr%
+echo %cbb%%bb%Testing all of the possible color combinations%cr%
+echo %cbr%%bb%Testing all of the possible color combinations%cr%
+echo %cbg%%bb%Testing all of the possible color combinations%cr%
+echo %cby%%bb%Testing all of the possible color combinations%cr%
+echo %fbb%%bb%Testing all of the possible color combinations%cr%
+echo %cbm%%bb%Testing all of the possible color combinations%cr%
+echo %cbc%%bb%Testing all of the possible color combinations%cr%
+echo %cw%%bb%Testing all of the possible color combinations%cr%
+echo %cdr%%bdr%Testing all of the possible color combinations%cr%
+echo %cdg%%bdr%Testing all of the possible color combinations%cr%
+echo %cdy%%bdr%Testing all of the possible color combinations%cr%
+echo %cdb%%bdr%Testing all of the possible color combinations%cr%
+echo %cdm%%bdr%Testing all of the possible color combinations%cr%
+echo %cdc%%bdr%Testing all of the possible color combinations%cr%
+echo %cdw%%bdr%Testing all of the possible color combinations%cr%
+echo %cbb%%bdr%Testing all of the possible color combinations%cr%
+echo %cbr%%bdr%Testing all of the possible color combinations%cr%
+echo %cbg%%bdr%Testing all of the possible color combinations%cr%
+echo %cby%%bdr%Testing all of the possible color combinations%cr%
+echo %fbb%%bdr%Testing all of the possible color combinations%cr%
+echo %cbm%%bdr%Testing all of the possible color combinations%cr%
+echo %cbc%%bdr%Testing all of the possible color combinations%cr%
+echo %cw%%bdr%Testing all of the possible color combinations%cr%
+echo %cdr%%bdg%Testing all of the possible color combinations%cr%
+echo %cdg%%bdg%Testing all of the possible color combinations%cr%
+echo %cdy%%bdg%Testing all of the possible color combinations%cr%
+echo %cdb%%bdg%Testing all of the possible color combinations%cr%
+echo %cdm%%bdg%Testing all of the possible color combinations%cr%
+echo %cdc%%bdg%Testing all of the possible color combinations%cr%
+echo %cdw%%bdg%Testing all of the possible color combinations%cr%
+echo %cbb%%bdg%Testing all of the possible color combinations%cr%
+echo %cbr%%bdg%Testing all of the possible color combinations%cr%
+echo %cbg%%bdg%Testing all of the possible color combinations%cr%
+echo %cby%%bdg%Testing all of the possible color combinations%cr%
+echo %fbb%%bdg%Testing all of the possible color combinations%cr%
+echo %cbm%%bdg%Testing all of the possible color combinations%cr%
+echo %cbc%%bdg%Testing all of the possible color combinations%cr%
+echo %cw%%bdg%Testing all of the possible color combinations%cr%
+echo %cdr%%bdy%Testing all of the possible color combinations%cr%
+echo %cdg%%bdy%Testing all of the possible color combinations%cr%
+echo %cdy%%bdy%Testing all of the possible color combinations%cr%
+echo %cdb%%bdy%Testing all of the possible color combinations%cr%
+echo %cdm%%bdy%Testing all of the possible color combinations%cr%
+echo %cdc%%bdy%Testing all of the possible color combinations%cr%
+echo %cdw%%bdy%Testing all of the possible color combinations%cr%
+echo %cbb%%bdy%Testing all of the possible color combinations%cr%
+echo %cbr%%bdy%Testing all of the possible color combinations%cr%
+echo %cbg%%bdy%Testing all of the possible color combinations%cr%
+echo %cby%%bdy%Testing all of the possible color combinations%cr%
+echo %fbb%%bdy%Testing all of the possible color combinations%cr%
+echo %cbm%%bdy%Testing all of the possible color combinations%cr%
+echo %cbc%%bdy%Testing all of the possible color combinations%cr%
+echo %cw%%bdy%Testing all of the possible color combinations%cr%
+echo %cdr%%bdb%Testing all of the possible color combinations%cr%
+echo %cdg%%bdb%Testing all of the possible color combinations%cr%
+echo %cdy%%bdb%Testing all of the possible color combinations%cr%
+echo %cdb%%bdb%Testing all of the possible color combinations%cr%
+echo %cdm%%bdb%Testing all of the possible color combinations%cr%
+echo %cdc%%bdb%Testing all of the possible color combinations%cr%
+echo %cdw%%bdb%Testing all of the possible color combinations%cr%
+echo %cbb%%bdb%Testing all of the possible color combinations%cr%
+echo %cbr%%bdb%Testing all of the possible color combinations%cr%
+echo %cbg%%bdb%Testing all of the possible color combinations%cr%
+echo %cby%%bdb%Testing all of the possible color combinations%cr%
+echo %fbb%%bdb%Testing all of the possible color combinations%cr%
+echo %cbm%%bdb%Testing all of the possible color combinations%cr%
+echo %cbc%%bdb%Testing all of the possible color combinations%cr%
+echo %cw%%bdb%Testing all of the possible color combinations%cr%
+echo %cdr%%bdm%Testing all of the possible color combinations%cr%
+echo %cdg%%bdm%Testing all of the possible color combinations%cr%
+echo %cdy%%bdm%Testing all of the possible color combinations%cr%
+echo %cdb%%bdm%Testing all of the possible color combinations%cr%
+echo %cdm%%bdm%Testing all of the possible color combinations%cr%
+echo %cdc%%bdm%Testing all of the possible color combinations%cr%
+echo %cdw%%bdm%Testing all of the possible color combinations%cr%
+echo %cbb%%bdm%Testing all of the possible color combinations%cr%
+echo %cbr%%bdm%Testing all of the possible color combinations%cr%
+echo %cbg%%bdm%Testing all of the possible color combinations%cr%
+echo %cby%%bdm%Testing all of the possible color combinations%cr%
+echo %fbb%%bdm%Testing all of the possible color combinations%cr%
+echo %cbm%%bdm%Testing all of the possible color combinations%cr%
+echo %cbc%%bdm%Testing all of the possible color combinations%cr%
+echo %cw%%bdm%Testing all of the possible color combinations%cr%
+echo %cdr%%bdc%Testing all of the possible color combinations%cr%
+echo %cdg%%bdc%Testing all of the possible color combinations%cr%
+echo %cdy%%bdc%Testing all of the possible color combinations%cr%
+echo %cdb%%bdc%Testing all of the possible color combinations%cr%
+echo %cdm%%bdc%Testing all of the possible color combinations%cr%
+echo %cdc%%bdc%Testing all of the possible color combinations%cr%
+echo %cdw%%bdc%Testing all of the possible color combinations%cr%
+echo %cbb%%bdc%Testing all of the possible color combinations%cr%
+echo %cbr%%bdc%Testing all of the possible color combinations%cr%
+echo %cbg%%bdc%Testing all of the possible color combinations%cr%
+echo %cby%%bdc%Testing all of the possible color combinations%cr%
+echo %fbb%%bdc%Testing all of the possible color combinations%cr%
+echo %cbm%%bdc%Testing all of the possible color combinations%cr%
+echo %cbc%%bdc%Testing all of the possible color combinations%cr%
+echo %cw%%bdc%Testing all of the possible color combinations%cr%
+echo %cdr%%bdw%Testing all of the possible color combinations%cr%
+echo %cdg%%bdw%Testing all of the possible color combinations%cr%
+echo %cdy%%bdw%Testing all of the possible color combinations%cr%
+echo %cdb%%bdw%Testing all of the possible color combinations%cr%
+echo %cdm%%bdw%Testing all of the possible color combinations%cr%
+echo %cdc%%bdw%Testing all of the possible color combinations%cr%
+echo %cdw%%bdw%Testing all of the possible color combinations%cr%
+echo %cbb%%bdw%Testing all of the possible color combinations%cr%
+echo %cbr%%bdw%Testing all of the possible color combinations%cr%
+echo %cbg%%bdw%Testing all of the possible color combinations%cr%
+echo %cby%%bdw%Testing all of the possible color combinations%cr%
+echo %fbb%%bdw%Testing all of the possible color combinations%cr%
+echo %cbm%%bdw%Testing all of the possible color combinations%cr%
+echo %cbc%%bdw%Testing all of the possible color combinations%cr%
+echo %cw%%bdw%Testing all of the possible color combinations%cr%
+echo %cdr%%blb%Testing all of the possible color combinations%cr%
+echo %cdg%%blb%Testing all of the possible color combinations%cr%
+echo %cdy%%blb%Testing all of the possible color combinations%cr%
+echo %cdb%%blb%Testing all of the possible color combinations%cr%
+echo %cdm%%blb%Testing all of the possible color combinations%cr%
+echo %cdc%%blb%Testing all of the possible color combinations%cr%
+echo %cdw%%blb%Testing all of the possible color combinations%cr%
+echo %cbb%%blb%Testing all of the possible color combinations%cr%
+echo %cbr%%blb%Testing all of the possible color combinations%cr%
+echo %cbg%%blb%Testing all of the possible color combinations%cr%
+echo %cby%%blb%Testing all of the possible color combinations%cr%
+echo %fbb%%blb%Testing all of the possible color combinations%cr%
+echo %cbm%%blb%Testing all of the possible color combinations%cr%
+echo %cbc%%blb%Testing all of the possible color combinations%cr%
+echo %cw%%blb%Testing all of the possible color combinations%cr%
+echo %cdr%%bbr%Testing all of the possible color combinations%cr%
+echo %cdg%%bbr%Testing all of the possible color combinations%cr%
+echo %cdy%%bbr%Testing all of the possible color combinations%cr%
+echo %cdb%%bbr%Testing all of the possible color combinations%cr%
+echo %cdm%%bbr%Testing all of the possible color combinations%cr%
+echo %cdc%%bbr%Testing all of the possible color combinations%cr%
+echo %cdw%%bbr%Testing all of the possible color combinations%cr%
+echo %cbb%%bbr%Testing all of the possible color combinations%cr%
+echo %cbr%%bbr%Testing all of the possible color combinations%cr%
+echo %cbg%%bbr%Testing all of the possible color combinations%cr%
+echo %cby%%bbr%Testing all of the possible color combinations%cr%
+echo %fbb%%bbr%Testing all of the possible color combinations%cr%
+echo %cbm%%bbr%Testing all of the possible color combinations%cr%
+echo %cbc%%bbr%Testing all of the possible color combinations%cr%
+echo %cw%%bbr%Testing all of the possible color combinations%cr%
+echo %cdr%%bbg%Testing all of the possible color combinations%cr%
+echo %cdg%%bbg%Testing all of the possible color combinations%cr%
+echo %cdy%%bbg%Testing all of the possible color combinations%cr%
+echo %cdb%%bbg%Testing all of the possible color combinations%cr%
+echo %cdm%%bbg%Testing all of the possible color combinations%cr%
+echo %cdc%%bbg%Testing all of the possible color combinations%cr%
+echo %cdw%%bbg%Testing all of the possible color combinations%cr%
+echo %cbb%%bbg%Testing all of the possible color combinations%cr%
+echo %cbr%%bbg%Testing all of the possible color combinations%cr%
+echo %cbg%%bbg%Testing all of the possible color combinations%cr%
+echo %cby%%bbg%Testing all of the possible color combinations%cr%
+echo %fbb%%bbg%Testing all of the possible color combinations%cr%
+echo %cbm%%bbg%Testing all of the possible color combinations%cr%
+echo %cbc%%bbg%Testing all of the possible color combinations%cr%
+echo %cw%%bbg%Testing all of the possible color combinations%cr%
+echo %cdr%%bby%Testing all of the possible color combinations%cr%
+echo %cdg%%bby%Testing all of the possible color combinations%cr%
+echo %cdy%%bby%Testing all of the possible color combinations%cr%
+echo %cdb%%bby%Testing all of the possible color combinations%cr%
+echo %cdm%%bby%Testing all of the possible color combinations%cr%
+echo %cdc%%bby%Testing all of the possible color combinations%cr%
+echo %cdw%%bby%Testing all of the possible color combinations%cr%
+echo %cbb%%bby%Testing all of the possible color combinations%cr%
+echo %cbr%%bby%Testing all of the possible color combinations%cr%
+echo %cbg%%bby%Testing all of the possible color combinations%cr%
+echo %cby%%bby%Testing all of the possible color combinations%cr%
+echo %fbb%%bby%Testing all of the possible color combinations%cr%
+echo %cbm%%bby%Testing all of the possible color combinations%cr%
+echo %cbc%%bby%Testing all of the possible color combinations%cr%
+echo %cw%%bby%Testing all of the possible color combinations%cr%
+echo %cdr%%bbb%Testing all of the possible color combinations%cr%
+echo %cdg%%bbb%Testing all of the possible color combinations%cr%
+echo %cdy%%bbb%Testing all of the possible color combinations%cr%
+echo %cdb%%bbb%Testing all of the possible color combinations%cr%
+echo %cdm%%bbb%Testing all of the possible color combinations%cr%
+echo %cdc%%bbb%Testing all of the possible color combinations%cr%
+echo %cdw%%bbb%Testing all of the possible color combinations%cr%
+echo %cbb%%bbb%Testing all of the possible color combinations%cr%
+echo %cbr%%bbb%Testing all of the possible color combinations%cr%
+echo %cbg%%bbb%Testing all of the possible color combinations%cr%
+echo %cby%%bbb%Testing all of the possible color combinations%cr%
+echo %fbb%%bbb%Testing all of the possible color combinations%cr%
+echo %cbm%%bbb%Testing all of the possible color combinations%cr%
+echo %cbc%%bbb%Testing all of the possible color combinations%cr%
+echo %cw%%bbb%Testing all of the possible color combinations%cr%
+echo %cdr%%bbm%Testing all of the possible color combinations%cr%
+echo %cdg%%bbm%Testing all of the possible color combinations%cr%
+echo %cdy%%bbm%Testing all of the possible color combinations%cr%
+echo %cdb%%bbm%Testing all of the possible color combinations%cr%
+echo %cdm%%bbm%Testing all of the possible color combinations%cr%
+echo %cdc%%bbm%Testing all of the possible color combinations%cr%
+echo %cdw%%bbm%Testing all of the possible color combinations%cr%
+echo %cbb%%bbm%Testing all of the possible color combinations%cr%
+echo %cbr%%bbm%Testing all of the possible color combinations%cr%
+echo %cbg%%bbm%Testing all of the possible color combinations%cr%
+echo %cby%%bbm%Testing all of the possible color combinations%cr%
+echo %fbb%%bbm%Testing all of the possible color combinations%cr%
+echo %cbm%%bbm%Testing all of the possible color combinations%cr%
+echo %cbc%%bbm%Testing all of the possible color combinations%cr%
+echo %cw%%bbm%Testing all of the possible color combinations%cr%
+echo %cdr%%bbc%Testing all of the possible color combinations%cr%
+echo %cdg%%bbc%Testing all of the possible color combinations%cr%
+echo %cdy%%bbc%Testing all of the possible color combinations%cr%
+echo %cdb%%bbc%Testing all of the possible color combinations%cr%
+echo %cdm%%bbc%Testing all of the possible color combinations%cr%
+echo %cdc%%bbc%Testing all of the possible color combinations%cr%
+echo %cdw%%bbc%Testing all of the possible color combinations%cr%
+echo %cbb%%bbc%Testing all of the possible color combinations%cr%
+echo %cbr%%bbc%Testing all of the possible color combinations%cr%
+echo %cbg%%bbc%Testing all of the possible color combinations%cr%
+echo %cby%%bbc%Testing all of the possible color combinations%cr%
+echo %fbb%%bbc%Testing all of the possible color combinations%cr%
+echo %cbm%%bbc%Testing all of the possible color combinations%cr%
+echo %cbc%%bbc%Testing all of the possible color combinations%cr%
+echo %cw%%bbc%Testing all of the possible color combinations%cr%
+echo %cdr%%bw%Testing all of the possible color combinations%cr%
+echo %cdg%%bw%Testing all of the possible color combinations%cr%
+echo %cdy%%bw%Testing all of the possible color combinations%cr%
+echo %cdb%%bw%Testing all of the possible color combinations%cr%
+echo %cdm%%bw%Testing all of the possible color combinations%cr%
+echo %cdc%%bw%Testing all of the possible color combinations%cr%
+echo %cdw%%bw%Testing all of the possible color combinations%cr%
+echo %cbb%%bw%Testing all of the possible color combinations%cr%
+echo %cbr%%bw%Testing all of the possible color combinations%cr%
+echo %cbg%%bw%Testing all of the possible color combinations%cr%
+echo %cby%%bw%Testing all of the possible color combinations%cr%
+echo %fbb%%bw%Testing all of the possible color combinations%cr%
+echo %cbm%%bw%Testing all of the possible color combinations%cr%
+echo %cbc%%bw%Testing all of the possible color combinations%cr%
+echo %cw%%bw%Testing all of the possible color combinations%cr%
+pause
+goto main
+
 
 :leave
 exit
