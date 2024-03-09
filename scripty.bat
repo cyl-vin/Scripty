@@ -116,9 +116,8 @@ if "%maininput%"=="6" goto minitweaks
 if "%maininput%"=="7" goto wifipass
 if "%maininput%"=="8" goto cleanup
 if "%maininput%"=="9" goto main_get_admin
-if "%maininput%"=="exit" goto exiter
-if "%maininput%"=="EXIT" goto exiter
-if "%maininput%"=="Exit" goto exiter
+if /i "%maininput%"=="exit" goto exiter
+
 goto main
 
 :pingcheck
@@ -141,12 +140,8 @@ echo Type exit to close Scripty
 echo ----------------------------------------------------------------
 set /p "webip=Website:-$ "
 
-if "%webip%"=="exit" goto exiter
-if "%webip%"=="EXIT" goto exiter
-if "%webip%"=="Exit" goto exiter
-if "%webip%"=="leave" goto main
-if "%webip%"=="Leave" goto main
-if "%webip%"=="LEAVE" goto main
+if /i "%webip%"=="exit" goto exiter
+if /i "%webip%"=="leave" goto main
 
 ping !webip!
 pause
@@ -182,40 +177,18 @@ echo Type Exit and hit ENTER to leave Scripty
 echo ----------------------------------------------------------------
 set /p "organizer=Batch:-$ "
 
-if "%organizer%"=="x" goto extension
-if "%organizer%"=="m" goto organize_most
-if "%organizer%"=="X" goto extension
-if "%organizer%"=="M" goto organize_most
-if "%organizer%"=="video" goto video
-if "%organizer%"=="audio" goto audio
-if "%organizer%"=="image" goto image
-if "%organizer%"=="text" goto text
-if "%organizer%"=="present" goto pres
-if "%organizer%"=="exe" goto executables
-if "%organizer%"=="disc" goto disc_images
-if "%organizer%"=="zip" goto compress
-if "%organizer%"=="Video" goto video
-if "%organizer%"=="Audio" goto audio
-if "%organizer%"=="Image" goto image
-if "%organizer%"=="Text" goto text
-if "%organizer%"=="Present" goto pres
-if "%organizer%"=="Exe" goto executables
-if "%organizer%"=="Disc" goto disc_images
-if "%organizer%"=="Zip" goto compress
-if "%organizer%"=="VIDEO" goto video
-if "%organizer%"=="AUDIO" goto audio
-if "%organizer%"=="IMAGE" goto image
-if "%organizer%"=="TEXT" goto text
-if "%organizer%"=="PRESENT" goto pres
-if "%organizer%"=="EXE" goto executables
-if "%organizer%"=="DISC" goto disc_images
-if "%organizer%"=="ZIP" goto compress
-if "%organizer%"=="exit" goto exiter
-if "%organizer%"=="EXIT" goto exiter
-if "%organizer%"=="Exit" goto exiter
-if "%organizer%"=="leave" goto main
-if "%organizer%"=="Leave" goto main
-if "%organizer%"=="LEAVE" goto main
+if /i "%organizer%"=="x" goto extension
+if /i "%organizer%"=="m" goto organize_most
+if /i "%organizer%"=="video" goto video
+if /i "%organizer%"=="audio" goto audio
+if /i "%organizer%"=="image" goto image
+if /i "%organizer%"=="text" goto text
+if /i "%organizer%"=="present" goto pres
+if /i "%organizer%"=="exe" goto executables
+if /i "%organizer%"=="disc" goto disc_images
+if /i "%organizer%"=="zip" goto compress
+if /i "%organizer%"=="exit" goto exiter
+if /i "%organizer%"=="leave" goto main
 goto organize
 
 :video
@@ -474,10 +447,9 @@ set /p "rfe=Command:-$ "
 
 if "%rfe%"=="1" goto safe
 if "%rfe%"=="2" goto unsafe
-if "%rfe%"=="exit" goto exiter
-if "%rfe%"=="EXIT" goto exiter
-if "%rfe%"=="Exit" goto exiter
+if /i "%rfe%"=="exit" goto exiter
 if "%rfe%"=="3" goto main
+if /i "%rfe%"=="leave" goto main
 goto choice
 
 :safe
@@ -806,12 +778,8 @@ set /p "passgenerator=Password:-$ "
 
 if "%passgenerator%"=="1" call :set_length
 if "%passgenerator%"=="2" call :gen
-if "%passgenerator%"=="exit" goto exiter
-if "%passgenerator%"=="EXIT" goto exiter
-if "%passgenerator%"=="Exit" goto exiter
-if "%passgenerator%"=="leave" goto main
-if "%passgenerator%"=="Leave" goto main
-if "%passgenerator%"=="LEAVE" goto main
+if /i "%passgenerator%"=="exit" goto exiter
+if /i "%passgenerator%"=="leave" goto main
 goto passgen
 
 :set_length
@@ -833,17 +801,10 @@ echo ----------------------------------------------------------------
 echo Generated Password: %passresult%
 echo ----------------------------------------------------------------
 set /p "passlength=Enter desired password length:-$ "
-if "%passlength%"=="leave" (
+
+if /i "%passlength%"=="leave" (
 	goto main
-) else if "%passlength%"=="Leave" (
-	goto main
-) else if "%passlength%"=="LEAVE" (
-	goto main
-) else if "%passlength%"=="exit" (
-	goto exiter
-) else if "%passlength%"=="EXIT" (
-	goto exiter
-) else if "%passlength%"=="Exit" (
+) else if /i "%passlength%"=="exit" (
 	goto exiter
 ) else if "%passlength%"==* (
 	goto passgen
@@ -900,12 +861,8 @@ if "%minortweaks%"=="5" goto add_ultimate_profile
 if "%minortweaks%"=="6" start cmd /k "taskkill /IM explorer.exe /F && explorer.exe"
 if "%minortweaks%"=="7" goto main
 if "%minortweaks%"=="8" goto exiter
-if "%minortweaks%"=="leave" goto main
-if "%minortweaks%"=="Leave" goto main
-if "%minortweaks%"=="LEAVE" goto main
-if "%minortweaks%"=="exit" goto exiter
-if "%minortweaks%"=="Exit" goto exiter
-if "%minortweaks%"=="EXIT" goto exiter
+if /i "%minortweaks%"=="leave" goto main
+if /i "%minortweaks%"=="exit" goto exiter
 else if goto minitweaks
 goto minitweaks
 
@@ -956,12 +913,8 @@ set /p "passwifi=Network:-$ "
 if "%passwifi%"=="1" goto show_saved_networks
 if "%passwifi%"=="2" goto wifi_get_admin
 if "%passwifi%"=="3" goto main
-if "%passwifi%"=="leave" goto main
-if "%passwifi%"=="Leave" goto main
-if "%passwifi%"=="LEAVE" goto main
-if "%passwifi%"=="exit" goto exiter
-if "%passwifi%"=="Exit" goto exiter
-if "%passwifi%"=="EXIT" goto exiter
+if /i "%passwifi%"=="leave" goto main
+if /i "%passwifi%"=="exit" goto exiter
 
 start cmd /k "netsh wlan show profile name="!passwifi!" key=clear"
 goto wifipass
@@ -1019,12 +972,8 @@ if "%cleaning%"=="1" goto clean_temp
 if "%cleaning%"=="2" goto empty_recycle
 if "%cleaning%"=="3" goto combineclean
 if "%cleaning%"=="4" goto main
-if "%cleaning%"=="leave" goto main
-if "%cleaning%"=="Leave" goto main
-if "%cleaning%"=="LEAVE" goto main
-if "%cleaning%"=="exit" goto exiter
-if "%cleaning%"=="Exit" goto exiter
-if "%cleaning%"=="EXIT" goto exiter
+if /i "%cleaning%"=="leave" goto main
+if /i "%cleaning%"=="exit" goto exiter
 
 goto cleanup
 
@@ -1092,10 +1041,8 @@ echo Type N and press ENTER for no
 echo ----------------------------------------------------------------
 set /p "exiting=Exit?:-$ "
 
-if "%exiting%"=="y" exit
-if "%exiting%"=="Y" exit
-if "%exiting%"=="n" goto main
-if "%exiting%"=="N" goto main
+if /i "%exiting%"=="y" exit
+if /i "%exiting%"=="n" goto main
 
 echo No option was chosen. Returning.
 pause
