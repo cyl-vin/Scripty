@@ -3,79 +3,79 @@ setlocal enabledelayedexpansion
 
 REM Define color codes
 REM Dark Red foreground
-set "cdr=[31m"
+set "cdr=%ESC%[31m"
 REM Dark Green foreground
-set "cdg=[32m"
+set "cdg=%ESC%[32m"
 REM Dark Yellow foreground
-set "cdy=[33m"
+set "cdy=%ESC%[33m"
 REM Dark Blue foreground
-set "cdb=[34m"
+set "cdb=%ESC%[34m"
 REM Dark Magenta foreground
-set "cdm=[35m"
+set "cdm=%ESC%[35m"
 REM Dark Cyan foreground
-set "cdc=[36m"
+set "cdc=%ESC%[36m"
 REM Dark White foreground
-set "cdw=[37m"
+set "cdw=%ESC%[37m"
 REM Bright Black foreground
-set "cbb=[90m"
+set "cbb=%ESC%[90m"
 REM Bright Red foreground
-set "cbr=[91m"
+set "cbr=%ESC%[91m"
 REM Bright Green foreground
-set "cbg=[92m"
+set "cbg=%ESC%[92m"
 REM Bright Yellow foreground
-set "cby=[93m"
+set "cby=%ESC%[93m"
 REM Bright Blue foreground
-set "fbb=[94m"
+set "fbb=%ESC%[94m"
 REM Bright Magenta foreground
-set "cbm=[95m"
+set "cbm=%ESC%[95m"
 REM Bright Cyan foreground
-set "cbc=[96m"
+set "cbc=%ESC%[96m"
 REM White foreground
-set "cw=[97m"
+set "cw=%ESC%[97m"
 REM Background Black
-set "bb=[40m"
+set "bb=%ESC%[40m"
 REM Background Dark Red
-set "bdr=[41m"
+set "bdr=%ESC%[41m"
 REM Background Dark Green
-set "bdg=[42m"
+set "bdg=%ESC%[42m"
 REM Background Dark Yellow
-set "bdy=[43m"
+set "bdy=%ESC%[43m"
 REM Background Dark Blue
-set "bdb=[44m"
+set "bdb=%ESC%[44m"
 REM Background dark Magenta
-set "bdm=[45m"
+set "bdm=%ESC%[45m"
 REM Background Dark Cyan
-set "bdc=[46m"
+set "bdc=%ESC%[46m"
 REM Background Dark White
-set "bdw=[47m"
+set "bdw=%ESC%[47m"
 REM Background Light Black
-set "blb=[100m"
+set "blb=%ESC%[100m"
 REM Background Bright Red
-set "bbr=[101m"
+set "bbr=%ESC%[101m"
 REM Background Bright Green
-set "bbg=[102m"
+set "bbg=%ESC%[102m"
 REM Background Bright Yellow
-set "bby=[103m"
+set "bby=%ESC%[103m"
 REM Background Bright Blue
-set "bbb=[104m"
+set "bbb=%ESC%[104m"
 REM Background Bright Magenta
-set "bbm=[105m"
+set "bbm=%ESC%[105m"
 REM Background Bright Cyan
-set "bbc=[106m"
+set "bbc=%ESC%[106m"
 REM Background Background White
-set "bw=[107m"
+set "bw=%ESC%[107m"
 REM Bold
-set "bold=[1m"
+set "bold=%ESC%[1m"
 REM Underline
-set "u=[4m"
+set "u=%ESC%[4m"
 REM No Underline
-set "nu=[24m"
+set "nu=%ESC%[24m"
 REM Reverse Text
-set "rt=[7m"
+set "rt=%ESC%[7m"
 REM Positive Text (Not reversed)
-set "pt=[27m"
+set "pt=%ESC%[27m"
 REM Color Reset
-set "cr=[0m"
+set "cr=%ESC%[0m"
 
 :main
 title Scripty coded by cylvin
