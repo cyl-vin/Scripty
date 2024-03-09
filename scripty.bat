@@ -86,7 +86,7 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
 echo Type the number of the option you want to choose and press ENTER
 echo ----------------------------------------------------------------
@@ -95,6 +95,10 @@ echo 2.) Organize some files in this directory
 echo 3.) Change file extensions in this directory
 echo 4.) Generate a password of any length (includes special chars.)
 echo 5.) Terminal color test
+echo 6.) MiniTweaks
+echo 7.) View Saved WiFi Passwords
+echo 8.) Remove Temporary files and empty Recycle Bin
+echo 9.) Give Scripty Admin Privileges (Relaunches Scripty w/ Admin)
 echo 0.) EXIT AND CLOSE SCRIPTY
 echo ----------------------------------------------------------------
 echo Type Exit to close Scripty from anywhere
@@ -108,6 +112,10 @@ if "%maininput%"=="2" goto organize
 if "%maininput%"=="3" goto choice
 if "%maininput%"=="4" goto passgen
 if "%maininput%"=="5" goto colors
+if "%maininput%"=="6" goto minitweaks
+if "%maininput%"=="7" goto wifipass
+if "%maininput%"=="8" goto cleanup
+if "%maininput%"=="9" goto main_get_admin
 if "%maininput%"=="exit" goto exiter
 if "%maininput%"=="EXIT" goto exiter
 if "%maininput%"=="Exit" goto exiter
@@ -122,13 +130,14 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
 echo Type a website URL or IP Address
 echo below to check if you are connected to
 echo the internet or that device IP
 echo ----------------------------------------------------------------
 echo Type leave to go to the main menu
+echo Type exit to close Scripty
 echo ----------------------------------------------------------------
 set /p "webip=Website:-$ "
 
@@ -152,13 +161,13 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
 echo How would You like to Organize the files in this directory?
 echo ----------------------------------------------------------------
-echo Type x to sort all files by extension into sperate folders
-echo Type m to sort most files by type into seperate folders
-echo (typing 'm' combines below options into one command)
+echo 1.) Sort all files by extension into sperate folders
+echo 2.) Sort most files by type into seperate folders
+echo (Option 2 combines options below into one command)
 echo ----------------------------------------------------------------
 echo Type video to move video files into "Videos"
 echo Type audio to move audio files into "Audio"
@@ -453,29 +462,22 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
 echo Rename file extensions (Finished)
 echo ----------------------------------------------------------------
-echo Type Change to CHANGE File extensions
-echo Type Restore to REVERT to original File extensions
-echo Type Leave to LEAVE this program
-echo Type Exit to close Scripty
+echo 1.) CHANGE File extensions
+echo 2.) REVERT to original File extensions
+echo 3.) Main Menu
 echo ----------------------------------------------------------------
 set /p "rfe=Command:-$ "
 
-if "%rfe%"=="change" goto safe
-if "%rfe%"=="restore" goto unsafe
-if "%rfe%"=="Change" goto safe
-if "%rfe%"=="Restore" goto unsafe
-if "%rfe%"=="CHANGE" goto safe
-if "%rfe%"=="RESTORE" goto unsafe
+if "%rfe%"=="1" goto safe
+if "%rfe%"=="2" goto unsafe
 if "%rfe%"=="exit" goto exiter
 if "%rfe%"=="EXIT" goto exiter
 if "%rfe%"=="Exit" goto exiter
-if "%rfe%"=="leave" goto main
-if "%rfe%"=="Leave" goto main
-if "%rfe%"=="LEAVE" goto main
+if "%rfe%"=="3" goto main
 goto choice
 
 :safe
@@ -787,12 +789,13 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
-echo Type length to change the length of the password
-echo Type gen to generate the password
-echo Type leave to go back to the main menu
 echo Current Password Length: %passlength%
+echo ----------------------------------------------------------------
+echo 1.) Change the length of the password
+echo 2.) Generate the password
+echo 3.) Main Menu
 echo ----------------------------------------------------------------
 echo Generated Password: %passresult%
 echo ----------------------------------------------------------------
@@ -801,12 +804,8 @@ echo ----------------------------------------------------------------
 
 set /p "passgenerator=Password:-$ "
 
-if "%passgenerator%"=="length" call :set_length
-if "%passgenerator%"=="gen" call :gen
-if "%passgenerator%"=="Length" call :set_length
-if "%passgenerator%"=="Gen" call :gen
-if "%passgenerator%"=="LENGTH" call :set_length
-if "%passgenerator%"=="GEN" call :gen
+if "%passgenerator%"=="1" call :set_length
+if "%passgenerator%"=="2" call :gen
 if "%passgenerator%"=="exit" goto exiter
 if "%passgenerator%"=="EXIT" goto exiter
 if "%passgenerator%"=="Exit" goto exiter
@@ -823,12 +822,13 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
-echo Type length to change the length of the password
-echo Type gen to generate the password
-echo Type leave to go back to the main menu
-echo Current Length: %passlength%
+echo Current Password Length: %passlength%
+echo ----------------------------------------------------------------
+echo 1.) Change the length of the password
+echo 2.) Generate the password
+echo 3.) Main Menu
 echo ----------------------------------------------------------------
 echo Generated Password: %passresult%
 echo ----------------------------------------------------------------
@@ -865,7 +865,8 @@ for /L %%i in (1,1,%passlength%) do (
 )
 goto passgen
 
-:exiter
+:minitweaks
+Title MiniTweaks
 cls
 echo ----------------------------------------------------------------
 echo    _____           _       __       Made By: cylvin
@@ -873,7 +874,216 @@ echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
 echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
 echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
 echo /____/\___/_/  /_/ .___/\__/\__, /  
-echo                 /_/        /____/ v0.6
+echo                 /_/        /____/ v0.8
+echo ----------------------------------------------------------------
+echo If changes don't take effect, launch Scripty as Administrator
+echo or restart Windows Explorer using the option below
+echo ----------------------------------------------------------------
+echo 1.) Disable Windows Transparency (may need to type "yes")
+echo 2.) Enable Windows Transparency (may need to type "yes")
+echo 3.) Disable Xbox Game Bar (may need to type "yes" twice)
+echo 4.) Enable Xbox Game Bar (may need to type "yes" twice)
+echo 5.) Add Ultimate Performance Profile
+echo 6.) Restart Windows Explorer
+echo 7.) Main menu
+echo 8.) Close and Exit Scripty
+echo ----------------------------------------------------------------
+echo %bold%WARNING: SOME OF THESE OPTIONS CHANGE REGISTRY VALUES%cr%
+echo ----------------------------------------------------------------
+set /p "minortweaks=Tweak:-$ "
+
+if "%minortweaks%"=="1" goto disable_transparency
+if "%minortweaks%"=="2" goto enable_transparency
+if "%minortweaks%"=="3" goto disable_gamebar
+if "%minortweaks%"=="4" goto enable_gamebar
+if "%minortweaks%"=="5" goto add_ultimate_profile
+if "%minortweaks%"=="6" start cmd /k "taskkill /IM explorer.exe /F && explorer.exe"
+if "%minortweaks%"=="7" goto main
+if "%minortweaks%"=="8" goto exiter
+if "%minortweaks%"=="leave" goto main
+if "%minortweaks%"=="Leave" goto main
+if "%minortweaks%"=="LEAVE" goto main
+if "%minortweaks%"=="exit" goto exiter
+if "%minortweaks%"=="Exit" goto exiter
+if "%minortweaks%"=="EXIT" goto exiter
+else if goto minitweaks
+goto minitweaks
+
+:disable_transparency
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v EnableTransparency /t REG_DWORD /d 0
+goto minitweaks
+
+:enable_transparency
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v EnableTransparency /t REG_DWORD /d 1
+goto minitweaks
+
+:disable_gamebar
+REG ADD HKEY_CURRENT_USER\System\GameConfigStore /v GameDVR_Enabled /t REG_DWORD /d 0
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 0
+goto minitweaks
+
+:enable_gamebar
+REG ADD HKEY_CURRENT_USER\System\GameConfigStore /v GameDVR_Enabled /t REG_DWORD /d 1
+REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 1
+goto minitweaks
+
+:add_ultimate_profile
+cls
+powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+goto minitweaks
+
+:wifipass
+title View Saved WiFi Passwords
+cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.8
+echo ----------------------------------------------------------------
+echo If the password isn't visible you must Use option 2
+echo ----------------------------------------------------------------
+echo 1.) Show Saved Wireless Networks
+echo 2.) Give Scripty Admin Privileges (Relaunches Scripty)
+echo 3.) Main Menu
+echo ----------------------------------------------------------------
+echo Enter the Network name below to view the password
+echo ----------------------------------------------------------------
+set /p "passwifi=Network:-$ "
+
+if "%passwifi%"=="1" goto show_saved_networks
+if "%passwifi%"=="2" goto wifi_get_admin
+if "%passwifi%"=="3" goto main
+if "%passwifi%"=="leave" goto main
+if "%passwifi%"=="Leave" goto main
+if "%passwifi%"=="LEAVE" goto main
+if "%passwifi%"=="exit" goto exiter
+if "%passwifi%"=="Exit" goto exiter
+if "%passwifi%"=="EXIT" goto exiter
+
+start cmd /k "netsh wlan show profile name="!passwifi!" key=clear"
+goto wifipass
+
+:show_saved_networks
+cls
+netsh wlan show profile
+pause
+goto wifipass
+
+:wifi_get_admin
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if "%errorlevel%" NEQ "0" (
+    echo Requesting administrative privileges...
+    goto wifi_UACPrompt
+) else (
+    goto wifi_gotAdmin
+)
+
+:wifi_UACPrompt
+echo Set UAC = CreateObject("Shell.Application") > "%temp%\getadmin.vbs"
+echo UAC.ShellExecute "cmd.exe", "/c %~s0 %*", "", "runas", 1 >> "%temp%\getadmin.vbs"
+
+"%temp%\getadmin.vbs"
+del "%temp%\getadmin.vbs"
+exit /B
+
+:wifi_gotAdmin
+echo Scripty is already running as Admin
+pause
+goto wifipass
+
+:cleanup
+cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.8
+echo ----------------------------------------------------------------
+echo Clean Temporary Files and Empty Recycle Bin
+echo ----------------------------------------------------------------
+echo 1.) Clean Temporary Files
+echo 2.) Empty Reycle Bin
+echo 3.) Combine options 1 and 2
+echo 4.) Main Menu
+echo ----------------------------------------------------------------
+echo Select an option and press ENTER
+echo ----------------------------------------------------------------
+set /p "cleaning=Clean:-$ "
+
+if "%cleaning%"=="1" goto clean_temp
+if "%cleaning%"=="2" goto empty_recycle
+if "%cleaning%"=="3" goto combineclean
+if "%cleaning%"=="4" goto main
+if "%cleaning%"=="leave" goto main
+if "%cleaning%"=="Leave" goto main
+if "%cleaning%"=="LEAVE" goto main
+if "%cleaning%"=="exit" goto exiter
+if "%cleaning%"=="Exit" goto exiter
+if "%cleaning%"=="EXIT" goto exiter
+
+goto cleanup
+
+:clean_temp
+cls
+echo Removing Temporary Files...
+del /f /q %temp%\*.*
+timeout /t 2 >nul
+goto cleanup
+
+:empty_recycle
+cls
+echo Emptying the Reycling Bin...
+rd /s /q %systemdrive%\$Recycle.Bin
+timeout /t 2 >nul
+goto cleanup
+
+:combineclean
+cls
+echo Removing Temporary Files...
+del /f /q %temp%\*.*
+echo Emptying the Reycling Bin...
+rd /s /q %systemdrive%\$Recycle.Bin
+echo Done
+timeout /t 2 >nul
+goto cleanup
+
+:main_get_admin
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if "%errorlevel%" NEQ "0" (
+    echo Requesting administrative privileges...
+    goto main_UACPrompt
+) else (
+    goto main_gotAdmin
+)
+
+:main_UACPrompt
+echo Set UAC = CreateObject("Shell.Application") > "%temp%\getadmin.vbs"
+echo UAC.ShellExecute "cmd.exe", "/c %~s0 %*", "", "runas", 1 >> "%temp%\getadmin.vbs"
+
+"%temp%\getadmin.vbs"
+del "%temp%\getadmin.vbs"
+exit /B
+
+:main_gotAdmin
+echo Scripty is already running as Admin
+pause
+goto main
+
+:exiter
+title Close and exit Scripty?
+cls
+echo ----------------------------------------------------------------
+echo    _____           _       __       Made By: cylvin
+echo   / ___/__________(_)___  / /___  __  github.com/cyl-vin/Scripty
+echo   \__ \/ ___/ ___/ / __ \/ __/ / / /
+echo  ___/ / /__/ /  / / /_/ / /_/ /_/ / 
+echo /____/\___/_/  /_/ .___/\__/\__, /  
+echo                 /_/        /____/ v0.8
 echo ----------------------------------------------------------------
 echo Are you sure you want to LEAVE?
 echo ----------------------------------------------------------------
