@@ -1,80 +1,80 @@
 @echo off
 setlocal enabledelayedexpansion
 
-::Define color codes
-:: Dark Red foreground
+REM Define color codes
+REM Dark Red foreground
 set "cdr=[31m"
-:: Dark Green foreground
+REM Dark Green foreground
 set "cdg=[32m"
-:: Dark Yellow foreground
+REM Dark Yellow foreground
 set "cdy=[33m"
-:: Dark Blue foreground
+REM Dark Blue foreground
 set "cdb=[34m"
-:: Dark Magenta foreground
+REM Dark Magenta foreground
 set "cdm=[35m"
-:: Dark Cyan foreground
+REM Dark Cyan foreground
 set "cdc=[36m"
-:: Dark White foreground
+REM Dark White foreground
 set "cdw=[37m"
-:: Bright Black foreground
+REM Bright Black foreground
 set "cbb=[90m"
-:: Bright Red foreground
+REM Bright Red foreground
 set "cbr=[91m"
-:: Bright Green foreground
+REM Bright Green foreground
 set "cbg=[92m"
-:: Bright Yellow foreground
+REM Bright Yellow foreground
 set "cby=[93m"
-:: Bright Blue foreground
+REM Bright Blue foreground
 set "fbb=[94m"
-:: Bright Magenta foreground
+REM Bright Magenta foreground
 set "cbm=[95m"
-:: Bright Cyan foreground
+REM Bright Cyan foreground
 set "cbc=[96m"
-:: White foreground
+REM White foreground
 set "cw=[97m"
-:: Background Black
+REM Background Black
 set "bb=[40m"
-:: Background Dark Red
+REM Background Dark Red
 set "bdr=[41m"
-:: Background Dark Green
+REM Background Dark Green
 set "bdg=[42m"
-:: Background Dark Yellow
+REM Background Dark Yellow
 set "bdy=[43m"
-:: Background Dark Blue
+REM Background Dark Blue
 set "bdb=[44m"
-:: Background dark Magenta
+REM Background dark Magenta
 set "bdm=[45m"
-:: Background Dark Cyan
+REM Background Dark Cyan
 set "bdc=[46m"
-:: Background Dark White
+REM Background Dark White
 set "bdw=[47m"
-:: Background Light Black
+REM Background Light Black
 set "blb=[100m"
-:: Background Bright Red
+REM Background Bright Red
 set "bbr=[101m"
-:: Background Bright Green
+REM Background Bright Green
 set "bbg=[102m"
-:: Background Bright Yellow
+REM Background Bright Yellow
 set "bby=[103m"
-:: Background Bright Blue
+REM Background Bright Blue
 set "bbb=[104m"
-:: Background Bright Magenta
+REM Background Bright Magenta
 set "bbm=[105m"
-:: Background Bright Cyan
+REM Background Bright Cyan
 set "bbc=[106m"
-:: Background Background White
+REM Background Background White
 set "bw=[107m"
-:: Bold
+REM Bold
 set "bold=[1m"
-:: Underline
+REM Underline
 set "u=[4m"
-:: No Underline
+REM No Underline
 set "nu=[24m"
-:: Reverse Text
+REM Reverse Text
 set "rt=[7m"
-:: Positive Text (Not reversed)
+REM Positive Text (Not reversed)
 set "pt=[27m"
-:: Color Reset
+REM Color Reset
 set "cr=[0m"
 
 :main
@@ -193,13 +193,13 @@ goto organize
 
 :video
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Videos" folder if it doesn't exist
+REM Create "Videos" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Videos"
 
-:: Move video files (might add more extensions)
+REM Move video files (might add more extensions)
 for %%F in ("%rootdir%\*.3g2" "%rootdir%\*.3gp" "%rootdir%\*.avi" "%rootdir%\*.flv" "%rootdir%\*.h264" "%rootdir%\*.m4v" "%rootdir%\*.mkv" "%rootdir%\*.mov" "%rootdir%\*.mp4" "%rootdir%\*.mpg" "%rootdir%\*.mpeg" "%rootdir%\*.rm" "%rootdir%\*.swf" "%rootdir%\*.vob" "%rootdir%\*.webm" "%rootdir%\*.wmv") do (
     move "%%F" "!rootdir!\Videos"
 )
@@ -210,13 +210,13 @@ goto organize
 
 :audio
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Videos" folder if it doesn't exist
+REM Create "Videos" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Audio"
 
-:: Move audio files (might add more extensions)
+REM Move audio files (might add more extensions)
 for %%F in ("%rootdir%\*.aif" "%rootdir%\*.cda" "%rootdir%\*.mid" "%rootdir%\*.midi" "%rootdir%\*.mp3" "%rootdir%\*.mpa" "%rootdir%\*.ogg" "%rootdir%\*.wav" "%rootdir%\*.wma" "%rootdir%\*.wpl") do (
     move "%%F" "!rootdir!\Audio"
 )
@@ -227,13 +227,13 @@ goto organize
 
 :image
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Images" folder if it doesn't exist
+REM Create "Images" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Images"
 
-:: Move picture files (might add more extensions)
+REM Move picture files (might add more extensions)
 for %%F in ( "%rootdir%\*.ai" "%rootdir%\*.jpg" "%rootdir%\*.png" "%rootdir%\*.bmp" "%rootdir%\*.gif" "%rootdir%\*.ico" "%rootdir%\*.jpeg" "%rootdir%\*.tif" "%rootdir%\*.tiff" "%rootdir%\*.ps" "%rootdir%\*.psd" "%rootdir%\*.svg" "%rootdir%\*.webp") do (
     move "%%F" "!rootdir!\Images"
 )
@@ -244,13 +244,13 @@ goto organize
 
 :text
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Documents" folder if it doesn't exist
+REM Create "Documents" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Documents"
 
-:: Move text files (might add more extensions)
+REM Move text files (might add more extensions)
 for %%F in ("%rootdir%\*.txt" "%rootdir%\*.rtf" "%rootdir%\*.tex" "%rootdir%\*.doc" "%rootdir%\*.docx" "%rootdir%\*.pdf" "%rootdir%\*.odt" "%rootdir%\*.aspx" "%rootdir%\*.cer" "%rootdir%\*.cfm" "%rootdir%\*.csr" "%rootdir%\*.html" "%rootdir%\*.htm" "%rootdir%\*.xls" "%rootdir%\*.xlsx" "%rootdir%\*.wpd") do (
     move "%%F" "!rootdir!\Documents"
 )
@@ -261,13 +261,13 @@ goto organize
 
 :pres
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Presentation" folder if it doesn't exist
+REM Create "Presentation" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Presentation"
 
-:: Move Presentation files (might add more extensions)
+REM Move Presentation files (might add more extensions)
 for %%F in ("%rootdir%\*.ppt" "%rootdir%\*.pptx" "%rootdir%\*.pps" "%rootdir%\*.odp" "%rootdir%\*.key") do (
     move "%%F" "!rootdir!\Presentation"
 )
@@ -278,13 +278,13 @@ goto organize
 
 :executables
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Executables" folder if it doesn't exist
+REM Create "Executables" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Executables"
 
-:: Move Executable files (might add more extensions)
+REM Move Executable files (might add more extensions)
 for %%F in ("%rootdir%\*.apk" "%rootdir%\*.cgi" "%rootdir%\*.pl" "%rootdir%\*.com" "%rootdir%\*.exe" "%rootdir%\*.gadget" "%rootdir%\*.jar" "%rootdir%\*.msi" "%rootdir%\*.py" "%rootdir%\*.wsf") do (
     move "%%F" "!rootdir!\Executables"
 )
@@ -295,13 +295,13 @@ goto organize
 
 :disc_images
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Disc_Images" folder if it doesn't exist
+REM Create "Disc_Images" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Disc_Images"
 
-:: Move Disc/Media files (might add more extensions)
+REM Move Disc/Media files (might add more extensions)
 for %%F in ("%rootdir%\*.bin" "%rootdir%\*.dmg" "%rootdir%\*.iso" "%rootdir%\*.toast" "%rootdir%\*.vcd") do (
     move "%%F" "!rootdir!\Disc_Images"
 )
@@ -312,13 +312,13 @@ goto organize
 
 :compress
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create "Compressed Files" folder if it doesn't exist
+REM Create "Compressed Files" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Compressed_Files"
 
-:: Move compressed files (might add more extensions)
+REM Move compressed files (might add more extensions)
 for %%F in ("%rootdir%\*.7z" "%rootdir%\*.arj" "%rootdir%\*.deb" "%rootdir%\*.pkg" "%rootdir%\*.rar" "%rootdir%\*.rpm" "%rootdir%\*.tar.gz" "%rootdir%\*.z" "%rootdir%\*.zip") do (
     move "%%F" "!rootdir!\Compressed_Files"
 )
@@ -329,10 +329,10 @@ goto organize
 
 :organize_most
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create necessary folders for sorting if they don't exist
+REM Create necessary folders for sorting if they don't exist
 2>nul mkdir "!rootdir!\Videos"
 2>nul mkdir "!rootdir!\Audio"
 2>nul mkdir "!rootdir!\Images"
@@ -342,7 +342,7 @@ set "rootdir=%~dp0"
 2>nul mkdir "!rootdir!\Disc_Images"
 2>nul mkdir "!rootdir!\Compressed_Files"
 
-:: Move all of the files
+REM Move all of the files
 for %%F in ("%rootdir%\*.3g2" "%rootdir%\*.3gp" "%rootdir%\*.avi" "%rootdir%\*.flv" "%rootdir%\*.h264" "%rootdir%\*.m4v" "%rootdir%\*.mkv" "%rootdir%\*.mov" "%rootdir%\*.mp4" "%rootdir%\*.mpg" "%rootdir%\*.mpeg" "%rootdir%\*.rm" "%rootdir%\*.swf" "%rootdir%\*.vob" "%rootdir%\*.webm" "%rootdir%\*.wmv") do (
     move "%%F" "!rootdir!\Videos"
 )
@@ -374,15 +374,15 @@ goto organize
 
 :extension
 cls
-:: Get the current directory where the batch script is located
+REM Get the current directory where the batch script is located
 set "rootdir=%~dp0"
 
-:: Create folders for each unique file extension
+REM Create folders for each unique file extension
 for %%F in ("%rootdir%\*.*") do (
     set "file=%%~nxF"
     set "ext=%%~xF"
     
-    :: Skip batch files (modify this condition as needed)
+    REM Skip batch files (modify this condition as needed)
     if /i "!ext!" NEQ ".bat" (
         2>nul mkdir "!rootdir!\!ext!"
         move "%%F" "!rootdir!\!ext!"
@@ -419,7 +419,7 @@ if /i "%rfe%"=="leave" goto main
 goto choice
 
 :safe
-:: Rename all *.txt files to *.xx
+REM Rename all *.txt files to *.xx
 for /R %%d in (.) do (
     pushd "%%d"
     ren *.aif *.196
@@ -563,13 +563,13 @@ for /R %%d in (.) do (
     popd
 )
 
-:: Optional: Display a message
+REM Optional: Display a message
 echo All files have been renamed to a different extension.
 pause
 goto choice
 
 :unsafe
-:: Reinstate default File extensions
+REM Reinstate default File extensions
 for /R %%d in (.) do (
 	pushd "%%d"
 	ren *.196 *.aif 
@@ -713,7 +713,7 @@ for /R %%d in (.) do (
 	popd
 )
 
-:: Optional: Display a message
+REM Optional: Display a message
 echo All file extensions have been restored.
 pause
 goto choice
@@ -779,13 +779,13 @@ goto passgen
 
 :gen
 cls
-:: Define the characters for the alphanumeric string
+REM Define the characters for the alphanumeric string
 set "characters=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789@@##$$**))((??..,,``~~--++]][[}}{{;;::"
 
-:: Initialize the result string
+REM Initialize the result string
 set "passresult="
 
-:: Generate the random string
+REM Generate the random string
 for /L %%i in (1,1,%passlength%) do (
     set /a "random_index=!random! %% 110"
     for %%j in (!random_index!) do set "passresult=!passresult!!characters:~%%j,1!"
