@@ -177,8 +177,8 @@ echo Type Exit and hit ENTER to leave Scripty
 echo ----------------------------------------------------------------
 set /p "organizer=Batch:-$ "
 
-if /i "%organizer%"=="x" goto extension
-if /i "%organizer%"=="m" goto organize_most
+if "%organizer%"=="1" goto extension
+if "%organizer%"=="2" goto organize_most
 if /i "%organizer%"=="video" goto video
 if /i "%organizer%"=="audio" goto audio
 if /i "%organizer%"=="image" goto image
@@ -197,9 +197,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Videos" folder if it doesn't exist
-if not exist "!rootdir!\Videos" (
-    mkdir "!rootdir!\Videos"
-)
+2>nul mkdir "!rootdir!\Videos"
 
 :: Move video files (might add more extensions)
 for %%F in ("%rootdir%\*.3g2" "%rootdir%\*.3gp" "%rootdir%\*.avi" "%rootdir%\*.flv" "%rootdir%\*.h264" "%rootdir%\*.m4v" "%rootdir%\*.mkv" "%rootdir%\*.mov" "%rootdir%\*.mp4" "%rootdir%\*.mpg" "%rootdir%\*.mpeg" "%rootdir%\*.rm" "%rootdir%\*.swf" "%rootdir%\*.vob" "%rootdir%\*.webm" "%rootdir%\*.wmv") do (
@@ -216,9 +214,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Videos" folder if it doesn't exist
-if not exist "!rootdir!\Audio" (
-    mkdir "!rootdir!\Audio"
-)
+2>nul mkdir "!rootdir!\Audio"
 
 :: Move audio files (might add more extensions)
 for %%F in ("%rootdir%\*.aif" "%rootdir%\*.cda" "%rootdir%\*.mid" "%rootdir%\*.midi" "%rootdir%\*.mp3" "%rootdir%\*.mpa" "%rootdir%\*.ogg" "%rootdir%\*.wav" "%rootdir%\*.wma" "%rootdir%\*.wpl") do (
@@ -235,9 +231,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Images" folder if it doesn't exist
-if not exist "!rootdir!\Images" (
-    mkdir "!rootdir!\Images"
-)
+2>nul mkdir "!rootdir!\Images"
 
 :: Move picture files (might add more extensions)
 for %%F in ( "%rootdir%\*.ai" "%rootdir%\*.jpg" "%rootdir%\*.png" "%rootdir%\*.bmp" "%rootdir%\*.gif" "%rootdir%\*.ico" "%rootdir%\*.jpeg" "%rootdir%\*.tif" "%rootdir%\*.tiff" "%rootdir%\*.ps" "%rootdir%\*.psd" "%rootdir%\*.svg" "%rootdir%\*.webp") do (
@@ -254,9 +248,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Documents" folder if it doesn't exist
-if not exist "!rootdir!\Documents" (
-    mkdir "!rootdir!\Documents"
-)
+2>nul mkdir "!rootdir!\Documents"
 
 :: Move text files (might add more extensions)
 for %%F in ("%rootdir%\*.txt" "%rootdir%\*.rtf" "%rootdir%\*.tex" "%rootdir%\*.doc" "%rootdir%\*.docx" "%rootdir%\*.pdf" "%rootdir%\*.odt" "%rootdir%\*.aspx" "%rootdir%\*.cer" "%rootdir%\*.cfm" "%rootdir%\*.csr" "%rootdir%\*.html" "%rootdir%\*.htm" "%rootdir%\*.xls" "%rootdir%\*.xlsx" "%rootdir%\*.wpd") do (
@@ -273,9 +265,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Presentation" folder if it doesn't exist
-if not exist "!rootdir!\Presentation" (
-    mkdir "!rootdir!\Presentation"
-)
+2>nul mkdir "!rootdir!\Presentation"
 
 :: Move Presentation files (might add more extensions)
 for %%F in ("%rootdir%\*.ppt" "%rootdir%\*.pptx" "%rootdir%\*.pps" "%rootdir%\*.odp" "%rootdir%\*.key") do (
@@ -292,9 +282,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Executables" folder if it doesn't exist
-if not exist "!rootdir!\Executables" (
-    mkdir "!rootdir!\Executables"
-)
+2>nul mkdir "!rootdir!\Executables"
 
 :: Move Executable files (might add more extensions)
 for %%F in ("%rootdir%\*.apk" "%rootdir%\*.cgi" "%rootdir%\*.pl" "%rootdir%\*.com" "%rootdir%\*.exe" "%rootdir%\*.gadget" "%rootdir%\*.jar" "%rootdir%\*.msi" "%rootdir%\*.py" "%rootdir%\*.wsf") do (
@@ -311,9 +299,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Disc_Images" folder if it doesn't exist
-if not exist "!rootdir!\Disc_Images" (
-    mkdir "!rootdir!\Disc_Images"
-)
+2>nul mkdir "!rootdir!\Disc_Images"
 
 :: Move Disc/Media files (might add more extensions)
 for %%F in ("%rootdir%\*.bin" "%rootdir%\*.dmg" "%rootdir%\*.iso" "%rootdir%\*.toast" "%rootdir%\*.vcd") do (
@@ -330,9 +316,7 @@ cls
 set "rootdir=%~dp0"
 
 :: Create "Compressed Files" folder if it doesn't exist
-if not exist "!rootdir!\Compressed_Files" (
-    mkdir "!rootdir!\Compressed_Files"
-)
+2>nul mkdir "!rootdir!\Compressed_Files"
 
 :: Move compressed files (might add more extensions)
 for %%F in ("%rootdir%\*.7z" "%rootdir%\*.arj" "%rootdir%\*.deb" "%rootdir%\*.pkg" "%rootdir%\*.rar" "%rootdir%\*.rpm" "%rootdir%\*.tar.gz" "%rootdir%\*.z" "%rootdir%\*.zip") do (
@@ -349,30 +333,14 @@ cls
 set "rootdir=%~dp0"
 
 :: Create necessary folders for sorting if they don't exist
-if not exist "!rootdir!\Videos" (
-    mkdir "!rootdir!\Videos"
-)
-if not exist "!rootdir!\Audio" (
-    mkdir "!rootdir!\Audio"
-)
-if not exist "!rootdir!\Images" (
-    mkdir "!rootdir!\Images"
-)
-if not exist "!rootdir!\Documents" (
-    mkdir "!rootdir!\Documents"
-)
-if not exist "!rootdir!\Presenation" (
-    mkdir "!rootdir!\Presentation"
-)
-if not exist "!rootdir!\Executables" (
-    mkdir "!rootdir!\Executables"
-)
-if not exist "!rootdir!\Disc_Images" (
-    mkdir "!rootdir!\Disc_Images"
-)
-if not exist "!rootdir!\Compressed_files" (
-    mkdir "!rootdir!\Compressed_Files"
-)
+2>nul mkdir "!rootdir!\Videos"
+2>nul mkdir "!rootdir!\Audio"
+2>nul mkdir "!rootdir!\Images"
+2>nul mkdir "!rootdir!\Documents"
+2>nul mkdir "!rootdir!\Presentation"
+2>nul mkdir "!rootdir!\Executables"
+2>nul mkdir "!rootdir!\Disc_Images"
+2>nul mkdir "!rootdir!\Compressed_Files"
 
 :: Move all of the files
 for %%F in ("%rootdir%\*.3g2" "%rootdir%\*.3gp" "%rootdir%\*.avi" "%rootdir%\*.flv" "%rootdir%\*.h264" "%rootdir%\*.m4v" "%rootdir%\*.mkv" "%rootdir%\*.mov" "%rootdir%\*.mp4" "%rootdir%\*.mpg" "%rootdir%\*.mpeg" "%rootdir%\*.rm" "%rootdir%\*.swf" "%rootdir%\*.vob" "%rootdir%\*.webm" "%rootdir%\*.wmv") do (
@@ -416,9 +384,7 @@ for %%F in ("%rootdir%\*.*") do (
     
     :: Skip batch files (modify this condition as needed)
     if /i "!ext!" NEQ ".bat" (
-        if not exist "!rootdir!\!ext!" (
-            mkdir "!rootdir!\!ext!"
-        )
+        2>nul mkdir "!rootdir!\!ext!"
         move "%%F" "!rootdir!\!ext!"
     )
 )
