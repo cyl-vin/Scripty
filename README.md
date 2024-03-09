@@ -2,7 +2,7 @@
 ![cmd_mcRt83Tn1b](https://github.com/cyl-vin/Scripty/assets/152368998/257932b7-7385-4afc-a52a-4855841bb5f6)
 
 
-A collection of useful batch scripts written by myself in a single program. Always trying to update it.
+A collection of useful batch scripts written by myself (with a bit of help from amakvana) in a single program. Always trying to update it.
 
 # Which Scripty should I choose?
 
