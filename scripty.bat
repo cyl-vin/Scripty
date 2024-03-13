@@ -1,7 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
 for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
-mode con: cols=65 lines=26
+set "directory=%cd%"
+mode con: cols=66 lines=29
 :main
 title Scripty coded by cylvin
 cls
@@ -11,7 +12,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
@@ -27,6 +28,7 @@ echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
+echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 set /p "maininput=%esc%[95mMain Menu%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%maininput%"=="0" exit
@@ -38,6 +40,7 @@ if "%maininput%"=="5" goto minitweaks
 if "%maininput%"=="6" goto wifipass
 if "%maininput%"=="7" goto cleanup
 if "%maininput%"=="8" goto main_get_admin
+if "%maininput%"=="credits" goto credits
 if /i "%maininput%"=="exit" goto exiter
 goto main
 :pingcheck
@@ -49,7 +52,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo Type a website URL or IP Address
 echo below to check if you are connected to
@@ -72,7 +75,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo How would You like to Organize the files in this directory?
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
@@ -91,6 +94,9 @@ echo Type %esc%[96mzip%esc%[0m to move compressed file types into "Compressed_Fi
 echo Type %esc%[36mLeave%esc%[0m and hit %esc%[32mENTER%esc%[0m to go to the Main Menu
 echo Type %esc%[31mExit%esc%[0m and hit %esc%[32mENTER%esc%[0m to leave Scripty
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[33mCurrent Directory%esc%[0m: %esc%[96m!directory!%esc%[0m
+echo Type %esc%[96mPath%esc%[0m to change the working directory
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
 set /p "organizer=%esc%[93mSort%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%organizer%"=="1" goto extension
 if "%organizer%"=="2" goto organize_most
@@ -104,11 +110,29 @@ if /i "%organizer%"=="disc" goto disc_images
 if /i "%organizer%"=="zip" goto compress
 if /i "%organizer%"=="exit" goto exiter
 if /i "%organizer%"=="leave" goto main
+if /i "%organizer%"=="path" goto change_path_organize
+goto organize
+:change_path_organize
+cls
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
+echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
+echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
+echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
+echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo Type the full path of the directory you wish to make changes
+echo in below.(no quotations)
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%directory%"=="leave" goto main
+if /i "%directory%"=="exit" goto exiter
 goto organize
 :video
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Videos" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Videos"
 REM Move video files (might add more extensions)
@@ -121,7 +145,7 @@ goto organize
 :audio
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Videos" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Audio"
 REM Move audio files (might add more extensions)
@@ -134,7 +158,7 @@ goto organize
 :image
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Images" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Images"
 REM Move picture files (might add more extensions)
@@ -147,7 +171,7 @@ goto organize
 :text
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Documents" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Documents"
 REM Move text files (might add more extensions)
@@ -160,7 +184,7 @@ goto organize
 :pres
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Presentation" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Presentation"
 REM Move Presentation files (might add more extensions)
@@ -173,7 +197,7 @@ goto organize
 :executables
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Executables" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Executables"
 REM Move Executable files (might add more extensions)
@@ -186,7 +210,7 @@ goto organize
 :disc_images
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Disc_Images" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Disc_Images"
 REM Move Disc/Media files (might add more extensions)
@@ -199,7 +223,7 @@ goto organize
 :compress
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create "Compressed Files" folder if it doesn't exist
 2>nul mkdir "!rootdir!\Compressed_Files"
 REM Move compressed files (might add more extensions)
@@ -212,7 +236,7 @@ goto organize
 :organize_most
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Define file types and corresponding directories
 set "fileTypes[0]=3g2 3gp avi flv h264 m4v mkv mov mp4 mpg mpeg rm swf vob webm wmv"
 set "dirs[0]=Videos"
@@ -243,7 +267,7 @@ goto organize
 :extension
 cls
 REM Get the current directory where the batch script is located
-set "rootdir=%~dp0"
+set "rootdir=!directory!"
 REM Create folders for each unique file extension
 for %%F in ("%rootdir%\*.*") do (
     set "file=%%~nxF"
@@ -265,13 +289,16 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo Rename file extensions (Finished)
+echo Rename file extensions
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo %esc%[33m1.)%esc%[0m CHANGE File extensions
 echo %esc%[33m2.)%esc%[0m REVERT to original File extensions
 echo %esc%[33m3.)%esc%[0m Main Menu
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[33mCurrent Directory%esc%[0m: %esc%[96m!directory!%esc%[0m
+echo Type %esc%[96mPath%esc%[0m to change the working directory
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 set /p "rfe=%esc%[35mCommand%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%rfe%"=="1" goto safe
@@ -279,9 +306,28 @@ if "%rfe%"=="2" goto unsafe
 if /i "%rfe%"=="exit" goto exiter
 if "%rfe%"=="3" goto main
 if /i "%rfe%"=="leave" goto main
+if /i "%rfe%"=="path" goto change_path_choice
+goto choice
+:change_path_choice
+cls
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
+echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
+echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
+echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
+echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo Type the full path of the directory you wish to make changes
+echo in below.(no quotations)
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%directory%"=="leave" goto main
+if /i "%directory%"=="exit" goto exiter
 goto choice
 :safe
 REM Rename all file extensions to new extensions
+cd /d "%directory%"
 set "origExtList=aif cda mid midi mp3 mpa ogg wav wma wpl 7z arj deb pkg rar rpm gz z zip bin dmg iso toast vcd csv dat db dbf log mdb sav sql tar xml email eml emlx msg oft ost pst vcf apk bin cgi pl com exe gadget jar msi py wsf fnt fon otf ttf ai bmp gif ico jpeg jpg png ps psd svg tif tiff webp asp aspx cer cfm css htm html js jsp part php rss xhtml key odp pps ppt pptx c class cpp cs h java sh swift vb ods xls xlsx xlsm bak cab cfg cpl cur dll dmp drv icns ini lnk sys tmp 3g2 3gp avi flv h264 m4v mkv mov mp4 mpg mpeg rm swf vob webm wmv doc docx odt pdf rtf tex txt wpd"
 set "newExtList=196 341 1394 139413 1316d 13161 1577 23122 23131 231612 g26 11810 452 16117 18118 181613 726 26 26916 2914 4137 91915 201511920 2234 31922 4120 42 426 12157 1342 19122 191712 20118 241312 5131912 51312 5131224 13197 15620 151920 161920 2236 11611 2914 379 1612 31513 5245 7147520 10118 13199 1625 23196 61420 61514 15206 20206 19 21316 796 9315 101657 1057 16147 1619 16194 19227 2096 20966 235216 11916 1191624 3518 3613 31919 82013 8201312 1019 101916 1611820 16816 181919 248201312 11525 15416 161619 161620 16162024 3 31211919 31616 319 8 101221 198 19239620 222 15419 241219 24121924 24121913 2111 312 367 31612 32118 41212 41316 41822 931419 9149 121411 192519 201316 c7b c716 1229 61222 8bfd 13d22 131122 131522 1316d 13167 131657 1813 19236 22152 235213 231322 4153 415324 15420 1646 18206 20524 202420 23164"
 set i=0
@@ -311,6 +357,7 @@ pause
 goto choice
 :unsafe
 REM Reinstate default File extensions
+cd /d "%directory%"
 set "origExtList=aif cda mid midi mp3 mpa ogg wav wma wpl 7z arj deb pkg rar rpm gz z zip bin dmg iso toast vcd csv dat db dbf log mdb sav sql tar xml email eml emlx msg oft ost pst vcf apk bin cgi pl com exe gadget jar msi py wsf fnt fon otf ttf ai bmp gif ico jpeg jpg png ps psd svg tif tiff webp asp aspx cer cfm css htm html js jsp part php rss xhtml key odp pps ppt pptx c class cpp cs h java sh swift vb ods xls xlsx xlsm bak cab cfg cpl cur dll dmp drv icns ini lnk sys tmp 3g2 3gp avi flv h264 m4v mkv mov mp4 mpg mpeg rm swf vob webm wmv doc docx odt pdf rtf tex txt wpd"
 set "newExtList=196 341 1394 139413 1316d 13161 1577 23122 23131 231612 g26 11810 452 16117 18118 181613 726 26 26916 2914 4137 91915 201511920 2234 31922 4120 42 426 12157 1342 19122 191712 20118 241312 5131912 51312 5131224 13197 15620 151920 161920 2236 11611 2914 379 1612 31513 5245 7147520 10118 13199 1625 23196 61420 61514 15206 20206 19 21316 796 9315 101657 1057 16147 1619 16194 19227 2096 20966 235216 11916 1191624 3518 3613 31919 82013 8201312 1019 101916 1611820 16816 181919 248201312 11525 15416 161619 161620 16162024 3 31211919 31616 319 8 101221 198 19239620 222 15419 241219 24121924 24121913 2111 312 367 31612 32118 41212 41316 41822 931419 9149 121411 192519 201316 c7b c716 1229 61222 8bfd 13d22 131122 131522 1316d 13167 131657 1813 19236 22152 235213 231322 4153 415324 15420 1646 18206 20524 202420 23164"
 set i=0
@@ -347,7 +394,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo Current Password Length: %esc%[35m%passlength%%esc%[0m
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
@@ -374,7 +421,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo Current Password Length: %esc%[35m%passlength%%esc%[0m
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
@@ -414,7 +461,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo %esc%[93mIf changes don't take effect, launch Scripty as Administrator%esc%[0m
 echo %esc%[93mor restart Windows Explorer using the option below%esc%[0m
@@ -470,7 +517,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo If the password isn't visible you must Use option %esc%[33m2%esc%[0m
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
@@ -519,7 +566,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo Clean Temporary Files and Empty Recycle Bin
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
@@ -577,6 +624,22 @@ exit /B
 echo Scripty is already running as Admin
 pause
 goto main
+:credits
+cls
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
+echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
+echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
+echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
+echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[33mHuge Thank You to everyone that contributed to this project:%esc%[0m
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[34mcylvin%esc%[0m and my github link: %esc%[92mgithub.com/cyl-vin%esc%[0m
+echo %esc%[91mamakvana%esc%[0m and their github link: %esc%[92mhttps://github.com/amakvana%esc%[0m
+pause
+goto main
 :exiter
 title Close and exit Scripty?
 cls
@@ -586,7 +649,7 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.2
+echo %esc%[34m                /_/        /____/%esc%[0m v1.3
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo %esc%[33mAre you sure you want to%esc%[0m %esc%[31mLEAVE?%esc%[0m
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
