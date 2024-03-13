@@ -1,17 +1,9 @@
 # Scripty
-![cmd_mcRt83Tn1b](https://github.com/cyl-vin/Scripty/assets/152368998/257932b7-7385-4afc-a52a-4855841bb5f6)
+![cmd_0OEsvxdJvl](https://github.com/cyl-vin/Scripty/assets/152368998/57102235-0142-4200-87b6-5131efba03f9)
+
 
 
 A collection of useful batch scripts written by myself (with a bit of help from amakvana) in a single program. Always trying to update it.
-
-# Which Scripty should I choose?
-
-There are 2 versions of Scripty. The first is the regular scripty version which will usually be updated first and include new all of the new features.
-
-The second is Scripty-Color which just colors the scripty terminal and makes it really nice to look at.
-
-![Scripty_Scripty-Color](https://github.com/cyl-vin/Scripty/assets/152368998/d99efc62-1747-4041-9527-f73b56d91369)
-
 
 # What Programs does Scripty include?
 
