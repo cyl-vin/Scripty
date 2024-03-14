@@ -21,7 +21,7 @@ Currently, (as of March 7, 2024) Scripty includes:
 3. **Semi-Ransomware protection by changing file extensions of a folder and all of its subdirectories** - Because ransomware looks for specific file types to encrypt, this program will change the extension of the file to something that (hopefully) isn't targeted by ransomware.
 This is perfect if you have a "long-term" storage drive or folder with unused files that are important to you. This feature is finished now. _(I can add more file types if they are requested)_
 
-   _**IMPORTANT NOTE: SCRIPTY WILL CHANGE THE FILE EXTENSIONS OF ALL FILES IN THE FOLDER INCLUDING SUBDRIRECTORIES**_
+   _**IMPORTANT NOTE: SCRIPTY WILL CHANGE THE FILE EXTENSIONS OF ALL FILES IN THE FOLDER INCLUDING SUBDIRECTORIES**_
 
    
 
