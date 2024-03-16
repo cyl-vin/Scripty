@@ -7,7 +7,7 @@ A collection of useful batch scripts written by myself (with a bit of help from 
 
 # What Programs does Scripty include?
 
-Currently, (as of March 7, 2024) Scripty includes:
+Currently, (as of March 16, 2024) Scripty includes:
 
 1. **Check Internet Status** - Allows you to type in any website or IP and sends a ping allows you to see if you are able to connect to it
 
