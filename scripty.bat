@@ -6,16 +6,9 @@ set "directory=%cd%"
 title Scripty coded by cylvin
 mode con: cols=65 lines=26
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Check internet status
 echo %esc%[33m2.)%esc%[0m Organize some files in this directory
 echo %esc%[33m3.)%esc%[0m Change file extensions (Semi-Ransomeware Protection)
@@ -26,11 +19,11 @@ echo %esc%[33m7.)%esc%[0m Remove Temporary files and empty Recycle Bin
 echo %esc%[33m8.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty w/ Admin)
 echo %esc%[33m9.)%esc%[0m Timer and Stop Watch
 echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "maininput=%esc%[95mMain Menu%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%maininput%"=="0" exit
 if "%maininput%"=="1" goto pingcheck
@@ -47,23 +40,16 @@ if /i "%maininput%"=="exit" goto exiter
 goto main
 :pingcheck
 title Checking Connectivity
-mode con: cols=65 lines=15
+mode con: cols=65 lines=16
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Type a website URL or IP Address
 echo below to check if you are connected to
 echo the internet or that device IP
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo Type %esc%[36mleave%esc%[0m to go to the main menu
 echo Type %esc%[31mexit%esc%[0m to close Scripty
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "webip=Website:%esc%[92m-$%esc%[0m "
 if /i "%webip%"=="exit" goto exiter
 if /i "%webip%"=="leave" goto main
@@ -74,20 +60,13 @@ goto pingcheck
 title File Organizer
 mode con: cols=65 lines=29
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo How would You like to Organize the files in this directory?
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Sort all files by extension into sperate folders
 echo %esc%[33m2.)%esc%[0m Sort most files by type into seperate folders
 echo (Option %esc%[33m2%esc%[0m combines options below into one command)
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo Type %esc%[96mvideo%esc%[0m to move video files into "Videos"
 echo Type %esc%[96maudio%esc%[0m to move audio files into "Audio"
 echo Type %esc%[96mimage%esc%[0m to move image files into "Images"
@@ -98,10 +77,10 @@ echo Type %esc%[96mdisc%esc%[0m to move Disc/Media files into "Disc_Images"
 echo Type %esc%[96mzip%esc%[0m to move compressed file types into "Compressed_Files"
 echo Type %esc%[36mLeave%esc%[0m and hit %esc%[32mENTER%esc%[0m to go to the Main Menu
 echo Type %esc%[31mExit%esc%[0m and hit %esc%[32mENTER%esc%[0m to leave Scripty
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33mCurrent Directory%esc%[0m: %esc%[96m!directory!%esc%[0m
 echo Type %esc%[96mPath%esc%[0m to change the working directory
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "organizer=%esc%[93mSort%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%organizer%"=="1" goto extension
 if "%organizer%"=="2" goto organize_most
@@ -121,17 +100,10 @@ goto organize
 title Enter directory you want to make changes in
 mode con: cols=65 lines=12
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
@@ -292,23 +264,16 @@ goto organize
 title Change File Extensions (Semi-Ransomeware Protection)
 mode con: cols=65 lines=18
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Rename file extensions (Semi-Ransomeware Protection)
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m CHANGE File extensions
 echo %esc%[33m2.)%esc%[0m REVERT to original File extensions
 echo %esc%[33m3.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33mCurrent Directory%esc%[0m: %esc%[96m!directory!%esc%[0m
 echo Type %esc%[96mPath%esc%[0m to change the working directory
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "rfe=%esc%[35mCommand%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%rfe%"=="1" goto safe
 if "%rfe%"=="2" goto unsafe
@@ -321,17 +286,10 @@ goto choice
 title Enter directory you want to make changes in
 mode con: cols=65 lines=12
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
@@ -397,27 +355,20 @@ echo All file extensions have been restored.
 pause
 goto choice
 :passgen
-mode con: cols=65 lines=18
+mode con: cols=65 lines=19
 title Generate a password with alphanumeric and special characters
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Current Password Length: %esc%[35m%passlength%%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Change the length of the password
 echo %esc%[33m2.)%esc%[0m Generate the password
 echo %esc%[33m3.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[32mGenerated Password:%esc%[0m %passresult%
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[1m%esc%[4mREMEMBER TO WRITE DOWN THE PASSWORD%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "passgenerator=%esc%[93mPassword%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%passgenerator%"=="1" call :set_length
 if "%passgenerator%"=="2" call :gen
@@ -429,22 +380,15 @@ goto passgen
 title Set the length of the password to be generated
 mode con: cols=65 lines=17
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Current Password Length: %esc%[35m%passlength%%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Change the length of the password
 echo %esc%[33m2.)%esc%[0m Generate the password
 echo %esc%[33m3.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[32mGenerated Password:%esc%[0m %passresult%
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "passlength=%esc%[91mEnter desired password length%esc%[0m:%esc%[92m-$%esc%[0m "
 if /i "%passlength%"=="leave" (
 	goto main
@@ -470,17 +414,10 @@ goto passgen
 mode con: cols=65 lines=23
 Title MiniTweaks
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo %esc%[93mIf changes don't take effect, launch Scripty as Administrator%esc%[0m
 echo %esc%[93mor restart Windows Explorer using the option below%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Disable Windows Transparency (may need to type "yes")
 echo %esc%[33m2.)%esc%[0m Enable Windows Transparency (may need to type "yes")
 echo %esc%[33m3.)%esc%[0m Disable Xbox Game Bar (may need to type "yes" twice)
@@ -489,9 +426,9 @@ echo %esc%[33m5.)%esc%[0m Add Ultimate Performance Profile
 echo %esc%[33m6.)%esc%[0m Restart Windows Explorer
 echo %esc%[33m7.)%esc%[0m Main menu
 echo %esc%[33m8.)%esc%[0m Close and Exit Scripty
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[1m%esc%[31mWARNING: SOME OF THESE OPTIONS CHANGE REGISTRY VALUES%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "minortweaks=%esc%[90mTweak%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%minortweaks%"=="1" goto disable_transparency
 if "%minortweaks%"=="2" goto enable_transparency
@@ -524,25 +461,18 @@ cls
 powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 goto minitweaks
 :wifipass
-mode con: cols=65 lines=16
+mode con: cols=65 lines=17
 title View Saved WiFi Passwords
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo If the password isn't visible you must Use option %esc%[33m2%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Show Saved Wireless Networks
 echo %esc%[33m2.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty)
 echo %esc%[33m3.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[32mENTER%esc%[0m the Network name below to view the password
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "passwifi=%esc%[32mNetwork%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%passwifi%"=="1" goto show_saved_networks
 if "%passwifi%"=="2" goto wifi_get_admin
@@ -578,23 +508,16 @@ goto wifipass
 title Cleanup
 mode con: cols=65 lines=18
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Clean Temporary Files and Empty Recycle Bin
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[33m1.)%esc%[0m Clean Temporary Files
 echo %esc%[33m2.)%esc%[0m Empty Reycle Bin
 echo %esc%[33m3.)%esc%[0m Combine options 1 and 2
 echo %esc%[33m4.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo Select an option and press %esc%[32mENTER%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "cleaning=%esc%[93mClean%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%cleaning%"=="1" goto clean_temp
 if "%cleaning%"=="2" goto empty_recycle
@@ -650,18 +573,11 @@ set /a "min=0"
 set /a "hour=0"
 set /a "days=0"
 set /a "timer=60"
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo %esc%[33m1.)%esc%[0m Stop Watch
 echo %esc%[33m2.)%esc%[0m Timer
 echo %esc%[33m3.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "time=%esc%[33mTiming%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%time%"=="1" goto stop_watch
 if "%time%"=="2" goto countdown
@@ -673,40 +589,26 @@ goto timing
 mode con: cols=65 lines=11
 title Scripty Stop Watch
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 set /a "sec+=1"
 if "%sec%"=="60" set /a "min+=1" & set /a "sec=0"
 if "%min%"=="60" set /a "hour+=1" & set /a "min=0" & set /a "sec=0"
 if "%hour%"=="24" set /a "days+=1" & set /a "hour=0" & set /a "min=0" & set /a "sec=0"
 echo Elapsed time: %days% days %hour% hours %min% minutes %sec% seconds
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 timeout /t 1 /nobreak >nul
 goto stop_watch
 :countdown
 mode con: cols=65 lines=15
 title Scripty Timer
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo %esc%[33m1.)%esc%[0m Set custom timer length(must be in seconds, i.e.7200=2 hours)
 echo %esc%[33m2.)%esc%[0m Start the timer
 echo %esc%[33m3.)%esc%[0m Main Menu
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[39mCurrent Timer Length:%esc%[0m %timer% seconds
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "timermain=%esc%[31mTimer%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%timermain%"=="1" goto timer_length_set
 if "%timermain%"=="2" goto countdown_real
@@ -717,16 +619,9 @@ goto countdown
 mode con: cols=65 lines=11
 title Set the timer length
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo How long would you like the timer to be? (In seconds)
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "timer=%esc%[31mTimer%esc%[0m:%esc%[92m-$%esc%[0m "
 if /i "%timer%"=="leave" goto main
 if /i "%timer%"=="exit" goto exiter
@@ -735,16 +630,9 @@ goto countdown
 mode con: cols=65 lines=11
 title Scripty Countdown Timer
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo Countdown: %hour%:%min%:%sec%
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /a hour=%timer%/3600
 set /a min=(%timer%%%3600)/60
 set /a sec=%timer%%%60
@@ -761,16 +649,9 @@ goto countdown
 mode con: cols=65 lines=14
 title Scripty Credits
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo %esc%[33mHuge Thank You to everyone that contributed to this project:%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo %esc%[34mcylvin%esc%[0m and my github link: %esc%[92mgithub.com/cyl-vin%esc%[0m
 echo %esc%[91mamakvana%esc%[0m and their github link: %esc%[92mhttps://github.com/amakvana%esc%[0m
 pause
@@ -779,22 +660,28 @@ goto main
 title Close and exit Scripty?
 mode con: cols=65 lines=14
 cls
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.5
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :scripty_banner
 echo %esc%[33mAre you sure you want to%esc%[0m %esc%[31mLEAVE?%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 echo Type %esc%[33mY%esc%[0m and press %esc%[32mENTER%esc%[0m for yes
 echo Type %esc%[33mN%esc%[0m and press %esc%[32mENTER%esc%[0m for no
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+call :seperator
 set /p "exiting=%esc%[31mExit?%esc%[0m:%esc%[92m-$%esc%[0m "
 if /i "%exiting%"=="y" exit
 if /i "%exiting%"=="n" goto main
 echo No option was chosen. Returning.
 pause
 goto exiter
+:seperator
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+exit /b
+:scripty_banner
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
+echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
+echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
+echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
+echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
+echo %esc%[34m                /_/        /____/%esc%[0m v1.6
+echo %esc%[36m----------------------------------------------------------------%esc%[0m
+exit /b
