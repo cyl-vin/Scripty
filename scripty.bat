@@ -20,6 +20,7 @@ echo %esc%[33m8.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty w/ A
 echo %esc%[33m9.)%esc%[0m Timer and Stop Watch
 echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
 call :seperator
+echo Type %esc%[33mNext%esc%[0m to see the next page
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
@@ -35,9 +36,27 @@ if "%maininput%"=="6" goto wifipass
 if "%maininput%"=="7" goto cleanup
 if "%maininput%"=="8" goto main_get_admin
 if "%maininput%"=="9" goto timing
+if /i "%maininput%"=="next" goto main2
 if "%maininput%"=="credits" goto credits
 if /i "%maininput%"=="exit" goto exiter
 goto main
+:main2
+cls
+call :scripty_banner
+echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
+call :seperator
+echo %esc%[33m10.)%esc%[0m Get MD5 hash of all files in all subdirectories
+echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
+call :seperator
+echo Type %esc%[33mPrev%esc%[0m to go to the previous page
+call :seperator
+set /p "main2input=%esc%[95mMain Menu%esc%[0m:%esc%[92m-$%esc%[0m "
+if "%main2input%"=="0" exit
+if "%main2input%"=="10" goto hashy
+if /i "%main2input%"=="prev" goto main
+if "%main2input%"=="credits" goto credits
+if /i "%main2input%"=="exit" goto exiter
+goto main2
 :pingcheck
 title Checking Connectivity
 mode con: cols=65 lines=16
@@ -645,6 +664,43 @@ if %timer% gtr 0 goto countdown_real
 REM Play a sound
 start "" "C:\Windows\Media\ring04.wav"
 goto countdown
+:hashy
+title MD5 Hash Generator
+cls
+call :scripty_banner
+echo Generate MD5 hashes of all files in a folder, and its subdirectories
+call :seperator
+echo %esc%[33m1.)%esc%[0m Generate the hashes (will be output to a text file)
+echo %esc%[33m2.)%esc%[0m Change target directory
+call :seperator
+echo Current target directory: "%directory%"
+call :seperator
+set /p "hashing=%esc%[92mHash%esc%[0m: %esc%[92m-$%esc%[0m "
+if "%hashing%"=="1" goto md5
+if "%hashing%"=="2" goto change_path_hashy
+if /i "%hashing%"=="leave" goto main
+if /i "%hashing%"=="exit" goto exiter
+goto hashy
+:md5
+cd /d "%directory%"
+for /R %%f in (*) do (
+    echo | set/p="%%f - "
+    certutil -hashfile "%%f" MD5 | findstr /V ":"
+) >> output.txt
+pause
+goto hashy
+:change_path_hashy
+title Enter directory you want to target
+mode con: cols=65 lines=12
+cls
+call :scripty_banner
+echo Type the full path of the directory you wish to make changes
+echo in below.(no quotations)
+call :seperator
+set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%directory%"=="leave" goto main
+if /i "%directory%"=="exit" goto exiter
+goto hashy
 :credits
 mode con: cols=65 lines=14
 title Scripty Credits
@@ -682,6 +738,6 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.6
+echo %esc%[34m                /_/        /____/%esc%[0m v1.7
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 exit /b
