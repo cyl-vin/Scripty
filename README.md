@@ -1,5 +1,6 @@
 # Scripty
-![cmd_0OEsvxdJvl](https://github.com/cyl-vin/Scripty/assets/152368998/57102235-0142-4200-87b6-5131efba03f9)
+![cmd_DHP4zqqpjs](https://github.com/cyl-vin/Scripty/assets/152368998/435e5a5f-3e57-485a-a915-931fea9ef5b4)
+
 
 
 
@@ -50,6 +51,12 @@ This is perfect if you have a "long-term" storage drive or folder with unused fi
 
 
 9. **Timer and Stop Watch** - The user is able to set custom timer length (in seconds), and once the timer reaches zero, Scripty will play a ringtone. The stopwatch currently cannot be stopped without closing scripty, it will only keep counting.
+
+
+10. **MD5 hash generator** - You can get the md5 hashes of all files where Scripty is placed, or you can specify a specific folder (output.txt will be placed in target directory w/ hashes of each file)
+
+
+11. **Set Timezone** - As the name suggests, you can set your windows timezone from here. You can also view all windows timezones as well (will open in new window). 
 
 
 
