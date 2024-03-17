@@ -4,7 +4,7 @@ for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
 set "directory=%cd%"
 :main
 title Scripty coded by cylvin
-mode con: cols=65 lines=26
+mode con: cols=65 lines=28
 cls
 call :scripty_banner
 echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
@@ -18,9 +18,10 @@ echo %esc%[33m6.)%esc%[0m View Saved WiFi Passwords
 echo %esc%[33m7.)%esc%[0m Remove Temporary files and empty Recycle Bin
 echo %esc%[33m8.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty w/ Admin)
 echo %esc%[33m9.)%esc%[0m Timer and Stop Watch
+echo %esc%[33m10.)%esc%[0m Get MD5 hash of all files in all subdirectories
+echo %esc%[33m11.)%esc%[0m Set Timezone
 echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
 call :seperator
-echo Type %esc%[33mNext%esc%[0m to see the next page
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
@@ -36,27 +37,11 @@ if "%maininput%"=="6" goto wifipass
 if "%maininput%"=="7" goto cleanup
 if "%maininput%"=="8" goto main_get_admin
 if "%maininput%"=="9" goto timing
-if /i "%maininput%"=="next" goto main2
+if "%maininput%"=="10" goto hashy
+if "%maininput%"=="11" goto date_time_setter
 if "%maininput%"=="credits" goto credits
 if /i "%maininput%"=="exit" goto exiter
 goto main
-:main2
-cls
-call :scripty_banner
-echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
-call :seperator
-echo %esc%[33m10.)%esc%[0m Get MD5 hash of all files in all subdirectories
-echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
-call :seperator
-echo Type %esc%[33mPrev%esc%[0m to go to the previous page
-call :seperator
-set /p "main2input=%esc%[95mMain Menu%esc%[0m:%esc%[92m-$%esc%[0m "
-if "%main2input%"=="0" exit
-if "%main2input%"=="10" goto hashy
-if /i "%main2input%"=="prev" goto main
-if "%main2input%"=="credits" goto credits
-if /i "%main2input%"=="exit" goto exiter
-goto main2
 :pingcheck
 title Checking Connectivity
 mode con: cols=65 lines=16
@@ -665,6 +650,7 @@ REM Play a sound
 start "" "C:\Windows\Media\ring04.wav"
 goto countdown
 :hashy
+mode con: cols=65 lines=17
 title MD5 Hash Generator
 cls
 call :scripty_banner
@@ -701,6 +687,25 @@ set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
 goto hashy
+:date_time_setter
+mode con: cols=65 lines=16
+title Set your Timezone
+cls
+call :scripty_banner
+echo Set/View Timezones
+call :seperator
+echo %esc%[33m1.)%esc%[0m View list of timezones (will run in new window)
+echo %esc%[33m2.)%esc%[0m Main Menu
+call :seperator
+echo Just enter desired timezone below and hit enter to change it
+call :seperator
+set /p "settimezone=%esc%[36mTimeZone%esc%[0m:%esc%[92m-$%esc%[0m "
+if "%settimezone%"=="1" start cmd /k "tzutil /l"
+if "%settimezone%"=="2" goto main
+if /i "%settimezone%"=="leave" goto main
+if /i "%settimezone%"=="exit" goto exiter
+tzutil /s "!settimezone!"
+goto date_time_setter
 :credits
 mode con: cols=65 lines=14
 title Scripty Credits
@@ -738,6 +743,6 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.7
+echo %esc%[34m                /_/        /____/%esc%[0m v1.8
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 exit /b
