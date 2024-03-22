@@ -4,7 +4,7 @@ for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
 set "directory=%cd%"
 :main
 title Scripty coded by cylvin
-mode con: cols=65 lines=30
+mode con: cols=65 lines=31
 cls
 call :scripty_banner
 echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
@@ -748,6 +748,7 @@ echo %esc%[91mamakvana%esc%[0m and their github link: %esc%[92mhttps://github.co
 pause
 goto main
 :scripty_update
+mode con: cols=65 lines=1
 title Scripty Updater
 cls
 if /i not "%~1"=="updated" (
