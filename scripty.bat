@@ -1,12 +1,5 @@
 @echo off
 setlocal enabledelayedexpansion
-if /i not "%~1"=="updated" (
-    echo Updating %~nx0 ...
-    >nul 2>&1 powershell iwr "https://raw.githubusercontent.com/cyl-vin/Scripty/main/scripty.bat" -OutFile "%temp%\%~nx0"
-    >nul 2>&1 move /y "%temp%\%~nx0" "%~dpnx0"
-    >nul 2>&1 powershell start "%~0" updated & exit /b
-)
-cd /d "%~dp0"
 for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
 set "directory=%cd%"
 :main
@@ -29,6 +22,7 @@ echo %esc%[33m10.)%esc%[0m Get MD5 hash of all files in all subdirectories
 echo %esc%[33m11.)%esc%[0m Set Timezone
 echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
 call :seperator
+echo Type %esc%[34mUpdate%esc%[0m to Update Scripty!
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
@@ -46,7 +40,8 @@ if "%maininput%"=="8" goto main_get_admin
 if "%maininput%"=="9" goto timing
 if "%maininput%"=="10" goto hashy
 if "%maininput%"=="11" goto date_time_setter
-if "%maininput%"=="credits" goto credits
+if /i "%maininput%"=="update" goto scripty_update
+if /i "%maininput%"=="credits" goto credits
 if /i "%maininput%"=="exit" goto exiter
 goto main
 :pingcheck
@@ -740,6 +735,17 @@ if /i "%exiting%"=="n" goto main
 echo No option was chosen. Returning.
 pause
 goto exiter
+:scripty_update
+title Scripty Updater
+cls
+if /i not "%~1"=="updated" (
+    echo Updating %~nx0 ...
+    >nul 2>&1 powershell iwr "https://raw.githubusercontent.com/cyl-vin/Scripty/main/scripty.bat" -OutFile "%temp%\%~nx0"
+    >nul 2>&1 move /y "%temp%\%~nx0" "%~dpnx0"
+    >nul 2>&1 powershell start "%~0" updated & exit /b
+)
+cd /d "%~dp0"
+goto main
 :seperator
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 exit /b
