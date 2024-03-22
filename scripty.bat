@@ -24,7 +24,7 @@ echo %esc%[33m12.)%esc%[0m Launch Programs
 echo %esc%[33m13.)%esc%[0m Open Startup Folders for Current and all users
 echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
 call :seperator
-echo Type %esc%[34mUpdate%esc%[0m to Update Scripty (Must relaunch Scripty manually)
+echo Type %esc%[34mUpdate%esc%[0m to Update Scripty
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
@@ -751,12 +751,14 @@ goto main
 mode con: cols=65 lines=10
 title Scripty Updater
 cls
+REM got this bit of code from reddit: https://www.reddit.com/r/Batch/comments/10whu4j/comment/j96lguw/?utm_source=share&utm_medium=web2x&context=3
 if /i not "%~1"=="updated" (
     echo Updating %~nx0 ...
     >nul 2>&1 powershell iwr "https://raw.githubusercontent.com/cyl-vin/Scripty/main/scripty.bat" -OutFile "%temp%\%~nx0"
-    >nul 2>&1 move /y "%temp%\%~nx0" "%~dpnx0"
-    >nul 2>&1 powershell start "%~0" updated & exit /b
+    >nul 2>&1 move /y "%temp%\%~nx0" "%~0"
+    (start "%~dp0" "%~0" updated) & exit /b
 )
+cd /d "%~dp0"
 cd /d "%~dp0"
 goto main
 :exiter
