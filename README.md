@@ -1,5 +1,6 @@
 # Scripty
-![cmd_DHP4zqqpjs](https://github.com/cyl-vin/Scripty/assets/152368998/435e5a5f-3e57-485a-a915-931fea9ef5b4)
+![cmd_OnTAYSJvuj](https://github.com/cyl-vin/Scripty/assets/152368998/792979a5-9e96-46a8-8fb5-60c95288bad1)
+
 
 
 
@@ -56,8 +57,16 @@ This is perfect if you have a "long-term" storage drive or folder with unused fi
 10. **MD5 hash generator** - You can get the md5 hashes of all files where Scripty is placed, or you can specify a specific folder (output.txt will be placed in target directory w/ hashes of each file)
 
 
-11. **Set Timezone** - As the name suggests, you can set your windows timezone from here. You can also view all windows timezones as well (will open in new window). 
+11. **Set Timezone** - As the name suggests, you can set your windows timezone from here. You can also view all windows timezones as well (will open in new window).
 
+
+12. **Launch Programs** - Can launch:  Brave Browser, Discord, Notepad++, OBS, Paint.NET, Steam, and VLC (only if you have them installed. I might add a program downloader eventually)
+
+
+13. **Open Startup Folders** - Opens The startup folder for the current user, and the startup folder for all users(if you have more than one user)
+
+
+# Scripty can now update itself!! Just type update in the main menu and it will download an update if one is available!
 
 
 # Why am I making this project?
