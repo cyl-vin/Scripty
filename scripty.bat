@@ -1,5 +1,12 @@
 @echo off
 setlocal enabledelayedexpansion
+if /i not "%~1"=="updated" (
+    echo Updating %~nx0 ...
+    >nul 2>&1 powershell iwr "https://raw.githubusercontent.com/cyl-vin/Scripty/main/scripty.bat" -OutFile "%temp%\%~nx0"
+    >nul 2>&1 move /y "%temp%\%~nx0" "%~dpnx0"
+    >nul 2>&1 powershell start "%~0" updated & exit /b
+)
+cd /d "%~dp0"
 for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
 set "directory=%cd%"
 :main
