@@ -4,7 +4,7 @@ for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
 set "directory=%cd%"
 :main
 title Scripty coded by cylvin
-mode con: cols=65 lines=28
+mode con: cols=65 lines=30
 cls
 call :scripty_banner
 echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
@@ -20,9 +20,11 @@ echo %esc%[33m8.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty w/ A
 echo %esc%[33m9.)%esc%[0m Timer and Stop Watch
 echo %esc%[33m10.)%esc%[0m Get MD5 hash of all files in all subdirectories
 echo %esc%[33m11.)%esc%[0m Set Timezone
+echo %esc%[33m12.)%esc%[0m Launch Programs
+echo %esc%[33m13.)%esc%[0m Open Startup Folders for Current and all users
 echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
 call :seperator
-echo Type %esc%[34mUpdate%esc%[0m to Update Scripty!
+echo Type %esc%[34mUpdate%esc%[0m to Update Scripty (Must relaunch Scripty manually)
 echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
@@ -40,6 +42,8 @@ if "%maininput%"=="8" goto main_get_admin
 if "%maininput%"=="9" goto timing
 if "%maininput%"=="10" goto hashy
 if "%maininput%"=="11" goto date_time_setter
+if "%maininput%"=="12" goto program_launcher
+if "%maininput%"=="13" %SystemRoot%\explorer.exe "%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" & %SystemRoot%\explorer.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
 if /i "%maininput%"=="update" goto scripty_update
 if /i "%maininput%"=="credits" goto credits
 if /i "%maininput%"=="exit" goto exiter
@@ -708,6 +712,30 @@ if /i "%settimezone%"=="leave" goto main
 if /i "%settimezone%"=="exit" goto exiter
 tzutil /s "!settimezone!"
 goto date_time_setter
+:program_launcher
+mode con: cols=65 lines=17
+title Launch Some Programs
+cls
+call :scripty_banner
+echo %esc%[33m1.)%esc%[0m Brave Browser
+echo %esc%[33m2.)%esc%[0m Discord
+echo %esc%[33m3.)%esc%[0m Notepad++
+echo %esc%[33m4.)%esc%[0m OBS
+echo %esc%[33m5.)%esc%[0m Paint.NET
+echo %esc%[33m6.)%esc%[0m Steam
+echo %esc%[33m7.)%esc%[0m VLC
+call :seperator
+set /p "programlaunch=%esc%[31mOption%esc%[0m:%esc%[92m-$%esc%[0m "
+if "%programlaunch%"=="1" cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application" & start brave.exe
+if "%programlaunch%"=="2" cd /d "%userprofile%\AppData\Local\Discord" & start Update.exe --processStart Discord.exe
+if "%programlaunch%"=="3" cd /d "C:\Program Files\Notepad++" & start notepad++.exe
+if "%programlaunch%"=="4" cd /d "C:\Program Files\obs-studio\bin\64bit" & start obs64.exe
+if "%programlaunch%"=="5" cd /d "C:\Program Files\paint.net" & start paintdotnet.exe
+if "%programlaunch%"=="6" cd /d "C:\Program Files (x86)\Steam" & start steam.exe
+if "%programlaunch%"=="7" cd /d "C:\Program Files (x86)\VideoLAN\VLC" & start vlc.exe
+if /i "%programlaunch%"=="leave" goto main
+if /i "%programlaunch%"=="exit" goto exiter
+goto program_launcher
 :credits
 mode con: cols=65 lines=14
 title Scripty Credits
@@ -718,6 +746,17 @@ call :seperator
 echo %esc%[34mcylvin%esc%[0m and my github link: %esc%[92mgithub.com/cyl-vin%esc%[0m
 echo %esc%[91mamakvana%esc%[0m and their github link: %esc%[92mhttps://github.com/amakvana%esc%[0m
 pause
+goto main
+:scripty_update
+title Scripty Updater
+cls
+if /i not "%~1"=="updated" (
+    echo Updating %~nx0 ...
+    >nul 2>&1 powershell iwr "https://raw.githubusercontent.com/cyl-vin/Scripty/main/scripty.bat" -OutFile "%temp%\%~nx0"
+    >nul 2>&1 move /y "%temp%\%~nx0" "%~dpnx0"
+    >nul 2>&1 powershell start "%~0" updated & exit /b
+)
+cd /d "%~dp0"
 goto main
 :exiter
 title Close and exit Scripty?
@@ -735,17 +774,6 @@ if /i "%exiting%"=="n" goto main
 echo No option was chosen. Returning.
 pause
 goto exiter
-:scripty_update
-title Scripty Updater
-cls
-if /i not "%~1"=="updated" (
-    echo Updating %~nx0 ...
-    >nul 2>&1 powershell iwr "https://raw.githubusercontent.com/cyl-vin/Scripty/main/scripty.bat" -OutFile "%temp%\%~nx0"
-    >nul 2>&1 move /y "%temp%\%~nx0" "%~dpnx0"
-    >nul 2>&1 powershell start "%~0" updated & exit /b
-)
-cd /d "%~dp0"
-goto main
 :seperator
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 exit /b
@@ -756,6 +784,6 @@ echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/
 echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
 echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
 echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.8
+echo %esc%[34m                /_/        /____/%esc%[0m v1.9
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 exit /b
