@@ -3,29 +3,26 @@ setlocal enabledelayedexpansion
 for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
 set "directory=%cd%"
 :main
+REM Main Menu
+mode con: cols=65 lines=27
 title Scripty coded by cylvin
-mode con: cols=65 lines=31
 cls
 call :scripty_banner
-echo Type the number of the option you want to choose and press %esc%[32mENTER%esc%[0m
+echo %esc%[32mType the number of the option you want to choose and press ENTER%esc%[0m
 call :seperator
-echo %esc%[33m1.)%esc%[0m Check internet status
-echo %esc%[33m2.)%esc%[0m Organize some files in this directory
-echo %esc%[33m3.)%esc%[0m Change file extensions (Semi-Ransomeware Protection)
-echo %esc%[33m4.)%esc%[0m Generate a password of any length (includes special chars.)
-echo %esc%[33m5.)%esc%[0m MiniTweaks
-echo %esc%[33m6.)%esc%[0m View Saved WiFi Passwords
-echo %esc%[33m7.)%esc%[0m Remove Temporary files and empty Recycle Bin
-echo %esc%[33m8.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty w/ Admin)
-echo %esc%[33m9.)%esc%[0m Timer and Stop Watch
-echo %esc%[33m10.)%esc%[0m Get MD5 hash of all files in all subdirectories
-echo %esc%[33m11.)%esc%[0m Set Timezone
-echo %esc%[33m12.)%esc%[0m Launch Programs
-echo %esc%[33m13.)%esc%[0m Open Startup Folders for Current and all users
-echo %esc%[33m0.)%esc%[0m EXIT AND CLOSE SCRIPTY
+echo %esc%[33m1.)%esc%[0m Ping/Trace Website/IP      %esc%[31m:%esc%[0m %esc%[33m9.)%esc%[0m Timer and Stop Watch
+echo %esc%[33m2.)%esc%[0m File Organizer             %esc%[31m:%esc%[0m %esc%[33m10.)%esc%[0m Get MD5 Hashes
+echo %esc%[33m3.)%esc%[0m Change file extensions     %esc%[31m:%esc%[0m %esc%[33m11.)%esc%[0m Set Timezone
+echo %esc%[33m4.)%esc%[0m Password Generator         %esc%[31m:%esc%[0m %esc%[33m12.)%esc%[0m Launch Programs
+echo %esc%[33m5.)%esc%[0m MiniTweaks                 %esc%[31m:%esc%[0m %esc%[33m13.)%esc%[0m Open Startup Folders
+echo %esc%[33m6.)%esc%[0m View Saved WiFi Passwords  %esc%[31m:%esc%[0m %esc%[33m14.)%esc%[0m Add/View User Accounts
+echo %esc%[33m7.)%esc%[0m Clean TEMP/Recycle Bin     %esc%[31m:%esc%[0m %esc%[33m15.)%esc%[0m Resync Time/Date
+echo %esc%[33m8.)%esc%[0m Relaunch Scripty w/ Admin  %esc%[31m:%esc%[0m %esc%[33m16.)%esc%[0m Restart to BIOS/UEFI
 call :seperator
-echo Type %esc%[34mUpdate%esc%[0m to Update Scripty
-echo Type %esc%[91mExit%esc%[0m to close %esc%[34mScripty%esc%[0m from anywhere
+echo %esc%[33m0.)%esc%[0m %esc%[31mEXIT AND CLOSE SCRIPTY%esc%[0m
+call :seperator
+echo Type %esc%[94mUpdate%esc%[0m to Update %esc%[94mScripty%esc%[0m
+echo Type %esc%[91mExit%esc%[0m to close %esc%[94mScripty%esc%[0m from anywhere
 echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
 echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
 call :seperator
@@ -44,18 +41,26 @@ if "%maininput%"=="10" goto hashy
 if "%maininput%"=="11" goto date_time_setter
 if "%maininput%"=="12" goto program_launcher
 if "%maininput%"=="13" %SystemRoot%\explorer.exe "%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" & %SystemRoot%\explorer.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+if "%maininput%"=="14" goto user_menu
+if "%maininout%"=="15" w32tm /resync
+if "%maininput%"=="16" goto bios_restart
+if /i "%maininput%"=="scripty" start https://github.com/cyl-vin/Scripty
+if /i "%maininput%"=="cylvin" start https://github.com/cyl-vin
+if /i "%maininput%"=="easteregg" call :egg
 if /i "%maininput%"=="update" goto scripty_update
 if /i "%maininput%"=="credits" goto credits
 if /i "%maininput%"=="exit" goto exiter
 goto main
 :pingcheck
+REM Ping Website/IP
 title Checking Connectivity
-mode con: cols=65 lines=16
+mode con: cols=65 lines=17
 cls
 call :scripty_banner
 echo Type a website URL or IP Address
 echo below to check if you are connected to
-echo the internet or that device IP
+echo the internet or that device IP and
+echo trace the route
 call :seperator
 echo Type %esc%[36mleave%esc%[0m to go to the main menu
 echo Type %esc%[31mexit%esc%[0m to close Scripty
@@ -63,10 +68,10 @@ call :seperator
 set /p "webip=Website:%esc%[92m-$%esc%[0m "
 if /i "%webip%"=="exit" goto exiter
 if /i "%webip%"=="leave" goto main
-ping !webip!
-pause
+start cmd /k "pathping !webip!"
 goto pingcheck
 :organize
+REM File Organizer
 title File Organizer
 mode con: cols=65 lines=29
 cls
@@ -107,6 +112,7 @@ if /i "%organizer%"=="leave" goto main
 if /i "%organizer%"=="path" goto change_path_organize
 goto organize
 :change_path_organize
+REM Changes the directory Scripty will operate in
 title Enter directory you want to make changes in
 mode con: cols=65 lines=12
 cls
@@ -114,11 +120,15 @@ call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
 call :seperator
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
 set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%directory%"=="back" goto organize
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
 goto organize
 :video
+REM Organizes Video Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -132,6 +142,7 @@ echo Video files have been moved to the 'Videos' folder.
 pause
 goto organize
 :audio
+REM Organizes Ausio Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -145,6 +156,7 @@ echo Audio files have been moved to the 'Audio' folder.
 pause
 goto organize
 :image
+REM Organizes Image Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -158,6 +170,7 @@ echo Image files have been moved to the 'Images' folder.
 pause
 goto organize
 :text
+REM Organizes Text Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -171,6 +184,7 @@ echo Text-based files have been moved to the 'Documents' folder.
 pause
 goto organize
 :pres
+REM Organizes Presentation-Type Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -184,6 +198,7 @@ echo Presentation files have been moved to the 'Presentation' folder.
 pause
 goto organize
 :executables
+REM Organizes Executable Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -197,6 +212,7 @@ echo Executable files have been moved to the 'Executables' folder.
 pause
 goto organize
 :disc_images
+REM Organizes Disc Image Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -210,6 +226,7 @@ echo Disc/Media files have been moved to the 'Disc_Images' folder.
 pause
 goto organize
 :compress
+REM Organizes Compressed File-Types
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -223,6 +240,7 @@ echo Compressed file types have been moved to the 'Compressed_Files' folder.
 pause
 goto organize
 :organize_most
+REM Organizes most common fyle-types into their own folders
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -254,6 +272,7 @@ echo All files have been moved to their respective folders.
 pause
 goto organize
 :extension
+REM Organizes every file by file extension into its own folder
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -271,6 +290,7 @@ echo All files (except batch files) have been organized by extension.
 pause
 goto organize
 :choice
+REM File Extension Changer Menu
 title Change File Extensions (Semi-Ransomeware Protection)
 mode con: cols=65 lines=18
 cls
@@ -293,6 +313,7 @@ if /i "%rfe%"=="leave" goto main
 if /i "%rfe%"=="path" goto change_path_choice
 goto choice
 :change_path_choice
+REM Changes the directory Scripty will operate in
 title Enter directory you want to make changes in
 mode con: cols=65 lines=12
 cls
@@ -300,7 +321,10 @@ call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
 call :seperator
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
 set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%directory%"=="back" goto choice
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
 goto choice
@@ -365,6 +389,7 @@ echo All file extensions have been restored.
 pause
 goto choice
 :passgen
+REM Password generator menu
 mode con: cols=65 lines=19
 title Generate a password with alphanumeric and special characters
 cls
@@ -387,6 +412,7 @@ if /i "%passgenerator%"=="exit" goto exiter
 if /i "%passgenerator%"=="leave" goto main
 goto passgen
 :set_length
+REM Set a specific password length
 title Set the length of the password to be generated
 mode con: cols=65 lines=17
 cls
@@ -399,8 +425,12 @@ echo %esc%[33m3.)%esc%[0m Main Menu
 call :seperator
 echo %esc%[32mGenerated Password:%esc%[0m %passresult%
 call :seperator
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
 set /p "passlength=%esc%[91mEnter desired password length%esc%[0m:%esc%[92m-$%esc%[0m "
-if /i "%passlength%"=="leave" (
+if /i "%passlength%"=="back" (
+	goto passgen
+) else if /i "%passlength%"=="leave" (
 	goto main
 ) else if /i "%passlength%"=="exit" (
 	goto exiter
@@ -409,6 +439,7 @@ if /i "%passlength%"=="leave" (
 )
 goto passgen
 :gen
+REM Generates a password of the specified length
 cls
 REM Define the characters for the alphanumeric string
 set "characters=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789@@##$$**))((??..,,``~~--++]][[}}{{;;::"
@@ -421,6 +452,7 @@ for /L %%i in (1,1,%passlength%) do (
 )
 goto passgen
 :minitweaks
+REM MiniTweaks Menu
 mode con: cols=65 lines=23
 Title MiniTweaks
 cls
@@ -445,6 +477,7 @@ if "%minortweaks%"=="2" goto enable_transparency
 if "%minortweaks%"=="3" goto disable_gamebar
 if "%minortweaks%"=="4" goto enable_gamebar
 if "%minortweaks%"=="5" goto add_ultimate_profile
+REM Launches new window to end explorer.exe task and re-launch explorer.exe
 if "%minortweaks%"=="6" start cmd /k "taskkill /IM explorer.exe /F && explorer.exe"
 if "%minortweaks%"=="7" goto main
 if "%minortweaks%"=="8" goto exiter
@@ -453,24 +486,30 @@ if /i "%minortweaks%"=="exit" goto exiter
 else if goto minitweaks
 goto minitweaks
 :disable_transparency
+REM changes registry key to disable windows transparency
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v EnableTransparency /t REG_DWORD /d 0
 goto minitweaks
 :enable_transparency
+REM changes registry key to enable windows transparency
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v EnableTransparency /t REG_DWORD /d 1
 goto minitweaks
 :disable_gamebar
+REM changes registry key to disable xbox gamebar
 REG ADD HKEY_CURRENT_USER\System\GameConfigStore /v GameDVR_Enabled /t REG_DWORD /d 0
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 0
 goto minitweaks
 :enable_gamebar
+REM changes registry key to enable xbox gamebar
 REG ADD HKEY_CURRENT_USER\System\GameConfigStore /v GameDVR_Enabled /t REG_DWORD /d 1
 REG ADD HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 1
 goto minitweaks
 :add_ultimate_profile
+REM Adds the ultimate performance profile (does not enable it, only adds it)
 cls
 powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 goto minitweaks
 :wifipass
+REM Wifi password viewer menu
 mode con: cols=65 lines=17
 title View Saved WiFi Passwords
 cls
@@ -485,36 +524,21 @@ echo %esc%[32mENTER%esc%[0m the Network name below to view the password
 call :seperator
 set /p "passwifi=%esc%[32mNetwork%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%passwifi%"=="1" goto show_saved_networks
-if "%passwifi%"=="2" goto wifi_get_admin
+if "%passwifi%"=="2" goto main_get_admin
 if "%passwifi%"=="3" goto main
 if /i "%passwifi%"=="leave" goto main
 if /i "%passwifi%"=="exit" goto exiter
+REM Opens a new window that shows the password of a specified network in clear text
 start cmd /k "netsh wlan show profile name="!passwifi!" key=clear"
 goto wifipass
 :show_saved_networks
+REM Shows all wifi networks that a computer has connected to
 cls
 netsh wlan show profile
 pause
 goto wifipass
-:wifi_get_admin
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
-if "%errorlevel%" NEQ "0" (
-    echo Requesting administrative privileges...
-    goto wifi_UACPrompt
-) else (
-    goto wifi_gotAdmin
-)
-:wifi_UACPrompt
-echo Set UAC = CreateObject("Shell.Application") > "%temp%\getadmin.vbs"
-echo UAC.ShellExecute "cmd.exe", "/c %~s0 %*", "", "runas", 1 >> "%temp%\getadmin.vbs"
-"%temp%\getadmin.vbs"
-del "%temp%\getadmin.vbs"
-exit /B
-:wifi_gotAdmin
-echo Scripty is already running as Admin
-pause
-goto wifipass
 :cleanup
+REM Temp file and recycle bin cleaner menu
 title Cleanup
 mode con: cols=65 lines=18
 cls
@@ -537,18 +561,21 @@ if /i "%cleaning%"=="leave" goto main
 if /i "%cleaning%"=="exit" goto exiter
 goto cleanup
 :clean_temp
+REM removes files from temp folder
 cls
 echo Removing Temporary Files...
 del /f /q %temp%\*.*
 timeout /t 2 >nul
 goto cleanup
 :empty_recycle
+REM Empties the recycle bin
 cls
 echo Emptying the Reycling Bin...
 rd /s /q %systemdrive%\$Recycle.Bin
 timeout /t 2 >nul
 goto cleanup
 :combineclean
+REM removes files from the temp folder and empties the recycle bin
 cls
 echo Removing Temporary Files...
 del /f /q %temp%\*.*
@@ -576,6 +603,7 @@ echo Scripty is already running as Admin
 pause
 goto main
 :timing
+REM Timer and stop watch menu
 mode con: cols=65 lines=13
 cls
 set /a "sec=0"
@@ -588,14 +616,15 @@ echo %esc%[33m1.)%esc%[0m Stop Watch
 echo %esc%[33m2.)%esc%[0m Timer
 echo %esc%[33m3.)%esc%[0m Main Menu
 call :seperator
-set /p "time=%esc%[33mTiming%esc%[0m:%esc%[92m-$%esc%[0m "
-if "%time%"=="1" goto stop_watch
-if "%time%"=="2" goto countdown
-if "%time%"=="3" goto main
-if /i "%time%"=="leave" goto main
-if /i "%time%"=="exit" goto exiter
+set /p "timings=%esc%[33mTiming%esc%[0m:%esc%[92m-$%esc%[0m "
+if "%timings%"=="1" goto stop_watch
+if "%timings%"=="2" goto countdown
+if "%timings%"=="3" goto main
+if /i "%timings%"=="leave" goto main
+if /i "%timings%"=="exit" goto exiter
 goto timing
 :stop_watch
+REM Starts the stop watch
 mode con: cols=65 lines=11
 title Scripty Stop Watch
 cls
@@ -609,34 +638,42 @@ call :seperator
 timeout /t 1 /nobreak >nul
 goto stop_watch
 :countdown
-mode con: cols=65 lines=15
+REM Timer menu
+mode con: cols=65 lines=16
 title Scripty Timer
 cls
 call :scripty_banner
 echo %esc%[33m1.)%esc%[0m Set custom timer length(must be in seconds, i.e.7200=2 hours)
 echo %esc%[33m2.)%esc%[0m Start the timer
-echo %esc%[33m3.)%esc%[0m Main Menu
 call :seperator
 echo %esc%[39mCurrent Timer Length:%esc%[0m %timer% seconds
+call :seperator
+echo Type %esc%[33mBack%esc%[0m to go back
 call :seperator
 set /p "timermain=%esc%[31mTimer%esc%[0m:%esc%[92m-$%esc%[0m "
 if "%timermain%"=="1" goto timer_length_set
 if "%timermain%"=="2" goto countdown_real
+if /i "%timermain%"=="back" goto timing
 if /i "%timermain%"=="leave" goto main
 if /i "%timermain%"=="exit" goto exiter
 goto countdown
 :timer_length_set
-mode con: cols=65 lines=11
+REM Menu to let the user specify how long the timer should be in seconds
+mode con: cols=65 lines=13
 title Set the timer length
 cls
 call :scripty_banner
 echo How long would you like the timer to be? (In seconds)
 call :seperator
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
 set /p "timer=%esc%[31mTimer%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%timer%"=="back" goto countdown
 if /i "%timer%"=="leave" goto main
 if /i "%timer%"=="exit" goto exiter
 goto countdown
 :countdown_real
+REM Starts the countdown timer
 mode con: cols=65 lines=11
 title Scripty Countdown Timer
 cls
@@ -656,11 +693,12 @@ REM Play a sound
 start "" "C:\Windows\Media\ring04.wav"
 goto countdown
 :hashy
-mode con: cols=65 lines=17
+REM MD5 hash menu
+mode con: cols=65 lines=16
 title MD5 Hash Generator
 cls
 call :scripty_banner
-echo Generate MD5 hashes of all files in a folder, and its subdirectories
+echo Generate MD5 hashes of all files in a folder/all subdirectories
 call :seperator
 echo %esc%[33m1.)%esc%[0m Generate the hashes (will be output to a text file)
 echo %esc%[33m2.)%esc%[0m Change target directory
@@ -674,26 +712,34 @@ if /i "%hashing%"=="leave" goto main
 if /i "%hashing%"=="exit" goto exiter
 goto hashy
 :md5
+REM MD5 hasher
 cd /d "%directory%"
+REM Recursively process all files in the directory and its subdirectories
 for /R %%f in (*) do (
     echo | set/p="%%f - "
+	REM Calculate the MD5 hash of the files using certutil
     certutil -hashfile "%%f" MD5 | findstr /V ":"
 ) >> output.txt
 pause
 goto hashy
 :change_path_hashy
+REM Changes the directory Scripty will operate in
 title Enter directory you want to target
-mode con: cols=65 lines=12
+mode con: cols=65 lines=14
 cls
 call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
 call :seperator
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
 set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+if /i "%directory%"=="back" goto hashy
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
 goto hashy
 :date_time_setter
+REM Shows the user a menu to set the timezone
 mode con: cols=65 lines=16
 title Set your Timezone
 cls
@@ -706,6 +752,7 @@ call :seperator
 echo Just enter desired timezone below and hit enter to change it
 call :seperator
 set /p "settimezone=%esc%[36mTimeZone%esc%[0m:%esc%[92m-$%esc%[0m "
+REM Displays list of all windows timezones in a new window
 if "%settimezone%"=="1" start cmd /k "tzutil /l"
 if "%settimezone%"=="2" goto main
 if /i "%settimezone%"=="leave" goto main
@@ -713,6 +760,7 @@ if /i "%settimezone%"=="exit" goto exiter
 tzutil /s "!settimezone!"
 goto date_time_setter
 :program_launcher
+REM Program Launcher
 mode con: cols=65 lines=17
 title Launch Some Programs
 cls
@@ -736,7 +784,112 @@ if "%programlaunch%"=="7" cd /d "C:\Program Files (x86)\VideoLAN\VLC" & start vl
 if /i "%programlaunch%"=="leave" goto main
 if /i "%programlaunch%"=="exit" goto exiter
 goto program_launcher
+:user_menu
+mode con: cols=65 lines=18
+title Add/View User accounts
+cls
+call :scripty_banner
+echo %esc%[91mSCRIPTY MUST BE RUNNING AS ADMIN TO USE THESE OPTIONS%esc%[0m
+call :seperator
+echo %esc%[33m1.)%esc%[0m Add a user account
+echo %esc%[33m2.)%esc%[0m Remove a user account
+echo %esc%[33m3.)%esc%[0m View user accounts
+echo %esc%[33m4.)%esc%[0m Give a user admin privileges
+echo %esc%[33m5.)%esc%[0m Remove a users admin privileges
+echo %esc%[33m6.)%esc%[0m Relaunch Scripty w/ admin privileges
+call :seperator
+set /p "usermenu=%esc%[91mUser Option%esc%[0m:%esc%[92m-$%esc%[0m "
+if "%usermenu%"=="1" goto add_user
+if "%usermenu%"=="2" goto remove_user
+if "%usermenu%"=="3" start cmd /k "net user"
+if "%usermenu%"=="4" goto give_user_admin
+if "%usermenu%"=="5" goto remove_user_admin
+if "%usermenu%"=="6" goto main_get_admin
+if /i "%usermenu%"=="leave" goto main
+if /i "%usermenu%"=="exit" goto exiter
+goto user_menu
+:add_user
+REM Adds a user account
+title Add a user account
+cls
+call :scripty_banner
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
+set /p "addusername=User Name:%esc%[92m-$%esc%[0m "
+if /i "%addusername%"=="back" goto user_menu
+set /p "addpassword=Password:%esc%[92m-$%esc%[0m "
+if /i "%addpassword%"=="back" goto user_menu
+net user %addusername% %addpassword% /add
+pause
+goto user_menu
+:remove_user
+REM Removes a specified user account
+title Remove a user account
+cls
+call :scripty_banner
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
+set /p "removeuser=User account to be deleted:%esc%[92m-$%esc%[0m "
+if /i "%removeuser%"=="back" goto user_menu
+net user %removeuser% /delete
+pause
+goto user_menu
+:give_user_admin
+REM Gives specified user admin privileges
+title Grant admin to a user
+cls
+call :scripty_banner
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
+set /p "grantadmin=Enter username you want to give admin to:%esc%[92m-$%esc%[0m "
+if /i "%grantadmin%"=="back" goto user_menu
+net localgroup Administrators %grantadmin% /add
+pause
+goto user_menu
+:remove_user_admin
+REM Removes admin privileges from specified user
+title Revoke Admin Privileges
+cls
+call :scripty_banner
+echo Type %esc%[33mBack%esc%[0m to go back
+call :seperator
+set /p "revokeadmin=Enter username you want to revoke admin from:%esc%[92m-$%esc%[0m "
+if /i "%revokeadmin%"=="back" goto user_menu
+net localgroup Administrators %revokeadmin% /delete
+pause
+goto user_menu
+:bios_restart
+mode con: cols=65 lines=20
+title Restart to BIOS/UEFI
+cls
+call :scripty_banner
+echo %esc%[33m1.)%esc%[0m Restart to BIOS/UEFI %esc%[31m(Immediate)%esc%[0m
+echo %esc%[33m2.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(5 second timer)%esc%[0m
+echo %esc%[33m3.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(10 second timer)%esc%[0m
+echo %esc%[33m4.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(30 second timer)%esc%[0m
+echo %esc%[33m5.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(1 minute timer)%esc%[0m
+echo %esc%[33m6.)%esc%[0m Restart to BIOS/UEFI %esc%[32m(5 minute timer)%esc%[0m
+echo %esc%[33m7.)%esc%[0m Restart to BIOS/UEFI %esc%[32m(10 minute timer)%esc%[0m
+echo %esc%[33m8.)%esc%[0m Restart to BIOS/UEFI %esc%[32m(30 minute timer)%esc%[0m
+echo %esc%[33m9.)%esc%[0m Restart to BIOS/UEFI %esc%[36m(60 minute timer)%esc%[0m
+echo %esc%[33m0.)%esc%[0m Cancel restart to BIOS/UEFI
+call :seperator
+set /p "biosrestart=%esc%[31mRestart%esc%[0m:%esc%[92m-$%esc%[0m "
+if "%biosrestart%"=="1" shutdown /r /fw /f /t 0
+if "%biosrestart%"=="2" shutdown /r /fw /f /t 5
+if "%biosrestart%"=="3" shutdown /r /fw /f /t 10
+if "%biosrestart%"=="4" shutdown /r /fw /f /t 30
+if "%biosrestart%"=="5" shutdown /r /fw /f /t 60
+if "%biosrestart%"=="6" shutdown /r /fw /f /t 300
+if "%biosrestart%"=="7" shutdown /r /fw /f /t 600
+if "%biosrestart%"=="8" shutdown /r /fw /f /t 1800
+if "%biosrestart%"=="9" shutdown /r /fw /f /t 3600
+if "%biosrestart%"=="0" shutdown /a
+if /i "%biosrestart%"=="leave" goto main
+if /i "%biosrestart%"=="exit" goto exiter
+goto bios_restart
 :credits
+REM Displays the credits
 mode con: cols=65 lines=14
 title Scripty Credits
 cls
@@ -748,6 +901,7 @@ echo %esc%[91mamakvana%esc%[0m and their github link: %esc%[92mhttps://github.co
 pause
 goto main
 :scripty_update
+REM Allows Scripty to update/pulls raw code and over-writes the file before being relaunched w/ new code
 mode con: cols=65 lines=10
 title Scripty Updater
 cls
@@ -762,6 +916,7 @@ cd /d "%~dp0"
 cd /d "%~dp0"
 goto main
 :exiter
+REM Exit confirmation menu
 title Close and exit Scripty?
 mode con: cols=65 lines=14
 cls
@@ -778,15 +933,20 @@ echo No option was chosen. Returning.
 pause
 goto exiter
 :seperator
+REM Displays seperator when called
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 exit /b
 :scripty_banner
+REM Displays the banner when called
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
 echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
 echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m v1.9
+echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m   %esc%[96m------------------%esc%[0m
+echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m   %esc%[96m: %date% :%esc%[0m
+echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m   %esc%[96m:   %time%  :%esc%[0m
+echo %esc%[34m                /_/        /____/%esc%[0m %esc%[91mv2.0%esc%[0m   %esc%[96m------------------%esc%[0m
 echo %esc%[36m----------------------------------------------------------------%esc%[0m
+exit /b
+:egg
+start https://www.youtube.com/watch?v=dQw4w9WgXcQ
 exit /b
