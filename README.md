@@ -1,5 +1,6 @@
 # Scripty
-![cmd_OnTAYSJvuj](https://github.com/cyl-vin/Scripty/assets/152368998/792979a5-9e96-46a8-8fb5-60c95288bad1)
+![cmd_IginrFXFvF](https://github.com/cyl-vin/Scripty/assets/152368998/8b168d3e-db71-4459-9da8-e0ab14b332ed)
+
 
 
 
@@ -25,30 +26,19 @@ This is perfect if you have a "long-term" storage drive or folder with unused fi
 
    _**IMPORTANT NOTE: SCRIPTY WILL CHANGE THE FILE EXTENSIONS OF ALL FILES IN THE FOLDER INCLUDING SUBDIRECTORIES**_
 
-   
-
 4. **Password Generator** - Uses alphanumeric and special characters to generate a password! Password length is set by the user in the program.
-
-   
 
 
 5. **MiniTweaks** - Allows you to turn on/off windows tansparency, Enable/Disable XBox Game Bar, and Add the Ultimate Performance Profile
 
 
-
 6. **View Saved WiFi passwords** - Speaks for itself
-
-
 
 
 7. **Remove Temporary files and empty Reycycle Bin** - Speaks for itself
 
 
-
-
 8. **Option to give Scripty Admin Privileges** - Relaunches Scripty with admin privilges
-
-
 
 
 9. **Timer and Stop Watch** - The user is able to set custom timer length (in seconds), and once the timer reaches zero, Scripty will play a ringtone. The stopwatch currently cannot be stopped without closing scripty, it will only keep counting.
@@ -64,6 +54,15 @@ This is perfect if you have a "long-term" storage drive or folder with unused fi
 
 
 13. **Open Startup Folders** - Opens The startup folder for the current user, and the startup folder for all users(if you have more than one user)
+
+
+14. **Add/View USer Accounts** - Allows you to add/remove user accounts, view user accounts, and grant/revoke admin privileges of a user
+
+
+15. **Resync Time/Date** - Does as the name suggests, it syncs the time/date if it gets messed up (for example if you dualboot linux, the date and time won't sync properly at times when you switch back to windows)
+
+
+16. **Restart to BIOS/UEFI** - gives you some options to restart to the bios/uefi menus immediately or with a timer. Also has an option to cancel the shutdown/restart process
 
 
 # Scripty can now update itself!! Just type update in the main menu and it will download an update if one is available!
