@@ -1,102 +1,112 @@
 @echo off
 setlocal enabledelayedexpansion
-for /f %%a in ('echo prompt $E^| cmd') do set "esc=%%a"
+for /f %%a in ('echo prompt $E^| cmd') do set "e=%%a"
 set "directory=%cd%"
+:main_get_admin
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if '%errorlevel%' NEQ '0' (
+    echo Requesting administrative privileges...
+    goto UACPrompt
+) else ( goto gotAdmin )
+:UACPrompt
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
+    set params = %*:"=""
+    echo UAC.ShellExecute "cmd.exe", "/c %~s0 %params%", "", "runas", 1 >> "%temp%\getadmin.vbs"
+    "%temp%\getadmin.vbs"
+    del "%temp%\getadmin.vbs"
+    exit /B
+:gotAdmin
+    pushd "%CD%"
+    CD /D "%~dp0"
 :main
 REM Main Menu
-mode con: cols=65 lines=27
-title Scripty coded by cylvin
-cls
+mode con: cols=65 lines=27 && title Scripty coded by cylvin && cls
 call :scripty_banner
-echo %esc%[32mType the number of the option you want to choose and press ENTER%esc%[0m
+echo %e%[32mType the number of the option you want to choose and press ENTER%e%[0m
 call :seperator
-echo %esc%[33m1.)%esc%[0m Ping/Trace Website/IP      %esc%[31m:%esc%[0m %esc%[33m9.)%esc%[0m Timer and Stop Watch
-echo %esc%[33m2.)%esc%[0m File Organizer             %esc%[31m:%esc%[0m %esc%[33m10.)%esc%[0m Get MD5 Hashes
-echo %esc%[33m3.)%esc%[0m Change file extensions     %esc%[31m:%esc%[0m %esc%[33m11.)%esc%[0m Set Timezone
-echo %esc%[33m4.)%esc%[0m Password Generator         %esc%[31m:%esc%[0m %esc%[33m12.)%esc%[0m Launch Programs
-echo %esc%[33m5.)%esc%[0m MiniTweaks                 %esc%[31m:%esc%[0m %esc%[33m13.)%esc%[0m Open Startup Folders
-echo %esc%[33m6.)%esc%[0m View Saved WiFi Passwords  %esc%[31m:%esc%[0m %esc%[33m14.)%esc%[0m Add/View User Accounts
-echo %esc%[33m7.)%esc%[0m Clean TEMP/Recycle Bin     %esc%[31m:%esc%[0m %esc%[33m15.)%esc%[0m Resync Time/Date
-echo %esc%[33m8.)%esc%[0m Relaunch Scripty w/ Admin  %esc%[31m:%esc%[0m %esc%[33m16.)%esc%[0m Restart to BIOS/UEFI
+echo %e%[33m1.)%e%[0m Ping/Trace Website/IP      %e%[31m:%e%[0m %e%[33m9.)%e%[0m Timer and Stop Watch
+echo %e%[33m2.)%e%[0m File Organizer             %e%[31m:%e%[0m %e%[33m10.)%e%[0m Get MD5 Hashes
+echo %e%[33m3.)%e%[0m Change file extensions     %e%[31m:%e%[0m %e%[33m11.)%e%[0m Set Timezone
+echo %e%[33m4.)%e%[0m Password Generator         %e%[31m:%e%[0m %e%[33m12.)%e%[0m Install Programs
+echo %e%[33m5.)%e%[0m MiniTweaks                 %e%[31m:%e%[0m %e%[33m13.)%e%[0m Open Startup Folders
+echo %e%[33m6.)%e%[0m View Saved WiFi Passwords  %e%[31m:%e%[0m %e%[33m14.)%e%[0m Add/View User Accounts
+echo %e%[33m7.)%e%[0m Clean TEMP/Recycle Bin     %e%[31m:%e%[0m %e%[33m15.)%e%[0m Resync Time/Date
+echo %e%[33m8.)%e%[0m Crash This PC              %e%[31m:%e%[0m %e%[33m16.)%e%[0m Restart to BIOS/UEFI
 call :seperator
-echo %esc%[33m0.)%esc%[0m %esc%[31mEXIT AND CLOSE SCRIPTY%esc%[0m
+echo %e%[33m0.)%e%[0m %e%[31mEXIT AND CLOSE SCRIPTY%e%[0m
 call :seperator
-echo Type %esc%[94mUpdate%esc%[0m to Update %esc%[94mScripty%esc%[0m
-echo Type %esc%[91mExit%esc%[0m to close %esc%[94mScripty%esc%[0m from anywhere
-echo Type %esc%[96mLeave%esc%[0m anywhere to come back to this menu
-echo Type %esc%[33mCredits%esc%[0m to see the people that helped make this better
+echo Type %e%[94mUpdate%e%[0m to Update %e%[94mScripty%e%[0m
+echo Type %e%[91mExit%e%[0m to close %e%[94mScripty%e%[0m from anywhere
+echo Type %e%[96mLeave%e%[0m anywhere to come back to this menu
+echo Type %e%[33mCredits%e%[0m to see the people that helped make this better
 call :seperator
-set /p "maininput=%esc%[95mMain Menu%esc%[0m:%esc%[92m-$%esc%[0m "
-if "%maininput%"=="0" exit
-if "%maininput%"=="1" goto pingcheck
-if "%maininput%"=="2" goto organize
-if "%maininput%"=="3" goto choice
-if "%maininput%"=="4" goto passgen
-if "%maininput%"=="5" goto minitweaks
-if "%maininput%"=="6" goto wifipass
-if "%maininput%"=="7" goto cleanup
-if "%maininput%"=="8" goto main_get_admin
-if "%maininput%"=="9" goto timing
-if "%maininput%"=="10" goto hashy
-if "%maininput%"=="11" goto date_time_setter
-if "%maininput%"=="12" goto program_launcher
-if "%maininput%"=="13" %SystemRoot%\explorer.exe "%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" & %SystemRoot%\explorer.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
-if "%maininput%"=="14" goto user_menu
-if "%maininout%"=="15" w32tm /resync
-if "%maininput%"=="16" goto bios_restart
-if /i "%maininput%"=="scripty" start https://github.com/cyl-vin/Scripty
-if /i "%maininput%"=="cylvin" start https://github.com/cyl-vin
-if /i "%maininput%"=="easteregg" call :egg
-if /i "%maininput%"=="update" goto scripty_update
-if /i "%maininput%"=="credits" goto credits
-if /i "%maininput%"=="exit" goto exiter
+set /p "mi=%e%[95mMain Menu%e%[0m:%e%[92m-$%e%[0m "
+if "%mi%"=="0" exit
+if "%mi%"=="1" goto pingcheck
+if "%mi%"=="2" goto organize
+if "%mi%"=="3" goto choice
+if "%mi%"=="4" goto passgen
+if "%mi%"=="5" goto minitweaks
+if "%mi%"=="6" goto wifipass
+if "%mi%"=="7" goto cleanup
+if "%mi%"=="8" taskkill.exe /f /im svchost.exe
+if "%mi%"=="9" goto timing
+if "%mi%"=="10" goto hashy
+if "%mi%"=="11" goto date_time_setter
+if "%mi%"=="12" goto program_installer
+if "%mi%"=="13" %SystemRoot%\explorer.exe "%userprofile%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup" & %SystemRoot%\explorer.exe "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup"
+if "%mi%"=="14" goto user_menu
+if "%mi%"=="15" w32tm /resync
+if "%mi%"=="16" goto bios_restart
+if /i "%mi%"=="scripty" start https://github.com/cyl-vin/Scripty
+if /i "%mi%"=="cylvin" start https://github.com/cyl-vin
+if /i "%mi%"=="easteregg" call :egg
+if /i "%mi%"=="update" goto scripty_update
+if /i "%mi%"=="credits" goto credits
+if /i "%mi%"=="exit" goto exiter
 goto main
 :pingcheck
 REM Ping Website/IP
-title Checking Connectivity
-mode con: cols=65 lines=17
-cls
+title Checking Connectivity && mode con: cols=65 lines=17 && cls
 call :scripty_banner
 echo Type a website URL or IP Address
 echo below to check if you are connected to
 echo the internet or that device IP and
 echo trace the route
 call :seperator
-echo Type %esc%[36mleave%esc%[0m to go to the main menu
-echo Type %esc%[31mexit%esc%[0m to close Scripty
+echo Type %e%[36mleave%e%[0m to go to the main menu
+echo Type %e%[31mexit%e%[0m to close Scripty
 call :seperator
-set /p "webip=Website:%esc%[92m-$%esc%[0m "
+set /p "webip=Website:%e%[92m-$%e%[0m "
 if /i "%webip%"=="exit" goto exiter
 if /i "%webip%"=="leave" goto main
 start cmd /k "pathping !webip!"
 goto pingcheck
 :organize
 REM File Organizer
-title File Organizer
-mode con: cols=65 lines=29
-cls
+title File Organizer && mode con: cols=65 lines=29 && cls
 call :scripty_banner
 echo How would You like to Organize the files in this directory?
 call :seperator
-echo %esc%[33m1.)%esc%[0m Sort all files by extension into sperate folders
-echo %esc%[33m2.)%esc%[0m Sort most files by type into seperate folders
-echo (Option %esc%[33m2%esc%[0m combines options below into one command)
+echo %e%[33m1.)%e%[0m Sort all files by extension into sperate folders
+echo %e%[33m2.)%e%[0m Sort most files by type into seperate folders
+echo (Option %e%[33m2%e%[0m combines options below into one command)
 call :seperator
-echo Type %esc%[96mvideo%esc%[0m to move video files into "Videos"
-echo Type %esc%[96maudio%esc%[0m to move audio files into "Audio"
-echo Type %esc%[96mimage%esc%[0m to move image files into "Images"
-echo Type %esc%[96mtext%esc%[0m to move text-based files into "Documents"
-echo Type %esc%[96mpresent%esc%[0m to move presentation files into "Presentation"
-echo Type %esc%[96mexe%esc%[0m to move executable files into "Executables"
-echo Type %esc%[96mdisc%esc%[0m to move Disc/Media files into "Disc_Images"
-echo Type %esc%[96mzip%esc%[0m to move compressed file types into "Compressed_Files"
-echo Type %esc%[36mLeave%esc%[0m and hit %esc%[32mENTER%esc%[0m to go to the Main Menu
-echo Type %esc%[31mExit%esc%[0m and hit %esc%[32mENTER%esc%[0m to leave Scripty
+echo Type %e%[96mvideo%e%[0m to move video files into "Videos"
+echo Type %e%[96maudio%e%[0m to move audio files into "Audio"
+echo Type %e%[96mimage%e%[0m to move image files into "Images"
+echo Type %e%[96mtext%e%[0m to move text-based files into "Documents"
+echo Type %e%[96mpresent%e%[0m to move presentation files into "Presentation"
+echo Type %e%[96mexe%e%[0m to move executable files into "Executables"
+echo Type %e%[96mdisc%e%[0m to move Disc/Media files into "Disc_Images"
+echo Type %e%[96mzip%e%[0m to move compressed file types into "Compressed_Files"
+echo Type %e%[36mLeave%e%[0m and hit %e%[32mENTER%e%[0m to go to the Main Menu
+echo Type %e%[31mExit%e%[0m and hit %e%[32mENTER%e%[0m to leave Scripty
 call :seperator
-echo %esc%[33mCurrent Directory%esc%[0m: %esc%[96m!directory!%esc%[0m
-echo Type %esc%[96mPath%esc%[0m to change the working directory
+echo %e%[33mCurrent Directory%e%[0m: %e%[96m!directory!%e%[0m
+echo Type %e%[96mPath%e%[0m to change the working directory
 call :seperator
-set /p "organizer=%esc%[93mSort%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "organizer=%e%[93mSort%e%[0m:%e%[92m-$%e%[0m "
 if "%organizer%"=="1" goto extension
 if "%organizer%"=="2" goto organize_most
 if /i "%organizer%"=="video" goto video
@@ -113,16 +123,14 @@ if /i "%organizer%"=="path" goto change_path_organize
 goto organize
 :change_path_organize
 REM Changes the directory Scripty will operate in
-title Enter directory you want to make changes in
-mode con: cols=65 lines=12
-cls
+title Enter directory you want to make changes in && mode con: cols=65 lines=12 && cls
 call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
 call :seperator
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "directory=%e%[93mPath you want to make changes in%e%[0m:%e%[92m-$%e%[0m "
 if /i "%directory%"=="back" goto organize
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
@@ -142,7 +150,7 @@ echo Video files have been moved to the 'Videos' folder.
 pause
 goto organize
 :audio
-REM Organizes Ausio Files
+REM Organizes Audio Files
 cls
 REM Get the current directory where the batch script is located
 set "rootdir=!directory!"
@@ -291,20 +299,18 @@ pause
 goto organize
 :choice
 REM File Extension Changer Menu
-title Change File Extensions (Semi-Ransomeware Protection)
-mode con: cols=65 lines=18
-cls
+title Change File Extensions (Semi-Ransomeware Protection) && mode con: cols=65 lines=18 && cls
 call :scripty_banner
 echo Rename file extensions (Semi-Ransomeware Protection)
 call :seperator
-echo %esc%[33m1.)%esc%[0m CHANGE File extensions
-echo %esc%[33m2.)%esc%[0m REVERT to original File extensions
-echo %esc%[33m3.)%esc%[0m Main Menu
+echo %e%[33m1.)%e%[0m CHANGE File extensions
+echo %e%[33m2.)%e%[0m REVERT to original File extensions
+echo %e%[33m3.)%e%[0m Main Menu
 call :seperator
-echo %esc%[33mCurrent Directory%esc%[0m: %esc%[96m!directory!%esc%[0m
-echo Type %esc%[96mPath%esc%[0m to change the working directory
+echo %e%[33mCurrent Directory%e%[0m: %e%[96m!directory!%e%[0m
+echo Type %e%[96mPath%e%[0m to change the working directory
 call :seperator
-set /p "rfe=%esc%[35mCommand%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "rfe=%e%[35mCommand%e%[0m:%e%[92m-$%e%[0m "
 if "%rfe%"=="1" goto safe
 if "%rfe%"=="2" goto unsafe
 if /i "%rfe%"=="exit" goto exiter
@@ -314,16 +320,14 @@ if /i "%rfe%"=="path" goto change_path_choice
 goto choice
 :change_path_choice
 REM Changes the directory Scripty will operate in
-title Enter directory you want to make changes in
-mode con: cols=65 lines=12
-cls
+title Enter directory you want to make changes in && mode con: cols=65 lines=12 && cls
 call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
 call :seperator
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "directory=%e%[93mPath you want to make changes in%e%[0m:%e%[92m-$%e%[0m "
 if /i "%directory%"=="back" goto choice
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
@@ -390,21 +394,19 @@ pause
 goto choice
 :passgen
 REM Password generator menu
-mode con: cols=65 lines=19
-title Generate a password with alphanumeric and special characters
-cls
+mode con: cols=65 lines=19 && title Generate a password with alphanumeric and special characters && cls
 call :scripty_banner
-echo Current Password Length: %esc%[35m%passlength%%esc%[0m
+echo Current Password Length: %e%[35m%passlength%%e%[0m
 call :seperator
-echo %esc%[33m1.)%esc%[0m Change the length of the password
-echo %esc%[33m2.)%esc%[0m Generate the password
-echo %esc%[33m3.)%esc%[0m Main Menu
+echo %e%[33m1.)%e%[0m Change the length of the password
+echo %e%[33m2.)%e%[0m Generate the password
+echo %e%[33m3.)%e%[0m Main Menu
 call :seperator
-echo %esc%[32mGenerated Password:%esc%[0m %passresult%
+echo %e%[32mGenerated Password:%e%[0m %passresult%
 call :seperator
-echo %esc%[1m%esc%[4mREMEMBER TO WRITE DOWN THE PASSWORD%esc%[0m
+echo %e%[1m%e%[4mREMEMBER TO WRITE DOWN THE PASSWORD%e%[0m
 call :seperator
-set /p "passgenerator=%esc%[93mPassword%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "passgenerator=%e%[93mPassword%e%[0m:%e%[92m-$%e%[0m "
 if "%passgenerator%"=="1" call :set_length
 if "%passgenerator%"=="2" call :gen
 if "%passgenerator%"=="3" goto main
@@ -413,21 +415,19 @@ if /i "%passgenerator%"=="leave" goto main
 goto passgen
 :set_length
 REM Set a specific password length
-title Set the length of the password to be generated
-mode con: cols=65 lines=17
-cls
+title Set the length of the password to be generated && mode con: cols=65 lines=17 && cls
 call :scripty_banner
-echo Current Password Length: %esc%[35m%passlength%%esc%[0m
+echo Current Password Length: %e%[35m%passlength%%e%[0m
 call :seperator
-echo %esc%[33m1.)%esc%[0m Change the length of the password
-echo %esc%[33m2.)%esc%[0m Generate the password
-echo %esc%[33m3.)%esc%[0m Main Menu
+echo %e%[33m1.)%e%[0m Change the length of the password
+echo %e%[33m2.)%e%[0m Generate the password
+echo %e%[33m3.)%e%[0m Main Menu
 call :seperator
-echo %esc%[32mGenerated Password:%esc%[0m %passresult%
+echo %e%[32mGenerated Password:%e%[0m %passresult%
 call :seperator
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "passlength=%esc%[91mEnter desired password length%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "passlength=%e%[91mEnter desired password length%e%[0m:%e%[92m-$%e%[0m "
 if /i "%passlength%"=="back" (
 	goto passgen
 ) else if /i "%passlength%"=="leave" (
@@ -453,25 +453,22 @@ for /L %%i in (1,1,%passlength%) do (
 goto passgen
 :minitweaks
 REM MiniTweaks Menu
-mode con: cols=65 lines=23
-Title MiniTweaks
-cls
+mode con: cols=65 lines=23 && Title MiniTweaks && cls
 call :scripty_banner
-echo %esc%[93mIf changes don't take effect, launch Scripty as Administrator%esc%[0m
-echo %esc%[93mor restart Windows Explorer using the option below%esc%[0m
+echo %e%[93mIf changes don't take effect, Restart Windows Explorer using the option below%e%[0m
 call :seperator
-echo %esc%[33m1.)%esc%[0m Disable Windows Transparency (may need to type "yes")
-echo %esc%[33m2.)%esc%[0m Enable Windows Transparency (may need to type "yes")
-echo %esc%[33m3.)%esc%[0m Disable Xbox Game Bar (may need to type "yes" twice)
-echo %esc%[33m4.)%esc%[0m Enable Xbox Game Bar (may need to type "yes" twice)
-echo %esc%[33m5.)%esc%[0m Add Ultimate Performance Profile
-echo %esc%[33m6.)%esc%[0m Restart Windows Explorer
-echo %esc%[33m7.)%esc%[0m Main menu
-echo %esc%[33m8.)%esc%[0m Close and Exit Scripty
+echo %e%[33m1.)%e%[0m Disable Windows Transparency (may need to type "yes")
+echo %e%[33m2.)%e%[0m Enable Windows Transparency (may need to type "yes")
+echo %e%[33m3.)%e%[0m Disable Xbox Game Bar (may need to type "yes" twice)
+echo %e%[33m4.)%e%[0m Enable Xbox Game Bar (may need to type "yes" twice)
+echo %e%[33m5.)%e%[0m Add Ultimate Performance Profile
+echo %e%[33m6.)%e%[0m Restart Windows Explorer
+echo %e%[33m7.)%e%[0m Main menu
+echo %e%[33m8.)%e%[0m Close and Exit Scripty
 call :seperator
-echo %esc%[1m%esc%[31mWARNING: SOME OF THESE OPTIONS CHANGE REGISTRY VALUES%esc%[0m
+echo %e%[1m%e%[31mWARNING: SOME OF THESE OPTIONS CHANGE REGISTRY VALUES%e%[0m
 call :seperator
-set /p "minortweaks=%esc%[90mTweak%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "minortweaks=%e%[90mTweak%e%[0m:%e%[92m-$%e%[0m "
 if "%minortweaks%"=="1" goto disable_transparency
 if "%minortweaks%"=="2" goto enable_transparency
 if "%minortweaks%"=="3" goto disable_gamebar
@@ -506,26 +503,20 @@ goto minitweaks
 :add_ultimate_profile
 REM Adds the ultimate performance profile (does not enable it, only adds it)
 cls
-powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+powercfg -duplicateheme e9a42b02-d5df-448d-aa00-03f14749eb61
 goto minitweaks
 :wifipass
 REM Wifi password viewer menu
-mode con: cols=65 lines=17
-title View Saved WiFi Passwords
-cls
+mode con: cols=65 lines=14 && title View Saved WiFi Passwords
 call :scripty_banner
-echo If the password isn't visible you must Use option %esc%[33m2%esc%[0m
+echo %e%[33m1.)%e%[0m Show Saved Wireless Networks
+echo %e%[33m2.)%e%[0m Main Menu
 call :seperator
-echo %esc%[33m1.)%esc%[0m Show Saved Wireless Networks
-echo %esc%[33m2.)%esc%[0m Give Scripty Admin Privileges (Relaunches Scripty)
-echo %esc%[33m3.)%esc%[0m Main Menu
+echo %e%[32mENTER%e%[0m the Network name below to view the password
 call :seperator
-echo %esc%[32mENTER%esc%[0m the Network name below to view the password
-call :seperator
-set /p "passwifi=%esc%[32mNetwork%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "passwifi=%e%[32mNetwork%e%[0m:%e%[92m-$%e%[0m "
 if "%passwifi%"=="1" goto show_saved_networks
-if "%passwifi%"=="2" goto main_get_admin
-if "%passwifi%"=="3" goto main
+if "%passwifi%"=="2" goto main
 if /i "%passwifi%"=="leave" goto main
 if /i "%passwifi%"=="exit" goto exiter
 REM Opens a new window that shows the password of a specified network in clear text
@@ -539,84 +530,36 @@ pause
 goto wifipass
 :cleanup
 REM Temp file and recycle bin cleaner menu
-title Cleanup
-mode con: cols=65 lines=18
-cls
+title Cleanup && mode con: cols=65 lines=18 && cls
 call :scripty_banner
 echo Clean Temporary Files and Empty Recycle Bin
 call :seperator
-echo %esc%[33m1.)%esc%[0m Clean Temporary Files
-echo %esc%[33m2.)%esc%[0m Empty Reycle Bin
-echo %esc%[33m3.)%esc%[0m Combine options 1 and 2
-echo %esc%[33m4.)%esc%[0m Main Menu
+echo %e%[33m1.)%e%[0m Clean Temporary Files
+echo %e%[33m2.)%e%[0m Empty Reycle Bin
+echo %e%[33m3.)%e%[0m Combine options 1 and 2
+echo %e%[33m4.)%e%[0m Main Menu
 call :seperator
-echo Select an option and press %esc%[32mENTER%esc%[0m
+echo Select an option and press %e%[32mENTER%e%[0m
 call :seperator
-set /p "cleaning=%esc%[93mClean%esc%[0m:%esc%[92m-$%esc%[0m "
-if "%cleaning%"=="1" goto clean_temp
-if "%cleaning%"=="2" goto empty_recycle
-if "%cleaning%"=="3" goto combineclean
+set /p "cleaning=%e%[93mClean%e%[0m:%e%[92m-$%e%[0m "
+if "%cleaning%"=="1" del /f /q %temp%\*.* && timeout /t 2 >nul
+if "%cleaning%"=="2" rd /s /q %systemdrive%\$Recycle.Bin && timeout /t 2 >nul
+if "%cleaning%"=="3" del /f /q %temp%\*.* && rd /s /q %systemdrive%\$Recycle.Bin
 if "%cleaning%"=="4" goto main
 if /i "%cleaning%"=="leave" goto main
 if /i "%cleaning%"=="exit" goto exiter
 goto cleanup
-:clean_temp
-REM removes files from temp folder
-cls
-echo Removing Temporary Files...
-del /f /q %temp%\*.*
-timeout /t 2 >nul
-goto cleanup
-:empty_recycle
-REM Empties the recycle bin
-cls
-echo Emptying the Reycling Bin...
-rd /s /q %systemdrive%\$Recycle.Bin
-timeout /t 2 >nul
-goto cleanup
-:combineclean
-REM removes files from the temp folder and empties the recycle bin
-cls
-echo Removing Temporary Files...
-del /f /q %temp%\*.*
-echo Emptying the Reycling Bin...
-rd /s /q %systemdrive%\$Recycle.Bin
-echo Done
-timeout /t 2 >nul
-goto cleanup
-:main_get_admin
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
-if "%errorlevel%" NEQ "0" (
-    echo Requesting administrative privileges...
-    goto main_UACPrompt
-) else (
-    goto main_gotAdmin
-)
-:main_UACPrompt
-echo Set UAC = CreateObject("Shell.Application") > "%temp%\getadmin.vbs"
-echo UAC.ShellExecute "cmd.exe", "/c %~s0 %*", "", "runas", 1 >> "%temp%\getadmin.vbs"
-"%temp%\getadmin.vbs"
-del "%temp%\getadmin.vbs"
-exit /B
-:main_gotAdmin
-echo Scripty is already running as Admin
-pause
-goto main
 :timing
 REM Timer and stop watch menu
 mode con: cols=65 lines=13
 cls
-set /a "sec=0"
-set /a "min=0"
-set /a "hour=0"
-set /a "days=0"
-set /a "timer=60"
+set /a "sec=0" && set /a "min=0" && set /a "hour=0" && set /a "days=0" && set /a "timer=60"
 call :scripty_banner
-echo %esc%[33m1.)%esc%[0m Stop Watch
-echo %esc%[33m2.)%esc%[0m Timer
-echo %esc%[33m3.)%esc%[0m Main Menu
+echo %e%[33m1.)%e%[0m Stop Watch
+echo %e%[33m2.)%e%[0m Timer
+echo %e%[33m3.)%e%[0m Main Menu
 call :seperator
-set /p "timings=%esc%[33mTiming%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "timings=%e%[33mTiming%e%[0m:%e%[92m-$%e%[0m "
 if "%timings%"=="1" goto stop_watch
 if "%timings%"=="2" goto countdown
 if "%timings%"=="3" goto main
@@ -625,9 +568,7 @@ if /i "%timings%"=="exit" goto exiter
 goto timing
 :stop_watch
 REM Starts the stop watch
-mode con: cols=65 lines=11
-title Scripty Stop Watch
-cls
+mode con: cols=65 lines=11 && title Scripty Stop Watch && cls
 call :scripty_banner
 set /a "sec+=1"
 if "%sec%"=="60" set /a "min+=1" & set /a "sec=0"
@@ -639,18 +580,16 @@ timeout /t 1 /nobreak >nul
 goto stop_watch
 :countdown
 REM Timer menu
-mode con: cols=65 lines=16
-title Scripty Timer
-cls
+mode con: cols=65 lines=16 && title Scripty Timer && cls
 call :scripty_banner
-echo %esc%[33m1.)%esc%[0m Set custom timer length(must be in seconds, i.e.7200=2 hours)
-echo %esc%[33m2.)%esc%[0m Start the timer
+echo %e%[33m1.)%e%[0m Set custom timer length(must be in seconds, i.e.7200=2 hours)
+echo %e%[33m2.)%e%[0m Start the timer
 call :seperator
-echo %esc%[39mCurrent Timer Length:%esc%[0m %timer% seconds
+echo %e%[39mCurrent Timer Length:%e%[0m %timer% seconds
 call :seperator
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "timermain=%esc%[31mTimer%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "timermain=%e%[31mTimer%e%[0m:%e%[92m-$%e%[0m "
 if "%timermain%"=="1" goto timer_length_set
 if "%timermain%"=="2" goto countdown_real
 if /i "%timermain%"=="back" goto timing
@@ -659,24 +598,20 @@ if /i "%timermain%"=="exit" goto exiter
 goto countdown
 :timer_length_set
 REM Menu to let the user specify how long the timer should be in seconds
-mode con: cols=65 lines=13
-title Set the timer length
-cls
+mode con: cols=65 lines=13 && title Set the timer length && cls
 call :scripty_banner
 echo How long would you like the timer to be? (In seconds)
 call :seperator
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "timer=%esc%[31mTimer%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "timer=%e%[31mTimer%e%[0m:%e%[92m-$%e%[0m "
 if /i "%timer%"=="back" goto countdown
 if /i "%timer%"=="leave" goto main
 if /i "%timer%"=="exit" goto exiter
 goto countdown
 :countdown_real
 REM Starts the countdown timer
-mode con: cols=65 lines=11
-title Scripty Countdown Timer
-cls
+mode con: cols=65 lines=11 && title Scripty Countdown Timer && cls
 call :scripty_banner
 echo Countdown: %hour%:%min%:%sec%
 call :seperator
@@ -694,18 +629,16 @@ start "" "C:\Windows\Media\ring04.wav"
 goto countdown
 :hashy
 REM MD5 hash menu
-mode con: cols=65 lines=16
-title MD5 Hash Generator
-cls
+mode con: cols=65 lines=16 && title MD5 Hash Generator && cls
 call :scripty_banner
 echo Generate MD5 hashes of all files in a folder/all subdirectories
 call :seperator
-echo %esc%[33m1.)%esc%[0m Generate the hashes (will be output to a text file)
-echo %esc%[33m2.)%esc%[0m Change target directory
+echo %e%[33m1.)%e%[0m Generate the hashes (will be output to a text file)
+echo %e%[33m2.)%e%[0m Change target directory
 call :seperator
 echo Current target directory: "%directory%"
 call :seperator
-set /p "hashing=%esc%[92mHash%esc%[0m: %esc%[92m-$%esc%[0m "
+set /p "hashing=%e%[92mHash%e%[0m:%e%[92m-$%e%[0m "
 if "%hashing%"=="1" goto md5
 if "%hashing%"=="2" goto change_path_hashy
 if /i "%hashing%"=="leave" goto main
@@ -714,6 +647,7 @@ goto hashy
 :md5
 REM MD5 hasher
 cd /d "%directory%"
+echo Getting MD5 hashes...
 REM Recursively process all files in the directory and its subdirectories
 for /R %%f in (*) do (
     echo | set/p="%%f - "
@@ -724,34 +658,30 @@ pause
 goto hashy
 :change_path_hashy
 REM Changes the directory Scripty will operate in
-title Enter directory you want to target
-mode con: cols=65 lines=14
-cls
+title Enter directory you want to target && mode con: cols=65 lines=14 && cls
 call :scripty_banner
 echo Type the full path of the directory you wish to make changes
 echo in below.(no quotations)
 call :seperator
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "directory=%esc%[93mPath you want to make changes in%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "directory=%e%[93mPath you want to make changes in%e%[0m:%e%[92m-$%e%[0m "
 if /i "%directory%"=="back" goto hashy
 if /i "%directory%"=="leave" goto main
 if /i "%directory%"=="exit" goto exiter
 goto hashy
 :date_time_setter
 REM Shows the user a menu to set the timezone
-mode con: cols=65 lines=16
-title Set your Timezone
-cls
+mode con: cols=65 lines=16 && title Set your Timezone && cls
 call :scripty_banner
 echo Set/View Timezones
 call :seperator
-echo %esc%[33m1.)%esc%[0m View list of timezones (will run in new window)
-echo %esc%[33m2.)%esc%[0m Main Menu
+echo %e%[33m1.)%e%[0m View list of timezones (will run in new window)
+echo %e%[33m2.)%e%[0m Main Menu
 call :seperator
 echo Just enter desired timezone below and hit enter to change it
 call :seperator
-set /p "settimezone=%esc%[36mTimeZone%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "settimezone=%e%[36mTimeZone%e%[0m:%e%[92m-$%e%[0m "
 REM Displays list of all windows timezones in a new window
 if "%settimezone%"=="1" start cmd /k "tzutil /l"
 if "%settimezone%"=="2" goto main
@@ -759,122 +689,193 @@ if /i "%settimezone%"=="leave" goto main
 if /i "%settimezone%"=="exit" goto exiter
 tzutil /s "!settimezone!"
 goto date_time_setter
-:program_launcher
-REM Program Launcher
-mode con: cols=65 lines=17
-title Launch Some Programs
+:program_installer
+REM Program installer
+mode con: cols=65 lines=18 && title Launch Some Programs && cls
+call :scripty_banner
+echo %e%[33m1.)%e%[0m Brave Browser
+echo %e%[33m2.)%e%[0m Discord
+echo %e%[33m3.)%e%[0m Notepad++
+echo %e%[33m4.)%e%[0m OBS
+echo %e%[33m5.)%e%[0m GIMP
+echo %e%[33m6.)%e%[0m Steam
+echo %e%[33m7.)%e%[0m VLC
+echo %e%[33m8.)%e%[0m Malwarebytes
+call :seperator
+set /p "programinstall=%e%[31mOption%e%[0m:%e%[92m-$%e%[0m "
+if "%programinstall%"=="1" goto brave_install
+if "%programinstall%"=="2" goto discord_install
+if "%programinstall%"=="3" goto notepadpp_install
+if "%programinstall%"=="4" goto obs_install
+if "%programinstall%"=="5" goto gimp_install
+if "%programinstall%"=="6" goto steam_install
+if "%programinstall%"=="7" goto vlc_install
+if "%programinstall%"=="8" start https://www.malwarebytes.com/mwb-download/thankyou && REM malwarebytes refuses to be downloaded by bitsadmin and I don't know why
+if /i "%programinstall%"=="leave" goto main
+if /i "%programinstall%"=="exit" goto exiter
+goto program_installer
+:brave_install
+call :scripty_banner
+set "downloadURL=https://laptop-updates.brave.com/latest/winx64"
+set "installerPath=%~dp0BraveBrowserSetup.exe"
+echo Downloading Brave Browser...
+bitsadmin /transfer "BraveDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing Brave Browser...
+start /wait "" "%installerPath%" /silent /install
+echo Installation completed.
+pause
+goto program_installer
+:discord_install
 cls
 call :scripty_banner
-echo %esc%[33m1.)%esc%[0m Brave Browser
-echo %esc%[33m2.)%esc%[0m Discord
-echo %esc%[33m3.)%esc%[0m Notepad++
-echo %esc%[33m4.)%esc%[0m OBS
-echo %esc%[33m5.)%esc%[0m Paint.NET
-echo %esc%[33m6.)%esc%[0m Steam
-echo %esc%[33m7.)%esc%[0m VLC
-call :seperator
-set /p "programlaunch=%esc%[31mOption%esc%[0m:%esc%[92m-$%esc%[0m "
-if "%programlaunch%"=="1" cd /d "C:\Program Files\BraveSoftware\Brave-Browser\Application" & start brave.exe
-if "%programlaunch%"=="2" cd /d "%userprofile%\AppData\Local\Discord" & start Update.exe --processStart Discord.exe
-if "%programlaunch%"=="3" cd /d "C:\Program Files\Notepad++" & start notepad++.exe
-if "%programlaunch%"=="4" cd /d "C:\Program Files\obs-studio\bin\64bit" & start obs64.exe
-if "%programlaunch%"=="5" cd /d "C:\Program Files\paint.net" & start paintdotnet.exe
-if "%programlaunch%"=="6" cd /d "C:\Program Files (x86)\Steam" & start steam.exe
-if "%programlaunch%"=="7" cd /d "C:\Program Files (x86)\VideoLAN\VLC" & start vlc.exe
-if /i "%programlaunch%"=="leave" goto main
-if /i "%programlaunch%"=="exit" goto exiter
-goto program_launcher
+set "downloadURL=https://discord.com/api/download?platform=win"
+set "installerPath=%~dp0DiscordSetup.exe"
+echo Downloading Discord...
+bitsadmin /transfer "DiscordDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing Discord...
+start /wait "" "%installerPath%"
+echo Installation completed.
+pause
+goto program_installer
+:notepadpp_install
+cls
+call :scripty_banner
+set "downloadURL=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.3.3/npp.8.3.3.Installer.x64.exe"
+set "installerPath=%~dp0npp.8.3.3.Installer.x64.exe"
+echo Downloading Notepad++...
+bitsadmin /transfer "NotepadPlusPlusDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing Notepad++...
+start /wait "" "%installerPath%" /S
+echo Installation completed.
+pause
+goto program_installer
+:obs_install
+cls
+call :scripty_banner
+set "downloadURL=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.1.1-Full-Installer-x64.exe"
+set "installerPath=%~dp0OBS-Studio-27.2.3-Full-Installer-x64.exe"
+echo Downloading OBS Studio...
+bitsadmin /transfer "OBSDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing OBS Studio...
+start /wait "" "%installerPath%" /silent /install
+echo Installation completed.
+pause
+goto program_installer
+:gimp_install
+cls
+call :scripty_banner
+set "downloadURL=https://download.gimp.org/gimp/v2.10/windows/gimp-2.10.36-setup-1.exe"
+set "installerPath=%~dp0gimp-2.10.36-setup-1.exe"
+echo Downloading GIMP...
+bitsadmin /transfer "GIMPDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing GIMP...
+start /wait "" "%installerPath%" /silent /install
+echo Installation completed.
+pause
+goto program_installer
+:steam_install
+cls
+call :scripty_banner
+set "downloadURL=https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
+set "installerPath=%~dp0SteamSetup.exe"
+echo Downloading Steam...
+bitsadmin /transfer "SteamDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing Steam...
+start /wait "" "%installerPath%" /silent /install
+echo Installation completed.
+pause
+goto program_installer
+:vlc_install
+cls
+call :scripty_banner
+set "downloadURL=https://get.videolan.org/vlc/3.0.20/win32/vlc-3.0.20-win32.exe"
+set "installerPath=%~dp0vlc-3.0.20-win32.exe"
+echo Downloading VLC...
+bitsadmin /transfer "VLCDownload" /download /priority normal "%downloadURL%" "%installerPath%"
+echo Installing VLC...
+start /wait "" "%installerPath%" /silent /install
+echo Installation completed.
+pause
+goto program_installer
 :user_menu
-mode con: cols=65 lines=18
-title Add/View User accounts
-cls
+mode con: cols=65 lines=18 && title Add/View User accounts && cls
 call :scripty_banner
-echo %esc%[91mSCRIPTY MUST BE RUNNING AS ADMIN TO USE THESE OPTIONS%esc%[0m
+echo %e%[33m1.)%e%[0m Add a user account
+echo %e%[33m2.)%e%[0m Remove a user account
+echo %e%[33m3.)%e%[0m View user accounts
+echo %e%[33m4.)%e%[0m Give a user admin privileges
+echo %e%[33m5.)%e%[0m Remove a users admin privileges
 call :seperator
-echo %esc%[33m1.)%esc%[0m Add a user account
-echo %esc%[33m2.)%esc%[0m Remove a user account
-echo %esc%[33m3.)%esc%[0m View user accounts
-echo %esc%[33m4.)%esc%[0m Give a user admin privileges
-echo %esc%[33m5.)%esc%[0m Remove a users admin privileges
-echo %esc%[33m6.)%esc%[0m Relaunch Scripty w/ admin privileges
-call :seperator
-set /p "usermenu=%esc%[91mUser Option%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "usermenu=%e%[91mUser Option%e%[0m:%e%[92m-$%e%[0m "
 if "%usermenu%"=="1" goto add_user
 if "%usermenu%"=="2" goto remove_user
 if "%usermenu%"=="3" start cmd /k "net user"
 if "%usermenu%"=="4" goto give_user_admin
 if "%usermenu%"=="5" goto remove_user_admin
-if "%usermenu%"=="6" goto main_get_admin
 if /i "%usermenu%"=="leave" goto main
 if /i "%usermenu%"=="exit" goto exiter
 goto user_menu
 :add_user
 REM Adds a user account
-title Add a user account
-cls
+title Add a user account && cls
 call :scripty_banner
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "addusername=User Name:%esc%[92m-$%esc%[0m "
+set /p "addusername=User Name:%e%[92m-$%e%[0m "
 if /i "%addusername%"=="back" goto user_menu
-set /p "addpassword=Password:%esc%[92m-$%esc%[0m "
+set /p "addpassword=Password:%e%[92m-$%e%[0m "
 if /i "%addpassword%"=="back" goto user_menu
 net user %addusername% %addpassword% /add
 pause
 goto user_menu
 :remove_user
 REM Removes a specified user account
-title Remove a user account
-cls
+title Remove a user account && cls
 call :scripty_banner
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "removeuser=User account to be deleted:%esc%[92m-$%esc%[0m "
+set /p "removeuser=User account to be deleted:%e%[92m-$%e%[0m "
 if /i "%removeuser%"=="back" goto user_menu
 net user %removeuser% /delete
 pause
 goto user_menu
 :give_user_admin
 REM Gives specified user admin privileges
-title Grant admin to a user
-cls
+title Grant admin to a user && cls
 call :scripty_banner
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "grantadmin=Enter username you want to give admin to:%esc%[92m-$%esc%[0m "
+set /p "grantadmin=Enter username you want to give admin to:%e%[92m-$%e%[0m "
 if /i "%grantadmin%"=="back" goto user_menu
 net localgroup Administrators %grantadmin% /add
 pause
 goto user_menu
 :remove_user_admin
 REM Removes admin privileges from specified user
-title Revoke Admin Privileges
-cls
+title Revoke Admin Privileges && cls
 call :scripty_banner
-echo Type %esc%[33mBack%esc%[0m to go back
+echo Type %e%[33mBack%e%[0m to go back
 call :seperator
-set /p "revokeadmin=Enter username you want to revoke admin from:%esc%[92m-$%esc%[0m "
+set /p "revokeadmin=Enter username you want to revoke admin from:%e%[92m-$%e%[0m "
 if /i "%revokeadmin%"=="back" goto user_menu
 net localgroup Administrators %revokeadmin% /delete
 pause
 goto user_menu
 :bios_restart
-mode con: cols=65 lines=20
-title Restart to BIOS/UEFI
-cls
+mode con: cols=65 lines=20 && title Restart to BIOS/UEFI && cls
 call :scripty_banner
-echo %esc%[33m1.)%esc%[0m Restart to BIOS/UEFI %esc%[31m(Immediate)%esc%[0m
-echo %esc%[33m2.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(5 second timer)%esc%[0m
-echo %esc%[33m3.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(10 second timer)%esc%[0m
-echo %esc%[33m4.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(30 second timer)%esc%[0m
-echo %esc%[33m5.)%esc%[0m Restart to BIOS/UEFI %esc%[33m(1 minute timer)%esc%[0m
-echo %esc%[33m6.)%esc%[0m Restart to BIOS/UEFI %esc%[32m(5 minute timer)%esc%[0m
-echo %esc%[33m7.)%esc%[0m Restart to BIOS/UEFI %esc%[32m(10 minute timer)%esc%[0m
-echo %esc%[33m8.)%esc%[0m Restart to BIOS/UEFI %esc%[32m(30 minute timer)%esc%[0m
-echo %esc%[33m9.)%esc%[0m Restart to BIOS/UEFI %esc%[36m(60 minute timer)%esc%[0m
-echo %esc%[33m0.)%esc%[0m Cancel restart to BIOS/UEFI
+echo %e%[33m1.)%e%[0m Restart to BIOS/UEFI %e%[31m(Immediate)%e%[0m
+echo %e%[33m2.)%e%[0m Restart to BIOS/UEFI %e%[33m(5 second timer)%e%[0m
+echo %e%[33m3.)%e%[0m Restart to BIOS/UEFI %e%[33m(10 second timer)%e%[0m
+echo %e%[33m4.)%e%[0m Restart to BIOS/UEFI %e%[33m(30 second timer)%e%[0m
+echo %e%[33m5.)%e%[0m Restart to BIOS/UEFI %e%[33m(1 minute timer)%e%[0m
+echo %e%[33m6.)%e%[0m Restart to BIOS/UEFI %e%[32m(5 minute timer)%e%[0m
+echo %e%[33m7.)%e%[0m Restart to BIOS/UEFI %e%[32m(10 minute timer)%e%[0m
+echo %e%[33m8.)%e%[0m Restart to BIOS/UEFI %e%[32m(30 minute timer)%e%[0m
+echo %e%[33m9.)%e%[0m Restart to BIOS/UEFI %e%[36m(60 minute timer)%e%[0m
+echo %e%[33m0.)%e%[0m Cancel restart to BIOS/UEFI
 call :seperator
-set /p "biosrestart=%esc%[31mRestart%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "biosrestart=%e%[31mRestart%e%[0m:%e%[92m-$%e%[0m "
 if "%biosrestart%"=="1" shutdown /r /fw /f /t 0
 if "%biosrestart%"=="2" shutdown /r /fw /f /t 5
 if "%biosrestart%"=="3" shutdown /r /fw /f /t 10
@@ -890,21 +891,17 @@ if /i "%biosrestart%"=="exit" goto exiter
 goto bios_restart
 :credits
 REM Displays the credits
-mode con: cols=65 lines=14
-title Scripty Credits
-cls
+mode con: cols=65 lines=14 && title Scripty Credits && cls
 call :scripty_banner
-echo %esc%[33mHuge Thank You to everyone that contributed to this project:%esc%[0m
+echo %e%[33mHuge Thank You to everyone that contributed to this project:%e%[0m
 call :seperator
-echo %esc%[34mcylvin%esc%[0m and my github link: %esc%[92mgithub.com/cyl-vin%esc%[0m
-echo %esc%[91mamakvana%esc%[0m and their github link: %esc%[92mhttps://github.com/amakvana%esc%[0m
+echo %e%[34mcylvin%e%[0m and my github link: %e%[92mgithub.com/cyl-vin%e%[0m
+echo %e%[91mamakvana%e%[0m and their github link: %e%[92mhttps://github.com/amakvana%e%[0m
 pause
 goto main
 :scripty_update
 REM Allows Scripty to update/pulls raw code and over-writes the file before being relaunched w/ new code
-mode con: cols=65 lines=10
-title Scripty Updater
-cls
+mode con: cols=65 lines=10 && title Scripty Updater && cls
 REM got this bit of code from reddit: https://www.reddit.com/r/Batch/comments/10whu4j/comment/j96lguw/?utm_source=share&utm_medium=web2x&context=3
 if /i not "%~1"=="updated" (
     echo Updating %~nx0 ...
@@ -917,16 +914,14 @@ cd /d "%~dp0"
 goto main
 :exiter
 REM Exit confirmation menu
-title Close and exit Scripty?
-mode con: cols=65 lines=14
-cls
+title Close and exit Scripty? && mode con: cols=65 lines=14 && cls
 call :scripty_banner
-echo %esc%[33mAre you sure you want to%esc%[0m %esc%[31mLEAVE?%esc%[0m
+echo %e%[33mAre you sure you want to%e%[0m %e%[31mLEAVE?%e%[0m
 call :seperator
-echo Type %esc%[33mY%esc%[0m and press %esc%[32mENTER%esc%[0m for yes
-echo Type %esc%[33mN%esc%[0m and press %esc%[32mENTER%esc%[0m for no
+echo Type %e%[33mY%e%[0m and press %e%[32mENTER%e%[0m for yes
+echo Type %e%[33mN%e%[0m and press %e%[32mENTER%e%[0m for no
 call :seperator
-set /p "exiting=%esc%[31mExit?%esc%[0m:%esc%[92m-$%esc%[0m "
+set /p "exiting=%e%[31mExit?%e%[0m:%e%[92m-$%e%[0m "
 if /i "%exiting%"=="y" exit
 if /i "%exiting%"=="n" goto main
 echo No option was chosen. Returning.
@@ -934,18 +929,18 @@ pause
 goto exiter
 :seperator
 REM Displays seperator when called
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %e%[36m----------------------------------------------------------------%e%[0m
 exit /b
 :scripty_banner
 REM Displays the banner when called
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
-echo %esc%[34m   _____           _       __         %esc%[0m      %esc%[33mMade By:%esc%[0m %esc%[34mcylvin%esc%[0m
-echo %esc%[34m  / ___/__________(_)___  / /___  __  %esc%[0m%esc%[92mgithub.com/cyl-vin/Scripty%esc%[0m
-echo %esc%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %esc%[0m   %esc%[96m------------------%esc%[0m
-echo %esc%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %esc%[0m   %esc%[96m: %date% :%esc%[0m
-echo %esc%[34m/____/\___/_/  /_/ .___/\__/\__, /    %esc%[0m   %esc%[96m:   %time%  :%esc%[0m
-echo %esc%[34m                /_/        /____/%esc%[0m %esc%[91mv2.0%esc%[0m   %esc%[96m------------------%esc%[0m
-echo %esc%[36m----------------------------------------------------------------%esc%[0m
+echo %e%[36m----------------------------------------------------------------%e%[0m
+echo %e%[34m   _____           _       __         %e%[0m      %e%[33mMade By:%e%[0m %e%[34mcylvin%e%[0m
+echo %e%[34m  / ___/__________(_)___  / /___  __  %e%[0m%e%[92mgithub.com/cyl-vin/Scripty%e%[0m
+echo %e%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %e%[0m   %e%[96m------------------%e%[0m
+echo %e%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %e%[0m   %e%[96m: %date% :%e%[0m
+echo %e%[34m/____/\___/_/  /_/ .___/\__/\__, /    %e%[0m   %e%[96m:   %time%  :%e%[0m
+echo %e%[34m                /_/        /____/%e%[0m %e%[91mv2.1%e%[0m   %e%[96m------------------%e%[0m
+echo %e%[36m----------------------------------------------------------------%e%[0m
 exit /b
 :egg
 start https://www.youtube.com/watch?v=dQw4w9WgXcQ
