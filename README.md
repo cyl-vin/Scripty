@@ -1,9 +1,5 @@
 # Scripty
-![cmd_IginrFXFvF](https://github.com/cyl-vin/Scripty/assets/152368998/8b168d3e-db71-4459-9da8-e0ab14b332ed)
-
-
-
-
+![cmd_W5WnhY54G6](https://github.com/cyl-vin/Scripty/assets/152368998/70e903ae-7084-4def-aabc-cd50cd900b37)
 
 
 A collection of useful batch scripts written by myself (with a bit of help from amakvana) in a single program. Always trying to update it.
