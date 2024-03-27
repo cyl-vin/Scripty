@@ -38,7 +38,7 @@ This is perfect if you have a "long-term" storage drive or folder with unused fi
 7. **Remove Temporary files and empty Reycycle Bin** - Speaks for itself
 
 
-8. **Option to give Scripty Admin Privileges** - Relaunches Scripty with admin privilges
+8. **Crash This PC** - causes BSOD
 
 
 9. **Timer and Stop Watch** - The user is able to set custom timer length (in seconds), and once the timer reaches zero, Scripty will play a ringtone. The stopwatch currently cannot be stopped without closing scripty, it will only keep counting.
@@ -50,7 +50,7 @@ This is perfect if you have a "long-term" storage drive or folder with unused fi
 11. **Set Timezone** - As the name suggests, you can set your windows timezone from here. You can also view all windows timezones as well (will open in new window).
 
 
-12. **Launch Programs** - Can launch:  Brave Browser, Discord, Notepad++, OBS, Paint.NET, Steam, and VLC (only if you have them installed. I might add a program downloader eventually)
+12. **Install Programs** - Can "install":  Brave Browser, Discord, Notepad++, OBS, GIMP, Steam, and VLC
 
 
 13. **Open Startup Folders** - Opens The startup folder for the current user, and the startup folder for all users(if you have more than one user)
