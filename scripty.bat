@@ -2,34 +2,19 @@
 setlocal enabledelayedexpansion
 for /f %%a in ('echo prompt $E^| cmd') do set "e=%%a"
 set "directory=%cd%"
-:main_get_admin
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
-if '%errorlevel%' NEQ '0' (
-    echo Requesting administrative privileges...
-    goto UACPrompt
-) else ( goto gotAdmin )
-:UACPrompt
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    set params = %*:"=""
-    echo UAC.ShellExecute "cmd.exe", "/c %~s0 %params%", "", "runas", 1 >> "%temp%\getadmin.vbs"
-    "%temp%\getadmin.vbs"
-    del "%temp%\getadmin.vbs"
-    exit /B
-:gotAdmin
-    pushd "%CD%"
-    CD /D "%~dp0"
 :main
 REM Main Menu
-mode con: cols=65 lines=27 && title Scripty coded by cylvin && cls
+mode con: cols=65 lines=28 && title Scripty coded by cylvin && cls
 call :scripty_banner
 echo %e%[32mType the number of the option you want to choose and press ENTER%e%[0m
+echo %e%[31mOptions in Red require Scripty to be run as Administrator%e%[0m
 call :seperator
 echo %e%[33m1.)%e%[0m Ping/Trace Website/IP      %e%[31m:%e%[0m %e%[33m9.)%e%[0m Timer and Stop Watch
 echo %e%[33m2.)%e%[0m File Organizer             %e%[31m:%e%[0m %e%[33m10.)%e%[0m Get MD5 Hashes
 echo %e%[33m3.)%e%[0m Change file extensions     %e%[31m:%e%[0m %e%[33m11.)%e%[0m Set Timezone
 echo %e%[33m4.)%e%[0m Password Generator         %e%[31m:%e%[0m %e%[33m12.)%e%[0m Install Programs
 echo %e%[33m5.)%e%[0m MiniTweaks                 %e%[31m:%e%[0m %e%[33m13.)%e%[0m Open Startup Folders
-echo %e%[33m6.)%e%[0m View Saved WiFi Passwords  %e%[31m:%e%[0m %e%[33m14.)%e%[0m Add/View User Accounts
+echo %e%[33m6.)%e%[0m %e%[31mView Saved WiFi Passwords%e%[0m  %e%[31m:%e%[0m %e%[33m14.)%e%[0m %e%[31mAdd/View User Accounts%e%[0m
 echo %e%[33m7.)%e%[0m Clean TEMP/Recycle Bin     %e%[31m:%e%[0m %e%[33m15.)%e%[0m Resync Time/Date
 echo %e%[33m8.)%e%[0m Crash This PC              %e%[31m:%e%[0m %e%[33m16.)%e%[0m Restart to BIOS/UEFI
 call :seperator
@@ -939,7 +924,7 @@ echo %e%[34m  / ___/__________(_)___  / /___  __  %e%[0m%e%[92mgithub.com/cyl-vi
 echo %e%[34m  \__ \/ ___/ ___/ / __ \/ __/ / / /  %e%[0m   %e%[96m------------------%e%[0m
 echo %e%[34m ___/ / /__/ /  / / /_/ / /_/ /_/ /   %e%[0m   %e%[96m: %date% :%e%[0m
 echo %e%[34m/____/\___/_/  /_/ .___/\__/\__, /    %e%[0m   %e%[96m:   %time%  :%e%[0m
-echo %e%[34m                /_/        /____/%e%[0m %e%[91mv2.1%e%[0m   %e%[96m------------------%e%[0m
+echo %e%[34m                /_/        /____/%e%[0m %e%[91mv2.2%e%[0m   %e%[96m------------------%e%[0m
 echo %e%[36m----------------------------------------------------------------%e%[0m
 exit /b
 :egg
